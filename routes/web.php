@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Category;
+use App\Http\Livewire\Supplier;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,5 +20,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/category', Category::class);
+Route::get('/kategori', Category::class);
+Route::get('/supplier', Supplier::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

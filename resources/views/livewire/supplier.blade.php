@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card mt-3">
                 <div class="card-body">
-                    <h3 class="font-weight-bold mb-3">List Kategori</h3>
+                    <h3 class="font-weight-bold mb-3">List Supplier</h3>
                     @if (session()->has('message'))
                         <div class="alert alert-success" style="margin-top:30px; font-weight:bold">
                         {{ session('message') }}
@@ -11,33 +11,43 @@
                     @endif
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"> Tambah</i></button>
                     <div class="col-md-8 float-md-right"><input wire:model="search" type="text" class="form-control" placeholder="Cari Kategori"></div>
+                    <div class="table-responsive">
                     <table class="table table-bordered table-hovered table-striped">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama</th>
+                                <th>Nama Perusahaan</th>
+                                <th>Nama Kontak</th>
+                                <th>Jabatan</th>
+                                <th>Alamat</th>
+                                <th>Telepon</th>
                                 <th>Deskripsi</th>
                                 <th>Tindakan</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @forelse($cat as $index=>$category)
+                        @forelse($sup as $index=>$supplier)
                             <tr>
                                 <td>{{$index + 1}}</td>
-                                <td>{{$category->name}}</td>
-                                <td>{{$category->description}}</td>
+                                <td>{{$supplier->company_name}}</td>
+                                <td>{{$supplier->contact_name}}</td>
+                                <td>{{$supplier->contact_title}}</td>
+                                <td>{{$supplier->address}}</td>
+                                <td>{{$supplier->phone}}</td>
+                                <td>{{$supplier->description}}</td>
                                 <td>
-                                <button data-toggle="modal" data-target="#updateModal" wire:click="edit({{ $category->id }})" class="btn btn-primary btn-sm">Ubah</button>
-                                <button wire:click="deleteConfirm({{ $category->id }})" class="btn btn-danger btn-sm">Hapus</button>
+                                <button data-toggle="modal" data-target="#updateModal" wire:click="edit({{ $supplier->id }})" class="btn btn-primary btn-sm">Ubah</button>
+                                <button wire:click="deleteConfirm({{ $supplier->id }})" class="btn btn-danger btn-sm">Hapus</button>
                                 </td>
                             </tr>
                         @empty
-                            <td colspan="4"><h6 class="text-center">Kategori Kosong</h6></td>
+                            <td colspan="8"><h6 class="text-center">Supplier Kosong</h6></td>
                         @endforelse
                         </tbody>
                     </table>
+                    </div>
                     <div style="display:flex; justify-content:center">
-                        {{$cat->links()}}
+                        {{$sup->links()}}
                     </div>
 
                     <!-- Simpan Modal -->
