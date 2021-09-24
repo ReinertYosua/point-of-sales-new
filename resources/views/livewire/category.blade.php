@@ -10,6 +10,7 @@
                         </div>
                     @endif
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"> Tambah</i></button>
+                    <div class="col-md-8 float-md-right"><input wire:model="search" type="text" class="form-control" placeholder="Cari Kategori"></div>
                     <table class="table table-bordered table-hovered table-striped">
                         <thead>
                             <tr>
@@ -27,7 +28,7 @@
                                 <td>{{$category->description}}</td>
                                 <td>
                                 <button data-toggle="modal" data-target="#updateModal" wire:click="edit({{ $category->id }})" class="btn btn-primary btn-sm">Edit</button>
-                                <button wire:click="delete({{ $category->id }})" class="btn btn-danger btn-sm">Delete</button>
+                                <button wire:click="deleteConfirm({{ $category->id }})" class="btn btn-danger btn-sm">Delete</button>
                                 </td>
                             </tr>
                         @empty
@@ -35,6 +36,10 @@
                         @endforelse
                         </tbody>
                     </table>
+                    <div style="display:flex; justify-content:center">
+                        {{$cat->links()}}
+                    </div>
+
                     <!-- Simpan Modal -->
                     <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">

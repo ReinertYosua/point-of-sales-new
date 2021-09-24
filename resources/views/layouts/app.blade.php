@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -88,5 +89,30 @@
         </main>
     </div>
     @livewireScripts
+    <script>
+  
+        window.addEventListener('swal:modal', event => { 
+            swal({
+            title: event.detail.message,
+            text: event.detail.text,
+            icon: event.detail.type,
+            });
+        });
+
+        window.addEventListener('swal:confirm', event => { 
+            swal({
+            title: event.detail.message,
+            text: event.detail.text,
+            icon: event.detail.type,
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                window.livewire.emit('delete', event.detail.id);
+            }
+            });
+        });
+    </script>
 </body>
 </html>
