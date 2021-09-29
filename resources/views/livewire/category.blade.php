@@ -11,7 +11,7 @@
                     @endif
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"> Tambah</i></button>
                     <div class="col-md-8 float-md-right"><input wire:model="search" type="text" class="form-control" placeholder="Cari Kategori"></div>
-                    <table class="table table-bordered table-hovered table-striped">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>No</th>

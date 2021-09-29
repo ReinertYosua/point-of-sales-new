@@ -11,31 +11,27 @@
                     @endif
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"> Tambah</i></button>
                     <div class="col-md-8 float-md-right"><input wire:model="search" type="text" class="form-control" placeholder="Cari Kategori"></div>
-                    <div class="table-responsive">
-                    <table class="table table-bordered table-hovered table-striped">
+                    <!-- <div class="container-fluid"> -->
+                    <table class="table">
                         <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Perusahaan</th>
-                                <th>Nama Kontak</th>
-                                <th>Jabatan</th>
-                                <th>Alamat</th>
-                                <th>Telepon</th>
-                                <th>Deskripsi</th>
-                                <th>Tindakan</th>
+                            <tr class="">
+                                <th class="" style="width: 5%">No</th>
+                                <th class="" style="width: 30%">Nama Perusahaan</th>
+                                <th class="" style="width: 30%">Nama Kontak</th>
+                                <th class="" style="width: 10%">Jabatan</th>
+                                <th class="" style="width: 10%">Telepon</th>
+                                <th class="" style="width: 15%">Tindakan</th>
                             </tr>
                         </thead>
                         <tbody>
                         @forelse($sup as $index=>$supplier)
-                            <tr>
-                                <td>{{$index + 1}}</td>
-                                <td>{{$supplier->company_name}}</td>
-                                <td>{{$supplier->contact_name}}</td>
-                                <td>{{$supplier->contact_title}}</td>
-                                <td>{{$supplier->address}}</td>
-                                <td>{{$supplier->phone}}</td>
-                                <td>{{$supplier->description}}</td>
-                                <td>
+                            <tr class="">
+                                <td class="">{{$index + 1}}</td>
+                                <td class="">{{$supplier->company_name}}</td>
+                                <td class="">{{$supplier->contact_name}}</td>
+                                <td class="">{{$supplier->contact_title}}</td>
+                                <td class="">{{$supplier->phone}}</td>
+                                <td class="">
                                 <button data-toggle="modal" data-target="#updateModal" wire:click="edit({{ $supplier->id }})" class="btn btn-primary btn-sm">Ubah</button>
                                 <button wire:click="deleteConfirm({{ $supplier->id }})" class="btn btn-danger btn-sm">Hapus</button>
                                 </td>
@@ -45,7 +41,7 @@
                         @endforelse
                         </tbody>
                     </table>
-                    </div>
+                    <!-- </div> -->
                     <div style="display:flex; justify-content:center">
                         {{$sup->links()}}
                     </div>
