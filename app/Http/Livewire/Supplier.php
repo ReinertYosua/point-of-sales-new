@@ -11,9 +11,11 @@ class Supplier extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+    protected $listeners = ['delete'];
+    
     public $idSup,$company_name,$contact_name,$contact_title,$address;
     public $city,$region,$country,$postal_code,$phone,$account_number,$bank_name,$description;
-    public $search;
+    public $search, $detailSup = [];
 
     public function updatingSearch(){
         $this->resetPage();
@@ -133,22 +135,26 @@ class Supplier extends Component
     }
 
     public function detail($id){
-        $sup = SupplierModel::where('id', $id)->first();
-        // return view('livewire.supplier',[
-        //     'detsup' => $detailSup
-        // ]);
-        $this->idSup = $id;
-        $this->company_name = $sup->company_name;
-        $this->contact_name = $sup->contact_name;
-        $this->contact_title = $sup->contact_title;
-        $this->address = $sup->address;
-        $this->city = $sup->city;
-        $this->region = $sup->region;
-        $this->country = $sup->country;
-        $this->postal_code = $sup->postal_code;
-        $this->phone = $sup->phone;
-        $this->account_number = $sup->account_number;
-        $this->bank_name = $sup->bank_name;
-        $this->description = $sup->description;
+        $this->detailSup = SupplierModel::where('id', $id)->get();
+    }
+
+    public function deleteConfirm($id){
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type' => 'warning',  
+            'message' => 'Apakah anda yakin ?', 
+            'text' => 'Jika dihapus, anda tidak dapat mengembalikan data ini!',
+            'id' => $id,
+        ]);
+    }
+
+    public function delete($id){
+        if($id){
+            SupplierModel::where('id',$id)->delete();
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'success',  
+                'message' => 'Supplier berhasil dihapus!', 
+                'text' => 'Data pada database dihapus.'
+            ]);
+        }
     }
 }

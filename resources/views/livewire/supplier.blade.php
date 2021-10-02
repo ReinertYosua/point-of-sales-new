@@ -17,8 +17,8 @@
                             <tr>
                                 <th style="width: 5%">No</th>
                                 <th style="width: 25%">Nama Perusahaan</th>
-                                <th style="width: 25%">Nama Kontak</th>
-                                <th style="width: 13%">Jabatan</th>
+                                <th style="width: 20%">Nama Kontak</th>
+                                <th style="width: 18%">Alamat</th>
                                 <th style="width: 12%">Telepon</th>
                                 <th style="width: 20%">Tindakan</th>
                             </tr>
@@ -29,7 +29,7 @@
                                 <td>{{$index + 1}}</td>
                                 <td>{{$supplier->company_name}}</td>
                                 <td>{{$supplier->contact_name}}</td>
-                                <td>{{$supplier->contact_title}}</td>
+                                <td>{{$supplier->address}}</td>
                                 <td>{{$supplier->phone}}</td>
                                 <td>
                                     <button data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $supplier->id }})" class="btn btn-success btn-sm">Detil</button>
@@ -309,100 +309,88 @@
                                     >&times;</button>
                                 </div>
                                     <div class="modal-body">
-                                        
+                                        @foreach($detailSup as $detSup)
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Nama Perusahaan</label>
-                                                        <input wire:model="company_name" type="text" class="form-control">
-                                                        @error('company_name') <small class="text-danger">{{$message}}</small>@enderror
+                                                        <label class="text-primary">Nama Perusahaan</label>
+                                                        <p class="h4">{{$detSup->company_name}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Nama Kontak</label>
-                                                        <input wire:model="contact_name" type="text" class="form-control">
-                                                        @error('contact_name') <small class="text-danger">{{$message}}</small>@enderror
+                                                        <label class="text-primary">Nama Kontak</label>
+                                                        <p class="h4">{{$detSup->contact_name}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Jabatan</label>
-                                                        <input wire:model="contact_title" type="text" class="form-control">
-                                                        @error('contact_title') <small class="text-danger">{{$message}}</small>@enderror
+                                                        <label class="text-primary">Jabatan</label>
+                                                        <p class="h4">{{$detSup->contact_title}}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Alamat</label>
-                                                        <textarea wire:model="address" name="" class="form-control"></textarea>
-                                                        @error('address') <small class="text-danger">{{$message}}</small>@enderror
+                                                        <label class="text-primary">Alamat</label>
+                                                        <p class="h4">{{$detSup->address}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Kota</label>
-                                                        <input wire:model="city" type="text" class="form-control">
-                                                        @error('city') <small class="text-danger">{{$message}}</small>@enderror
+                                                        <label class="text-primary">Kota</label>
+                                                        <p class="h4">{{$detSup->city}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Propinsi</label>
-                                                        <input wire:model="region" type="text" class="form-control">
-                                                        @error('region') <small class="text-danger">{{$message}}</small>@enderror
+                                                        <label class="text-primary">Propinsi</label>
+                                                        <p class="h4">{{$detSup->region}}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Negara</label>
-                                                        <input wire:model="country" type="text" class="form-control">
-                                                        @error('country') <small class="text-danger">{{$message}}</small>@enderror
+                                                        <label class="text-primary">Negara</label>
+                                                        <p class="h4">{{$detSup->country}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Kode Pos</label>
-                                                        <input wire:model="postal_code" type="number" class="form-control">
-                                                        @error('postal_code') <small class="text-danger">{{$message}}</small>@enderror
+                                                        <label class="text-primary">Kode Pos</label>
+                                                        <p class="h4">{{$detSup->postal_code}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Telepon/HP</label>
-                                                        <input wire:model="phone" type="text" class="form-control">
-                                                        @error('phone') <small class="text-danger">{{$message}}</small>@enderror
+                                                        <label class="text-primary">Telepon/HP</label>
+                                                        <p class="h4">{{$detSup->phone}}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Nomor Rekening</label>
-                                                        <input wire:model="account_number" type="number" class="form-control">
-                                                        @error('account_number') <small class="text-danger">{{$message}}</small>@enderror
+                                                        <label class="text-primary">Nomor Rekening</label>
+                                                        <p class="h4">{{$detSup->account_number}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Nama Bank</label>
-                                                        <input wire:model="bank_name" type="text" class="form-control">
-                                                        @error('bank_name') <small class="text-danger">{{$message}}</small>@enderror
+                                                        <label class="text-primary">Nama Bank</label>
+                                                        <p class="h4">{{$detSup->bank_name}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Deskripsi</label>
-                                                        <textarea wire:model="description" name="" class="form-control"></textarea>
-                                                        @error('description') <small class="text-danger">{{$message}}</small>@enderror
+                                                        <label class="text-primary">Deskripsi</label>
+                                                        <p class="h4">{{$detSup->description}}</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                        
+                                        @endforeach
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
