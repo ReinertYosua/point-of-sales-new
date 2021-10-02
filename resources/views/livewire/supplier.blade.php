@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card mt-3">
                 <div class="card-body">
-                    <h3 class="font-weight-bold mb-3">List Supplier</h3>
+                    <h3 class="font-weight-bold mb-3">Daftar Supplier</h3>
                     @if (session()->has('message'))
                         <div class="alert alert-success" style="margin-top:30px; font-weight:bold">
                         {{ session('message') }}
