@@ -19,7 +19,6 @@ class CreateProductTable extends Migration
             $table->bigInteger('supplier_id')->unsigned();
             $table->string('name');
             $table->string('type');
-            $table->string('image');
             $table->integer('qty');
             $table->integer('capital_price');
             $table->integer('sell_price');

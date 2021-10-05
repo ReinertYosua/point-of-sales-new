@@ -12,13 +12,13 @@
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"> Tambah</i></button>
                     <div class="col-md-8 float-md-right"><input wire:model="search" type="text" class="form-control" placeholder="Cari Kategori"></div>
                     <!-- <div class="container-fluid"> -->
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th style="width: 5%">No</th>
                                 <th style="width: 15%">Kategori</th>
+                                <th style="width: 20%">Supplier</th>
                                 <th style="width: 25%">Nama Produk</th>
-                                <th style="width: 20%">Image</th>
                                 <th style="width: 5%">Quantity</th>
                                 <th style="width: 15%">Harga Jual</th>
                                 <th style="width: 15%">Tindakan</th>
@@ -26,15 +26,15 @@
                         </thead>
                         <tbody>
                         @forelse($pro as $index=>$product)
-                            <tr>
+                            <tr style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Klik untuk lihat detail">
                                 <td>{{$index + 1}}</td>
                                 <td>{{$product->category_id}}</td>
+                                <td>{{$product->supplier_id}}</td>
                                 <td>{{$product->name}}</td>
-                                <td>{{$product->image}}</td>
                                 <td>{{$product->qty}}</td>
                                 <td>{{$product->sell_price}}</td>
                                 <td>
-                                    <button data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" class="btn btn-success btn-sm">Detil</button>
+                                    <button data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" class="btn btn-success btn-sm">Tambah Gambar</button>
                                     <button data-toggle="modal" data-target="#updateModal" wire:click="edit({{ $product->id }})" class="btn btn-primary btn-sm">Ubah</button>
                                     <button wire:click="deleteConfirm({{ $product->id }})" class="btn btn-danger btn-sm">Hapus</button>
                                 </td>
@@ -68,7 +68,14 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Pilih Kategori</label><span class="text-danger">*</span>
-                                                        <input wire:model="category_id" type="text" class="form-control">
+                                                        <!-- <div id="for-picker" wire:ignore> -->
+                                                            <select class="form-control selectpicker" id="select-country" data-live-search="true" data-container="#for-picker">
+                                                                <option>China</option>
+                                                                <option>Malayasia</option>
+                                                                <option>Singapore</option>
+                                                            </select>
+                                                        <!-- </div> -->
+                                                        <!-- <input wire:model="category_id" type="text" class="form-control"> -->
                                                         @error('category_id') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
                                                 </div>
@@ -133,36 +140,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-        
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label>Gambar Produk</label>
-                                                    <div class="custom-file">
-                                                        <input wire:model="image" type="file" class="custom-file-input" id="customFile">
-                                                        <label for="customFile" class="custom-file-label">Pilih Gambar</label>
-                                                        @error('image') <small class="text-danger">{{$message}}</small>@enderror
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-8 align-self-center">
-                                                    <div class="form-group">
-                                                        @if($image)
-                                                            <label class="mt-2">Image Preview</label>
-                                                            <img src="{{$image->temporaryUrl()}}" class="img-fluid" alt="Preview Image">
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
@@ -180,12 +157,10 @@
         </div>
    </div>
 </div>
+
 <script>
   window.addEventListener('close-modal', event=> {
      $('#exampleModal').modal('hide'),
      $('#updateModal').modal('hide')
   })
 </script>
-<div>
-    {{-- Close your eyes. Count to one. That is how long forever feels. --}}
-</div>

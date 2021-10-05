@@ -25,6 +25,7 @@ class CreateSupplierTable extends Migration
             $table->string('postal_code');
             $table->string('phone');
             $table->string('account_number');
+            $table->string('bank_name');
             $table->text('description');
             $table->timestamps();
         });

@@ -17,7 +17,7 @@ class Product extends Component
 
     public $search;
 
-    public $category_id, $supplier_id, $name, $type, $image, $qty, $capital_price, $sell_price;
+    public $category_id, $supplier_id, $name, $type, $qty, $capital_price, $sell_price;
     public $unit, $description;
 
     public function render()
@@ -25,12 +25,6 @@ class Product extends Component
         $product = ProductModel::where('name','like','%'.$this->search.'%')->orderBy('created_at', 'DESC')->paginate(10);
         return view('livewire.product',[
             'pro' => $product
-        ]);
-    }
-
-    public function previewImage(){
-        $this->validate([
-            'image' => 'image|max:2048'
         ]);
     }
 

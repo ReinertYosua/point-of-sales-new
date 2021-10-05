@@ -23,7 +23,7 @@ class Supplier extends Component
 
     public function render()
     {
-        $supplier = SupplierModel::where('company_name','like','%'.$this->search.'%')->orderBy('created_at', 'DESC')->paginate(10);
+        $supplier = SupplierModel::where('contact_name','like','%'.$this->search.'%')->orderBy('created_at', 'DESC')->paginate(10);
         return view('livewire.supplier',[
             'sup' => $supplier
         ]);
