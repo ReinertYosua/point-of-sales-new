@@ -127,6 +127,8 @@
             }
             });
         });
+        Livewire.restart();
+            
 
         $('.selectpicker').selectpicker();
     </script>

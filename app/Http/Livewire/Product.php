@@ -20,6 +20,13 @@ class Product extends Component
     public $category_id, $supplier_id, $name, $type, $qty, $capital_price, $sell_price;
     public $unit, $description;
 
+    public $selCity = '';
+    public $cities = [
+        'Rajkot',
+        'Surat',
+        'Baroda',
+    ]; 
+
     public function render()
     {
         $product = ProductModel::where('name','like','%'.$this->search.'%')->orderBy('created_at', 'DESC')->paginate(10);

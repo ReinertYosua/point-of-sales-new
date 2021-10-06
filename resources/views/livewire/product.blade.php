@@ -68,13 +68,13 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Pilih Kategori</label><span class="text-danger">*</span>
-                                                        <!-- <div id="for-picker" wire:ignore> -->
-                                                            <select class="form-control selectpicker" id="select-country" data-live-search="true" data-container="#for-picker">
-                                                                <option>China</option>
-                                                                <option>Malayasia</option>
-                                                                <option>Singapore</option>
+                                                        <div wire:ignore>
+                                                            <select class="selectpicker form-control" id="select-country" wire:model="category_id" data-live-search="true" data-container="#for-picker" >
+                                                            @foreach($cities as $city)
+                                                                <option>{{ $city }}</option>
+                                                            @endforeach
                                                             </select>
-                                                        <!-- </div> -->
+                                                        </div>
                                                         <!-- <input wire:model="category_id" type="text" class="form-control"> -->
                                                         @error('category_id') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
