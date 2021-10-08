@@ -48,7 +48,6 @@
                     <div style="display:flex; justify-content:center">
                         {{$pro->links()}}
                     </div>
-
                     <!-- Simpan Modal -->
                     <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xl" role="document">
@@ -68,21 +67,28 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Pilih Kategori</label><span class="text-danger">*</span>
-                                                        <div wire:ignore>
-                                                            <select class="selectpicker form-control" id="select-country" wire:model="category_id" data-live-search="true" data-container="#for-picker" >
-                                                            @foreach($cities as $city)
-                                                                <option>{{ $city }}</option>
-                                                            @endforeach
+                                                        <div wire:ignore >
+                                                            <select class="js-example-responsive" style="width: 100%" id="select-category">
+                                                                <option value="">Silahkan Pilih Kategori</option>
+                                                                @foreach($listCategory as $cat)
+                                                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
-                                                        <!-- <input wire:model="category_id" type="text" class="form-control"> -->
                                                         @error('category_id') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Pilih Supplier</label><span class="text-danger">*</span>
-                                                        <input wire:model="supplier_id" type="text" class="form-control">
+                                                        <div wire:ignore >
+                                                            <select class="js-example-responsive" style="width: 100%" id="select-supplier">
+                                                                <option value="">Silahkan Pilih Supplier</option>
+                                                                @foreach($listSupplier as $sup)
+                                                                <option value="{{ $sup->id }}">{{ $sup->company_name." - ".$sup->contact_name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
                                                         @error('supplier_id') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
                                                 </div>
@@ -90,6 +96,7 @@
                                                     <div class="form-group">
                                                         <label>Nama Produk</label><span class="text-danger">*</span>
                                                         <input wire:model="name" type="text" class="form-control">
+                                                        {{$name}}
                                                         @error('name') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
                                                 </div>
@@ -158,9 +165,32 @@
    </div>
 </div>
 
+
+@push('scripts')
 <script>
-  window.addEventListener('close-modal', event=> {
-     $('#exampleModal').modal('hide'),
-     $('#updateModal').modal('hide')
-  })
+    window.addEventListener('close-modal', event=> {
+        $('#exampleModal').modal('hide'),
+        $('#updateModal').modal('hide')
+    })
+
+
+    $('#select-category').select2({
+        dropdownParent : $('#exampleModal .modal-content')
+    });
+    $('#select-category').on('change', function (e) {
+        let data = $('#select-category').val();
+        livewire.emit('viewCategory', data);
+        //@this.set('category_id', data);
+    });
+
+    $('#select-supplier').select2({
+        dropdownParent : $('#exampleModal .modal-content')
+    });
+    $('#select-supplier').on('change', function (e) {
+        let data = $('#select-supplier').val();
+        livewire.emit('viewCategory', data);
+        //@this.set('category_id', data);
+    });
 </script>
+@endpush
+

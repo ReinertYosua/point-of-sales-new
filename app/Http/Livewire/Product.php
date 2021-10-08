@@ -7,25 +7,25 @@ use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 
 use App\Models\Product as ProductModel;
+use App\Models\Category as CategoryModel;
+use App\Models\Supplier as SupplierModel;
 
 class Product extends Component
 {
     use WithPagination;
     use WithFileUploads;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['delete'];
-
+    protected $listeners = ['delete','viewCategory'];
+    
     public $search;
 
     public $category_id, $supplier_id, $name, $type, $qty, $capital_price, $sell_price;
-    public $unit, $description;
+    public $unit, $description, $listCategory=[], $listSupplier=[];
 
-    public $selCity = '';
-    public $cities = [
-        'Rajkot',
-        'Surat',
-        'Baroda',
-    ]; 
+    public function mount(){
+        $this->listCategory = CategoryModel::all();
+        $this->listSupplier = SupplierModel::all();
+    }
 
     public function render()
     {
@@ -34,6 +34,12 @@ class Product extends Component
             'pro' => $product
         ]);
     }
+
+    public function viewCategory($id){
+        dd($id);
+        //$this->listCategory = CategoryModel::where('id', $id)->get();
+    }
+
 
     public function store(){
 
