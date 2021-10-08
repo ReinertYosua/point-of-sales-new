@@ -10,7 +10,7 @@
                         </div>
                     @endif
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"> Tambah</i></button>
-                    <div class="col-md-8 float-md-right"><input wire:model="search" type="text" class="form-control" placeholder="Cari Kategori"></div>
+                    <div class="col-md-8 float-md-right"><input wire:model="search" type="text" class="form-control" placeholder="Cari Produk"></div>
                     <!-- <div class="container-fluid"> -->
                     <table class="table table-hover">
                         <thead>
@@ -26,7 +26,7 @@
                         </thead>
                         <tbody>
                         @forelse($pro as $index=>$product)
-                            <tr style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="Klik untuk lihat detail">
+                            <tr style="cursor:pointer" data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" data-placement="top" title="Klik untuk lihat detail">
                                 <td>{{$index + 1}}</td>
                                 <td>{{$product->category_id}}</td>
                                 <td>{{$product->supplier_id}}</td>
@@ -96,7 +96,6 @@
                                                     <div class="form-group">
                                                         <label>Nama Produk</label><span class="text-danger">*</span>
                                                         <input wire:model="name" type="text" class="form-control">
-                                                        {{$name}}
                                                         @error('name') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
                                                 </div>
@@ -158,7 +157,90 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <!-- Detail Modal -->
+                    <div wire:ignore.self class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title font-weight-bold mb-3" id="detailModalLabel">Detail Produk</h3>
+                                    <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    >&times;</button>
+                                </div>
+                                    <div class="modal-body">
+                                        @foreach($detailProduk as $detPro)
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="text-primary">Kategori</label>
+                                                        <p class="h4">{{$detPro->cat_name}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="text-primary">Supplier</label>
+                                                        <p class="h4">{{$detPro->company_name}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="text-primary">Nama Produk</label>
+                                                        <p class="h4">{{$detPro->name}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="text-primary">Tipe</label>
+                                                        <p class="h4">{{$detPro->type}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="text-primary">Kuantitas</label>
+                                                        <p class="h4">{{$detPro->qty}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="text-primary">Harga Modal</label>
+                                                        <p class="h4">{{$detPro->capital_price}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="text-primary">Harga Jual</label>
+                                                        <p class="h4">{{$detPro->sell_price}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="text-primary">Unit</label>
+                                                        <p class="h4">{{$detPro->unit}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="text-primary">Deskripsi</label>
+                                                        <p class="h4">{{$detPro->description}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                        Tutup
+                                        </button>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -179,7 +261,7 @@
     });
     $('#select-category').on('change', function (e) {
         let data = $('#select-category').val();
-        livewire.emit('viewCategory', data);
+        livewire.emit('tmpCategory', data);
         //@this.set('category_id', data);
     });
 
@@ -188,7 +270,7 @@
     });
     $('#select-supplier').on('change', function (e) {
         let data = $('#select-supplier').val();
-        livewire.emit('viewCategory', data);
+        livewire.emit('tmpSupplier', data);
         //@this.set('category_id', data);
     });
 </script>

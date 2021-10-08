@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2021 at 12:28 PM
+-- Generation Time: Oct 08, 2021 at 11:47 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -51,7 +51,11 @@ INSERT INTO `category` (`id`, `name`, `description`, `created_at`, `updated_at`)
 (9, 'iii', 'iii', '2021-10-04 21:12:20', '2021-10-04 21:12:20'),
 (10, 'jjj', 'jjj', '2021-10-04 21:12:32', '2021-10-04 21:12:32'),
 (11, 'kkk', 'kkk', '2021-10-04 21:12:41', '2021-10-04 21:12:41'),
-(12, 'lll', 'lll', '2021-10-04 21:12:51', '2021-10-04 21:12:51');
+(12, 'lll', 'lll', '2021-10-04 21:12:51', '2021-10-04 21:12:51'),
+(14, 'mmm', 'mmm', '2021-10-05 22:02:56', '2021-10-05 22:02:56'),
+(15, 'nnn', 'nnn', '2021-10-05 22:07:05', '2021-10-05 22:07:05'),
+(16, 'ooo', 'ooo', '2021-10-05 23:18:03', '2021-10-05 23:18:03'),
+(17, 'ppp', 'ppp', '2021-10-06 02:28:15', '2021-10-06 02:28:15');
 
 -- --------------------------------------------------------
 
@@ -150,7 +154,10 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `category_id`, `supplier_id`, `name`, `type`, `qty`, `capital_price`, `sell_price`, `unit`, `description`, `created_at`, `updated_at`) VALUES
-(1, 3, 1, 'sdf', 'sdf', 1, 100000, 150000, 'pcs', 'tes', NULL, NULL);
+(1, 3, 1, 'sdf', 'sdf', 1, 100000, 150000, 'pcs', 'tes', NULL, NULL),
+(2, 16, 12, 'Lampu Depan Avanza', 'Lampu', 10, 100000, 150000, 'pcs', 'Barang dengan stok susah didapat', '2021-10-08 02:17:06', '2021-10-08 02:17:06'),
+(3, 10, 13, 'Wiper Depan Avanza', 'Wiper', 13, 250000, 300000, 'pcs', 'Barang selalu ready', '2021-10-08 02:20:38', '2021-10-08 02:20:38'),
+(4, 6, 8, 'Sarung Stir Innova', 'Sarung Stir', 20, 320000, 400000, 'pcs', 'Barang selalu ready', '2021-10-08 02:46:19', '2021-10-08 02:46:19');
 
 -- --------------------------------------------------------
 
@@ -193,7 +200,9 @@ INSERT INTO `supplier` (`id`, `company_name`, `contact_name`, `contact_title`, `
 (10, 'supj', 'jjj', 'jjj', 'jjj', 'jjj', 'jjj', 'jjj', '9242424', '082424', '824', 'BCA', 'jjj', '2021-10-04 21:33:33', '2021-10-04 21:33:33'),
 (11, 'supk', 'kkk', 'kkk', 'kkk', 'kkk', 'kkk', 'kkk', '082324', '89242', '92824', 'BNI', 'kkk', '2021-10-04 21:33:59', '2021-10-04 21:33:59'),
 (12, 'supl', 'lll', 'lll', 'lll', 'lll', 'lll', 'lll', '8242', '0823421', '082424', 'BNI', 'lll', '2021-10-04 21:34:21', '2021-10-04 21:34:21'),
-(13, 'supm', 'mmm', 'mmm', 'mmm', 'mmm', 'mmm', 'mmm', '8242', '082424', '872424', 'Mandiri', 'mmm', '2021-10-04 21:34:50', '2021-10-04 21:34:50');
+(13, 'supm', 'mmm', 'mmm', 'mmm', 'mmm', 'mmm', 'mmm', '8242', '082424', '872424', 'Mandiri', 'mmm', '2021-10-04 21:34:50', '2021-10-04 21:34:50'),
+(15, 'supn', 'nnn', 'nnn', 'nnn', 'nnn', 'nnn', 'nnn', '14124', '0234235', '023523', 'BCA', 'nnn', '2021-10-05 21:40:25', '2021-10-05 21:40:25'),
+(16, 'supo', 'ooo', 'ooo', 'ooo', 'ooo', 'ooo', 'ooo', '234234', '0234', '234', 'BCA', 'ooo', '2021-10-05 21:41:16', '2021-10-05 21:41:16');
 
 -- --------------------------------------------------------
 
@@ -260,7 +269,9 @@ ALTER TABLE `personal_access_tokens`
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_product_category` (`category_id`),
+  ADD KEY `fk_supplier_category` (`supplier_id`);
 
 --
 -- Indexes for table `supplier`
@@ -283,7 +294,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -307,19 +318,30 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `fk_product_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_supplier_category` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

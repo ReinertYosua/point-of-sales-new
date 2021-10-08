@@ -68,6 +68,7 @@ return [
     */
 
     'timezone' => 'UTC',
+    //'timezone' => 'Asia/Jakarta',
 
     /*
     |--------------------------------------------------------------------------
@@ -80,6 +81,7 @@ return [
     |
     */
 
+    //'locale' => 'id',
     'locale' => 'en',
 
     /*
@@ -93,8 +95,8 @@ return [
     |
     */
 
+    //'fallback_locale' => 'id',
     'fallback_locale' => 'en',
-
     /*
     |--------------------------------------------------------------------------
     | Faker Locale
@@ -106,6 +108,7 @@ return [
     |
     */
 
+    //'faker_locale' => 'id_ID',
     'faker_locale' => 'en_US',
 
     /*
