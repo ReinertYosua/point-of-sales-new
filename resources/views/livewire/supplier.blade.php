@@ -155,18 +155,6 @@
                                                 </div>
                                             </div>
                                         </form>
-                                        <!-- <p>{{$company_name}}</p>
-                                        <p>{{$contact_name}}</p>
-                                        <p>{{$contact_title}}</p>
-                                        <p>{{$address}}</p>
-                                        <p>{{$city}}</p>
-                                        <p>{{$region}}</p>
-                                        <p>{{$country}}</p>
-                                        <p>{{$postal_code}}</p>
-                                        <p>{{$phone}}</p>
-                                        <p>{{$account_number}}</p>
-                                        <p>{{$bank_name}}</p>
-                                        <p>{{$description}}</p> -->
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">

@@ -9,7 +9,7 @@
                         {{ session('message') }}
                         </div>
                     @endif
-                    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"> Tambah</i></button>
+                    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal" id="resetSelect2"><i class="fas fa-plus"> Tambah</i></button>
                     <div class="col-md-8 float-md-right"><input wire:model="search" type="text" class="form-control" placeholder="Cari Produk"></div>
                     <!-- <div class="container-fluid"> -->
                     <table class="table table-hover">
@@ -103,21 +103,21 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Tipe</label>
+                                                        <label>Tipe</label><span class="text-danger">*</span>
                                                         <input wire:model="type" type="text" class="form-control">
                                                         @error('type') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Kuantitas</label>
+                                                        <label>Kuantitas</label><span class="text-danger">*</span>
                                                         <input wire:model="qty" type="number" class="form-control">
                                                         @error('qty') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Harga Modal</label>
+                                                        <label>Harga Modal</label><span class="text-danger">*</span>
                                                         <input wire:model="capital_price" type="number" class="form-control">
                                                         @error('capital_price') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
@@ -126,14 +126,14 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Harga Jual</label>
+                                                        <label>Harga Jual</label><span class="text-danger">*</span>
                                                         <input wire:model="sell_price" type="number" class="form-control">
                                                         @error('sell_price') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Unit</label>
+                                                        <label>Unit</label><span class="text-danger">*</span>
                                                         <input wire:model="unit" type="text" class="form-control">
                                                         @error('unit') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
@@ -255,19 +255,25 @@
         $('#updateModal').modal('hide')
     })
 
-
-    $('#select-category').select2({
+    //$('#select-category').val(null).trigger('change');
+    let $selectCat = $('#select-category').select2({
         dropdownParent : $('#exampleModal .modal-content')
     });
+    let $selectSup = $('#select-supplier').select2({
+        dropdownParent : $('#exampleModal .modal-content')
+    });
+
+    $("#resetSelect2").on("click", function (){
+        $selectCat.val("").trigger("change");
+        $selectSup.val("").trigger("change");
+    });
+
     $('#select-category').on('change', function (e) {
         let data = $('#select-category').val();
         livewire.emit('tmpCategory', data);
         //@this.set('category_id', data);
     });
-
-    $('#select-supplier').select2({
-        dropdownParent : $('#exampleModal .modal-content')
-    });
+    
     $('#select-supplier').on('change', function (e) {
         let data = $('#select-supplier').val();
         livewire.emit('tmpSupplier', data);

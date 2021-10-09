@@ -22,6 +22,10 @@ class Product extends Component
     public $category_id, $supplier_id, $name, $type, $qty, $capital_price, $sell_price;
     public $unit, $description, $listCategory=[], $listSupplier=[], $detailProduk = [];
 
+    public function updatingSearch(){
+        $this->resetPage();
+    }
+
     public function mount(){
         $this->listCategory = CategoryModel::all();
         $this->listSupplier = SupplierModel::all();
@@ -52,7 +56,7 @@ class Product extends Component
             'capital_price' => 'required',
             'sell_price' => 'required',
             'unit' => 'required',
-            'description' => 'required'
+            //'description' => 'required'
         ]);
 
         ProductModel::create([

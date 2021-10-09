@@ -21,7 +21,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/kategori', Category::class);
-Route::get('/supplier', Supplier::class);
-Route::get('/product', Product::class);
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('/kategori', Category::class);
+    Route::get('/supplier', Supplier::class);
+    Route::get('/product', Product::class);
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
