@@ -19,7 +19,7 @@ class Product extends Component
     
     public $search;
 
-    public $category_id, $supplier_id, $name, $type, $qty, $capital_price, $sell_price;
+    public $idPro, $category_id, $supplier_id, $name, $type, $qty, $capital_price, $sell_price;
     public $unit, $description, $listCategory=[], $listSupplier=[], $detailProduk = [];
 
     public function updatingSearch(){
@@ -33,7 +33,11 @@ class Product extends Component
 
     public function render()
     {
-        $product = ProductModel::where('name','like','%'.$this->search.'%')->orderBy('created_at', 'DESC')->paginate(10);
+        $product = ProductModel::select('product.*', 'category.name as cat_name', 'supplier.company_name as company_name','supplier.contact_name as contact_name')
+                    ->join('category', 'category.id', '=', 'product.category_id')
+                    ->join('supplier', 'supplier.id','=','product.supplier_id')
+                    ->where('product.name','like','%'.$this->search.'%')
+                    ->orderBy('product.created_at', 'DESC')->paginate(10);
         return view('livewire.product',[
             'pro' => $product
         ]);
@@ -93,5 +97,20 @@ class Product extends Component
                             ->join('supplier', 'supplier.id','=','product.supplier_id')
                             ->where('product.id', $id)
                             ->get(['product.*', 'category.name as cat_name', 'supplier.company_name as company_name','supplier.contact_name as contact_name']);
+    }
+
+    public function edit($id){
+        $pro = ProductModel::where('id',$id)->first();
+        $this->idPro = $id;
+        $this->category_id = $pro->category_id;
+        $this->supplier_id = $pro->supplier_id;
+        $this->name = $pro->name;
+        $this->type = $pro->type;
+        $this->qty = $pro->qty;
+        $this->capital_price = $pro->capital_price;
+        $this->sell_price = $pro->sell_price;
+        $this->unit = $pro->unit;
+        $this->description = $pro->description;
+        $this->dispatchBrowserEvent('tampilData', ['idKat' => $pro->category_id, 'idSup' => $pro->supplier_id]);
     }
 }
