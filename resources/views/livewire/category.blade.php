@@ -14,16 +14,16 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Deskripsi</th>
-                                <th>Tindakan</th>
+                                <th style="width: 15%">No</th>
+                                <th style="width: 25%">Nama</th>
+                                <th style="width: 40%">Deskripsi</th>
+                                <th style="width: 20%">Tindakan</th>
                             </tr>
                         </thead>
                         <tbody>
                         @forelse($cat as $index=>$category)
                             <tr>
-                                <td>{{$index + 1}}</td>
+                                <td>{{$cat->firstItem() + $index}}</td>
                                 <td>{{$category->name}}</td>
                                 <td>{{$category->description}}</td>
                                 <td>
@@ -36,6 +36,7 @@
                         @endforelse
                         </tbody>
                     </table>
+                    <p class="text-right font-weight-bold">Total data Kategori: {{$cat->total()}}</p>
                     <div style="display:flex; justify-content:center">
                         {{$cat->links()}}
                     </div>

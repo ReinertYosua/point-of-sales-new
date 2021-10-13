@@ -26,7 +26,7 @@
                         <tbody>
                         @forelse($sup as $index=>$supplier)
                             <tr>
-                                <td>{{$index + 1}}</td>
+                                <td>{{$sup->firstItem() + $index}}</td>
                                 <td>{{$supplier->company_name}}</td>
                                 <td>{{$supplier->contact_name}}</td>
                                 <td>{{$supplier->address}}</td>
@@ -42,6 +42,7 @@
                         @endforelse
                         </tbody>
                     </table>
+                    <p class="text-right font-weight-bold">Total data Supplier: {{$sup->total()}}</p>
                     <!-- </div> -->
                     <div style="display:flex; justify-content:center">
                         {{$sup->links()}}

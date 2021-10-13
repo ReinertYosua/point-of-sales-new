@@ -27,12 +27,12 @@
                         <tbody>
                         @forelse($pro as $index=>$product)
                             <tr>
-                                <td style="cursor:pointer" data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" data-placement="top" title="Klik untuk lihat detail">{{$index + 1}}</td>
+                                <td style="cursor:pointer" data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" data-placement="top" title="Klik untuk lihat detail">{{$pro->firstItem() + $index}}</td>
                                 <td style="cursor:pointer" data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" data-placement="top" title="Klik untuk lihat detail">{{$product->cat_name}}</td>
                                 <td style="cursor:pointer" data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" data-placement="top" title="Klik untuk lihat detail">{{$product->company_name}}</td>
                                 <td style="cursor:pointer" data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" data-placement="top" title="Klik untuk lihat detail">{{$product->name}}</td>
                                 <td style="cursor:pointer" data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" data-placement="top" title="Klik untuk lihat detail">{{$product->qty}}</td>
-                                <td style="cursor:pointer" data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" data-placement="top" title="Klik untuk lihat detail">{{$product->sell_price}}</td>
+                                <td style="cursor:pointer" data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" data-placement="top" title="Klik untuk lihat detail">@currency($product->sell_price)</td>
                                 <td>
                                     <button data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" class="btn btn-success btn-sm">Tambah Gambar</button>
                                     <button data-toggle="modal" data-target="#updateModal" wire:click="edit({{ $product->id }})" class="btn btn-primary btn-sm">Ubah</button>
@@ -44,6 +44,7 @@
                         @endforelse
                         </tbody>
                     </table>
+                    <p class="text-right font-weight-bold">Total data Produk: {{$pro->total()}}</p>
                     <!-- </div> -->
                     <div style="display:flex; justify-content:center">
                         {{$pro->links()}}
@@ -118,7 +119,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Harga Modal</label><span class="text-danger">*</span>
-                                                        <input wire:model="capital_price" type="number" class="form-control">
+                                                        <input wire:model="capital_price" type="text" class="form-control" id="capital_price">
                                                         @error('capital_price') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
                                                 </div>
@@ -127,7 +128,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Harga Jual</label><span class="text-danger">*</span>
-                                                        <input wire:model="sell_price" type="number" class="form-control">
+                                                        <input wire:model="sell_price" type="text" class="form-control" id="sell_price">
                                                         @error('sell_price') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
                                                 </div>
@@ -228,7 +229,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Harga Modal</label><span class="text-danger">*</span>
-                                                        <input wire:model="capital_price" type="number" class="form-control">
+                                                        <input wire:model="capital_price" type="text" class="form-control" id="capital_price2">
                                                         @error('capital_price') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
                                                 </div>
@@ -237,7 +238,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Harga Jual</label><span class="text-danger">*</span>
-                                                        <input wire:model="sell_price" type="number" class="form-control">
+                                                        <input wire:model="sell_price" type="text" class="form-control" id="sell_price2">
                                                         @error('sell_price') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
                                                 </div>
@@ -262,7 +263,7 @@
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                         Batal
                                         </button>
-                                        <button type="button" wire:click.prevent="store()" class="btn btn-primary close-modal">Simpan</button>
+                                        <button type="button" wire:click.prevent="update()" class="btn btn-primary close-modal">Simpan</button>
                                     </div>
                             </div>
                         </div>
@@ -317,7 +318,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="text-primary">Harga Modal</label>
-                                                        <p class="h4">{{$detPro->capital_price}}</p>
+                                                        <p class="h4">@currency($detPro->capital_price)</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -325,7 +326,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="text-primary">Harga Jual</label>
-                                                        <p class="h4">{{$detPro->sell_price}}</p>
+                                                        <p class="h4">@currency($detPro->sell_price)</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -412,6 +413,56 @@
         livewire.emit('tmpSupplier', data);
         //@this.set('category_id', data);
     });
+
+
+    
+    var capital_price = document.getElementById("capital_price");
+    capital_price.addEventListener("keyup", function(e) {
+    // tambahkan 'Rp.' pada saat form di ketik
+    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+    capital_price.value = formatRupiah(this.value, "Rp. ");
+    });
+
+    var capital_price2 = document.getElementById("capital_price2");
+    capital_price2.addEventListener("keyup", function(e) {
+    // tambahkan 'Rp.' pada saat form di ketik
+    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+    capital_price2.value = formatRupiah(this.value, "Rp. ");
+    });
+
+    var sell_price = document.getElementById("sell_price");
+    sell_price.addEventListener("keyup", function(e) {
+    // tambahkan 'Rp.' pada saat form di ketik
+    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+    sell_price.value = formatRupiah(this.value, "Rp. ");
+    });
+
+    var sell_price2 = document.getElementById("sell_price2");
+    sell_price2.addEventListener("keyup", function(e) {
+    // tambahkan 'Rp.' pada saat form di ketik
+    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+    sell_price2.value = formatRupiah(this.value, "Rp. ");
+    });
+
+    /* Fungsi formatRupiah */
+    function formatRupiah(angka, prefix) {
+    var number_string = angka.replace(/[^,\d]/g, "").toString(),
+        split = number_string.split(","),
+        sisa = split[0].length % 3,
+        rupiah = split[0].substr(0, sisa),
+        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    // tambahkan titik jika yang di input sudah menjadi angka ribuan
+    if (ribuan) {
+        separator = sisa ? "." : "";
+        rupiah += separator + ribuan.join(".");
+    }
+
+    rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+    return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+    }
+    
+
 </script>
 @endpush
 

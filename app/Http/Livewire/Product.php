@@ -69,8 +69,8 @@ class Product extends Component
             'name' => $this->name,
             'type' => $this->type,
             'qty' => $this->qty,
-            'capital_price' => $this->capital_price,
-            'sell_price' => $this->sell_price,
+            'capital_price' => preg_replace("/[^0-9]/", "", $this->capital_price),
+            'sell_price' => preg_replace("/[^0-9]/", "", $this->sell_price),
             'unit' => $this->unit,
             'description' => $this->description,
         ]);
@@ -107,10 +107,73 @@ class Product extends Component
         $this->name = $pro->name;
         $this->type = $pro->type;
         $this->qty = $pro->qty;
-        $this->capital_price = $pro->capital_price;
-        $this->sell_price = $pro->sell_price;
+        $this->capital_price = "Rp. " . number_format($pro->capital_price,0,',','.');
+        $this->sell_price = "Rp. " . number_format($pro->sell_price,0,',','.');
         $this->unit = $pro->unit;
         $this->description = $pro->description;
         $this->dispatchBrowserEvent('tampilData', ['idKat' => $pro->category_id, 'idSup' => $pro->supplier_id]);
+    }
+
+    public function update(){
+        $this->validate([
+            'category_id' => 'required',
+            'supplier_id' => 'required',
+            'name' => 'required',
+            'type' => 'required',
+            'qty' => 'required',
+            'capital_price' => 'required',
+            'sell_price' => 'required',
+            'unit' => 'required',
+        ]);
+
+        if($this->idPro){
+            $pro = ProductModel::find($this->idPro);
+            $pro->update([
+                'category_id' => $this->category_id,
+                'supplier_id' => $this->supplier_id,
+                'name' => $this->name,
+                'type' => $this->type,
+                'qty' => $this->qty,
+                'capital_price' => preg_replace("/[^0-9]/", "", $this->capital_price),
+                'sell_price' => preg_replace("/[^0-9]/", "", $this->sell_price),
+                'unit' => $this->unit,
+                'description' => $this->description,
+            ]);
+            $this->category_id = "";
+            $this->supplier_id = "";
+            $this->name = "";
+            $this->type = "";
+            $this->qty = "";
+            $this->capital_price = "";
+            $this->sell_price = "";
+            $this->unit = "";
+            $this->description = "";
+            $this->dispatchBrowserEvent('close-modal');
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'success',  
+                'message' => 'Produk berhasil diubah!', 
+                'text' => 'Data pada database diubah.'
+            ]);
+        }
+    }
+
+    public function deleteConfirm($id){
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type' => 'warning',  
+            'message' => 'Apakah anda yakin ?', 
+            'text' => 'Jika dihapus, anda tidak dapat mengembalikan data ini!',
+            'id' => $id,
+        ]);
+    }
+
+    public function delete($id){
+        if($id){
+            ProductModel::where('id',$id)->delete();
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'success',  
+                'message' => 'Produk berhasil dihapus!', 
+                'text' => 'Data pada database dihapus.'
+            ]);
+        }
     }
 }
