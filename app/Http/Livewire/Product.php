@@ -162,19 +162,24 @@ class Product extends Component
     }
 
     public function update(){
-        // $this->validate([
-        //     'category_id' => 'required',
-        //     'supplier_id' => 'required',
-        //     'name' => 'required',
-        //     'type' => 'required',
-        //     'qty' => 'required',
-        //     'capital_price' => 'required',
-        //     'sell_price' => 'required',
-        //     'unit' => 'required',
-        // ]);
+        $this->validate([
+            'imageEdit.0' => 'required',
+            'imageEdit.*' => 'image|mimes:jpg,jpeg,png,svg,gif|max:5000', // 1MB Max
+            'imageFeaturedEdit' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:5000',
+        ]);
 
+        
         if($this->idPro){
             $pro = ProductModel::find($this->idPro);
+            //hapus image unggulan lama
+            $deleted = Storage::disk('local')->delete('public/images/'.$pro->featuredImage);
+            //gunakan image unggulan yang baru
+            $imageFeaturedName = md5($this->imageFeaturedEdit.microtime().'.'.$this->imageFeaturedEdit->extension());
+            Storage::putFileAs(
+                'public/images',
+                $this->imageFeaturedEdit,
+                $imageFeaturedName
+            );
             $pro->update([
                 'category_id' => $this->category_id,
                 'supplier_id' => $this->supplier_id,
@@ -185,7 +190,35 @@ class Product extends Component
                 'sell_price' => preg_replace("/[^0-9]/", "", $this->sell_price),
                 'unit' => $this->unit,
                 'description' => $this->description,
+                'featuredImage' => $imageFeaturedName
             ]);
+
+            $proDetailImage = ImageProductModel::where('product_id',$this->idPro)->get('image_product.image as detailImage');
+            //hapus gambar lama di folder storage
+            foreach ($proDetailImage as $gbrhps){
+                $deleted = Storage::disk('local')->delete('public/images/'.$gbrhps->detailImage);
+                if(!$deleted){
+                    dd("file tidak ada: ".$gbrhps->detailImage." - ".$this->idPro);
+                }    
+            }
+            //hapus gambar di database
+            ImageProductModel::where('product_id',$this->idPro)->delete();
+
+            //ganti gambar baru
+            foreach ($this->imageEdit as $key => $gbr) {
+                //$this->image[$key] = $gbr->store('images','public');
+                $imageName= md5($gbr.microtime().'.'.$gbr->extension());
+                Storage::putFileAs(
+                    'public/images',
+                    $this->imageEdit[$key],
+                    $imageName,
+                );
+                ImageProductModel::create([
+                    'product_id' => $this->idPro,
+                    'image' => $imageName
+                ]);
+            }
+
             $this->category_id = "";
             $this->supplier_id = "";
             $this->name = "";
