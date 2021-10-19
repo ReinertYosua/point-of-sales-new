@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2021 at 11:32 AM
+-- Generation Time: Oct 19, 2021 at 05:19 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -89,7 +89,8 @@ INSERT INTO `category` (`id`, `name`, `description`, `created_at`, `updated_at`)
 (47, 'sit', 'Ad rerum esse ipsam rerum ipsam ipsa. Et repudiandae porro qui cumque est ipsam maxime. Porro laborum dolor ipsa ratione culpa ut omnis. Magni id harum eos et.', NULL, NULL),
 (48, 'voluptatem', 'Odit porro maiores quia ut doloribus. Quaerat et distinctio sunt id molestias autem cupiditate. Est et nesciunt et a est qui consequuntur odit.', NULL, NULL),
 (49, 'delectus', 'Amet facere non quibusdam voluptatum et nihil necessitatibus. Itaque nihil eum reprehenderit optio. Quibusdam et quidem est modi.', NULL, NULL),
-(50, 'molestiae', 'Voluptatum commodi dolorem dolorum a animi suscipit corrupti alias. Et aut repellendus excepturi repellendus. Molestias sint delectus dolore et. Velit molestias alias quia.', NULL, NULL);
+(50, 'molestiae', 'Voluptatum commodi dolorem dolorum a animi suscipit corrupti alias. Et aut repellendus excepturi repellendus. Molestias sint delectus dolore et. Velit molestias alias quia.', NULL, NULL),
+(51, 'Test', 'Test1', '2021-10-13 21:13:24', '2021-10-13 21:13:24');
 
 -- --------------------------------------------------------
 
@@ -106,6 +107,65 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `image_product`
+--
+
+CREATE TABLE `image_product` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `image_product`
+--
+
+INSERT INTO `image_product` (`id`, `product_id`, `image`, `created_at`, `updated_at`) VALUES
+(1, 51, '4655620ce58afa7bb6f57fee66a78737', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
+(2, 51, '0e148d13fd7e5f24c0e010d5b9ba1b7e', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
+(3, 51, 'ed3fd4a7c8ec31a4ab565072ed2cef36', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
+(4, 51, 'c9e7cb5519bc542271620a004ad81ce7', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
+(5, 51, '26b92a79e03a70d180183a72f2a4fe5a', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
+(6, 51, '1090a6226db12c09fb504b6e8caf6a76', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
+(7, 51, '1258ff6c0095e2d711eca956c03b49a4', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
+(8, 51, '9dc22a98ceb664790b766e88f14e9488', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
+(9, 51, 'a2deb1e007866f78e90652c449ff4f5c', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
+(10, 51, 'ce23c53c1084a84735a721568e21f8a0', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
+(15, 53, '2aa4631295cbe3588eb26c57819374b2', '2021-10-19 05:36:14', '2021-10-19 05:36:14'),
+(16, 53, '72783e2f26632bc7c3cc31a83992313f', '2021-10-19 05:36:14', '2021-10-19 05:36:14'),
+(17, 53, 'ba0d5e4d13ae17b8f75115236d6f584a', '2021-10-19 05:36:14', '2021-10-19 05:36:14'),
+(18, 53, '8ec98a2d40f1f4add2ca0775f3fd78c8', '2021-10-19 05:36:14', '2021-10-19 05:36:14'),
+(19, 53, '52430f1f91033d585518a1fc91ce8896', '2021-10-19 05:36:14', '2021-10-19 05:36:14'),
+(33, 52, '70df5412a3066fb7687db45935a32718', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
+(34, 52, 'b0f115c6ca6a3e91fc25bd871ad33c4f', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
+(35, 52, '6303a01515b2e1ecb23afe8135d94749', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
+(36, 52, 'c4d3608214ce13e915d0f718a5ca539b', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
+(37, 52, 'bd64bf54fddb076ed7a80396d32c30cb', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
+(38, 52, 'd1065c9b170d7f7fe23c31d57e42c2c6', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
+(39, 52, 'be22e4ae507b6525ddf1e130519c92c0', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
+(40, 52, 'cc2bee20c58ccd7a07304f4d45c9fe69', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
+(41, 52, '7dc36f896d2cf543bb6db83cb323d8d7', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
+(42, 52, '54be9054f4063fd1e89508985beb0fa1', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
+(43, 52, '4b779047adc9994dcbac7c96e9bcae81', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
+(44, 52, '49421d957df20a3306d29f1611c90c81', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
+(45, 55, 'ef6f04af59789da825dced943262a991', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
+(46, 55, '1de985a851b0d8dc199b0ead6b3753b9', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
+(47, 55, '2f53d90c2bedc07ac09e0958d56563d8', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
+(48, 55, '54433e5ee9142497d11e8c67a5960e19', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
+(49, 55, 'a1f7d04729eead91e86501cb16428473', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
+(50, 55, 'e7e070e14c8d5f8c7187b29ccd87d46f', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
+(51, 55, 'd1fb0015e2f230d64e63d7b07e6c6d82', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
+(52, 55, 'bbbfb17bb788f6da6ed324b930b18f5e', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
+(53, 55, '2588fc8ea6fab69bb5cc34770ba6207f', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
+(54, 55, '59fc58eb8db3f190fc89a7b6b7b008b7', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
+(55, 55, '542c4057f89ce49d875d367e1646f0e6', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
+(56, 55, '4ecfc2aa0767881c218ebbd8f4295cb5', '2021-10-19 08:18:14', '2021-10-19 08:18:14');
 
 -- --------------------------------------------------------
 
@@ -129,8 +189,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2019_08_19_000000_create_failed_jobs_table', 1),
 (11, '2019_12_14_000001_create_personal_access_tokens_table', 1),
 (12, '2021_09_21_161051_create_category_table', 1),
-(14, '2021_10_02_061942_create_product_table', 1),
-(15, '2021_09_24_152543_create_supplier_table', 2);
+(15, '2021_09_24_152543_create_supplier_table', 2),
+(16, '2021_10_18_151549_create_image_products_table', 3),
+(17, '2021_10_02_061942_create_product_table', 4);
 
 -- --------------------------------------------------------
 
@@ -179,6 +240,7 @@ CREATE TABLE `product` (
   `sell_price` int(11) NOT NULL,
   `unit` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `featuredImage` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -187,57 +249,62 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `category_id`, `supplier_id`, `name`, `type`, `qty`, `capital_price`, `sell_price`, `unit`, `description`, `created_at`, `updated_at`) VALUES
-(1, 10, 31, 'fugiat', 'in', 1, 96098300, 84000433, 'libero', 'Alias aliquam sit ut aut. Deleniti est nostrum et hic ut maiores adipisci. Eum quos dolorem numquam sed nobis impedit ut molestias. Magni repellat est ratione consectetur aut perspiciatis nulla nisi.', '2021-08-05 11:27:58', NULL),
-(2, 4, 27, 'quos', 'et', 3, 50961510, 53662044, 'autem', 'Quaerat iste animi molestiae qui. Quo dolores eum in iure non. Sunt ad quam odio quidem dignissimos. Blanditiis alias qui magnam accusamus.', '2021-08-14 04:21:27', NULL),
-(3, 2, 1, 'labore', 'id', 1, 99603737, 24578229, 'occaecati', 'Ab dolores laudantium vel officiis totam. Expedita maiores recusandae optio dolorum enim facere odio. Repellendus soluta sint qui est rerum.', '2021-09-25 23:47:25', NULL),
-(4, 45, 24, 'et', 'quia', 3, 75927133, 73278790, 'sunt', 'Molestiae nostrum minima perspiciatis sunt ex eaque itaque. Aut fugiat pariatur repudiandae delectus quas. Nihil reiciendis esse sunt autem voluptates ea.', '2021-09-02 03:11:25', NULL),
-(5, 24, 32, 'ex', 'maiores', 5, 35498525, 5398601, 'repellat', 'Exercitationem ipsa et sunt nulla enim veniam est consequatur. Tenetur numquam incidunt totam cupiditate dolores. Inventore omnis rerum qui similique magni quo.', '2021-08-19 18:30:11', NULL),
-(6, 6, 33, 'totam', 'distinctio', 3, 5865731, 33705550, 'qui', 'Et vitae ut ullam similique. Nemo aut odit alias et et omnis sapiente. Dolorem autem exercitationem dolorem necessitatibus velit.', '2021-09-08 12:27:08', NULL),
-(7, 33, 45, 'nihil', 'eos', 8, 95257023, 44512564, 'quae', 'Et minima aliquam nihil voluptatem. Blanditiis provident qui et. Sit nemo est quaerat dolore qui aperiam modi.', '2021-09-01 21:43:55', NULL),
-(8, 35, 38, 'perferendis', 'dolorum', 1, 96162356, 68944265, 'maxime', 'Tempore eum exercitationem laudantium aut et repellat. Dolores aliquam maxime qui sequi ducimus voluptatibus incidunt. Enim non non facere voluptates deleniti id.', '2021-09-03 18:49:07', NULL),
-(9, 36, 35, 'sed', 'doloribus', 5, 46611515, 5166807, 'eveniet', 'Voluptas eveniet eveniet corrupti repudiandae sed. Sed omnis occaecati non doloribus. Nulla facilis harum non voluptatum aut debitis alias.', '2021-09-07 13:44:09', NULL),
-(10, 49, 36, 'repellat', 'quia', 9, 49298648, 57831944, 'inventore', 'Quaerat suscipit qui soluta est fuga aperiam. Quo architecto vitae odio sed. Ut enim reprehenderit impedit rerum recusandae at.', '2021-09-06 12:29:02', NULL),
-(11, 34, 42, 'distinctio', 'dolor', 7, 40613026, 60147522, 'recusandae', 'Impedit quis reprehenderit et. Voluptatem fugiat est qui at est dolorem voluptas mollitia. Nostrum omnis beatae est aperiam earum magnam. Accusamus ut voluptates enim corporis ad magnam provident.', '2021-08-20 05:39:40', NULL),
-(12, 48, 42, 'temporibus', 'assumenda', 2, 6749932, 81221684, 'ab', 'Cum dolores qui alias voluptas ab. Qui reprehenderit vel reiciendis fuga aspernatur suscipit et. Adipisci quo enim eligendi et.', '2021-09-05 12:06:23', NULL),
-(13, 27, 39, 'qui', 'laboriosam', 5, 60469569, 93082710, 'aliquam', 'Molestiae suscipit iste alias autem deserunt ut. Odio accusantium quia omnis quo quia sint. In qui sit officia. Rerum voluptate nulla omnis porro et et.', '2021-09-04 14:06:47', NULL),
-(14, 41, 6, 'quis', 'dolorem', 5, 52586673, 27950548, 'sapiente', 'Rerum beatae molestias tenetur natus dolorum repellat. Et fuga magni praesentium aspernatur dolore. Quisquam mollitia adipisci repellat fugit harum quibusdam porro.', '2021-09-05 08:21:10', NULL),
-(15, 16, 15, 'blanditiis', 'ut', 4, 26479545, 54514220, 'quasi', 'Consequuntur est modi quis vero tempora laboriosam nihil. Quas minima qui voluptatem iste tempore expedita. Qui magnam alias voluptas et et tempore aperiam tempore.', '2021-08-23 06:34:52', NULL),
-(16, 21, 6, 'voluptatem', 'ut', 9, 2015711, 67947967, 'tempora', 'Provident quia consequuntur magni velit qui ducimus commodi. Sed necessitatibus accusantium harum minima distinctio. Non quisquam alias numquam est.', '2021-09-02 18:10:35', NULL),
-(17, 46, 19, 'quas', 'necessitatibus', 1, 12747448, 27973969, 'perferendis', 'Et vero in error itaque illo temporibus. Alias repellat rerum soluta aut fugit voluptatem mollitia. Aliquid qui voluptatem quo sint. Occaecati molestiae esse pariatur sit exercitationem.', '2021-09-11 04:55:30', NULL),
-(18, 47, 19, 'optio', 'qui', 6, 53735025, 41307012, 'et', 'Tenetur doloribus id mollitia fugiat eius. Nostrum necessitatibus eos maxime consequatur sunt esse aperiam. Ut officia earum odit a doloremque omnis unde. Vel quibusdam totam sequi sit et.', '2021-09-21 02:05:17', NULL),
-(19, 34, 43, 'in', 'repellat', 4, 41175063, 3685061, 'doloribus', 'Enim vel est reiciendis nostrum sunt vel. Enim pariatur laborum atque ipsam vel aut.', '2021-08-30 18:26:01', NULL),
-(20, 45, 24, 'rerum', 'labore', 2, 43651305, 27542664, 'mollitia', 'Dignissimos esse illo magni. Ea alias vero quia sapiente dolorem asperiores molestias. Eaque sapiente molestias nesciunt possimus sapiente. In voluptatem doloribus velit ratione.', '2021-08-16 12:16:22', NULL),
-(21, 18, 23, 'cum', 'qui', 1, 56292979, 51796296, 'aperiam', 'Sit nostrum temporibus aliquam ut asperiores. Velit nam magnam nemo doloribus. Soluta eum autem unde. Omnis quia maiores asperiores nostrum et cumque voluptatem voluptatem.', '2021-08-18 11:17:49', NULL),
-(22, 19, 2, 'numquam', 'et', 4, 39406679, 27667402, 'ad', 'Eius eum quis voluptas libero hic dolorum doloremque. Adipisci et enim impedit voluptas deleniti. Iste est quod exercitationem quibusdam molestias voluptas alias.', '2021-09-24 08:56:04', NULL),
-(23, 2, 42, 'tempore', 'vero', 4, 73281335, 71847547, 'quo', 'Iusto saepe repudiandae vel. Ut dolor voluptatem magni laboriosam et repellat. Sit repellat laborum libero qui excepturi assumenda.', '2021-09-08 07:12:38', NULL),
-(24, 28, 20, 'veniam', 'et', 0, 95068262, 77611703, 'est', 'Doloribus ut natus suscipit sed est. Ut quidem est et ex ipsum. Modi illo corrupti itaque soluta libero rem.', '2021-08-21 02:29:55', NULL),
-(25, 32, 26, 'rerum', 'consequatur', 6, 85180220, 65640386, 'qui', 'Beatae qui laboriosam reiciendis aliquid facilis deserunt rerum. Voluptatem ut consequuntur sunt dolores sunt et omnis. Maxime vel sit iusto hic et reiciendis.', '2021-08-22 09:51:07', NULL),
-(26, 48, 35, 'provident', 'temporibus', 6, 66895027, 41145384, 'ut', 'Id et rem natus pariatur. Aut nesciunt voluptatibus et aut. Culpa pariatur repellat alias ipsum velit.', '2021-08-04 01:43:41', NULL),
-(27, 11, 16, 'similique', 'aut', 2, 65568067, 57006243, 'ducimus', 'A magnam soluta velit et non. Eligendi veritatis aspernatur consequatur omnis et rerum magnam. Iure voluptatum libero quae. Et explicabo hic exercitationem pariatur eum et.', '2021-08-07 03:30:24', NULL),
-(28, 9, 9, 'rerum', 'vel', 3, 78773296, 50372208, 'dolor', 'A odio animi modi ea eos. Voluptas accusantium ut excepturi et officia molestiae. Non placeat dolorum alias et. Animi et natus fugit sit deserunt quia totam eveniet.', '2021-08-01 12:32:08', NULL),
-(29, 25, 19, 'ut', 'consequatur', 3, 49638501, 14092821, 'omnis', 'Dolore ad quis similique repellendus nemo id. Nisi voluptas omnis aliquam porro tempore. Suscipit et numquam et veniam ad eum ad.', '2021-08-15 22:45:09', NULL),
-(30, 24, 36, 'iure', 'voluptatem', 9, 25182371, 61564228, 'culpa', 'Ad rerum rerum animi et. Sit vitae atque qui repellat. Rem vel commodi labore consequatur quidem. Dolore officia aut unde qui possimus. Vero officia recusandae mollitia rerum sed voluptatibus.', '2021-09-07 21:38:11', NULL),
-(31, 37, 33, 'sit', 'temporibus', 3, 6399478, 2766910, 'praesentium', 'Est asperiores laboriosam ipsum et eos. Pariatur minus neque ut ratione. Reiciendis earum distinctio ipsam. Et ipsum est voluptatem vel.', '2021-09-11 07:25:32', NULL),
-(32, 49, 31, 'expedita', 'voluptates', 0, 52990244, 49320852, 'non', 'Dicta sapiente voluptas ex ad. Ducimus commodi non labore aut quia quia. Earum quae amet deleniti quia praesentium possimus est maiores.', '2021-09-30 12:48:16', NULL),
-(33, 8, 46, 'ut', 'perferendis', 6, 49895437, 27787490, 'tenetur', 'Qui cumque ad sed. Voluptatibus voluptatem non voluptas officiis voluptatem quia quis est. Et sint alias aut quia tempora.', '2021-09-12 15:12:02', NULL),
-(34, 42, 6, 'minima', 'quibusdam', 2, 29562970, 62474463, 'voluptates', 'Omnis similique est voluptas nostrum aut natus. Id ea eaque autem quidem nostrum eos magnam. Dicta numquam debitis laborum sapiente.', '2021-08-13 00:09:16', NULL),
-(35, 8, 49, 'quis', 'cupiditate', 5, 27978367, 48273754, 'et', 'Pariatur inventore dolor est autem maiores necessitatibus. Eum odio nemo ad. Omnis nulla a a neque unde voluptatem saepe rerum. Dolores corporis rerum neque eum amet est molestias.', '2021-09-22 09:01:52', NULL),
-(36, 9, 36, 'sit', 'autem', 5, 67693052, 53780365, 'debitis', 'A est ullam omnis pariatur est nisi. Molestiae ipsum voluptas non. Voluptatibus fugiat eos non reiciendis nobis dolor autem.', '2021-09-04 08:13:15', NULL),
-(37, 43, 11, 'aut', 'perspiciatis', 4, 9892986, 94068936, 'molestiae', 'Voluptatem necessitatibus culpa non in autem. Tempore inventore illum corporis debitis molestiae suscipit. Nesciunt facere dolores esse sunt.', '2021-08-10 05:00:10', NULL),
-(38, 16, 28, 'ut', 'incidunt', 9, 63996234, 50008277, 'aperiam', 'Ipsam repellat corporis ea eligendi. Amet nobis eligendi quasi odio adipisci. Est nihil est recusandae laborum ut asperiores deleniti. Et voluptas fugiat nostrum repellendus et est error rerum.', '2021-08-19 07:13:17', NULL),
-(39, 15, 44, 'recusandae', 'hic', 8, 72145736, 33179748, 'dolore', 'Quibusdam sapiente cumque dolor qui dolores. Natus doloremque possimus sapiente sed tempora totam. Et commodi minus ut saepe. Deleniti laborum nihil rerum quaerat voluptate eos.', '2021-09-05 11:36:53', NULL),
-(40, 15, 41, 'ut', 'harum', 8, 500976, 12061113, 'doloribus', 'Dolor id non similique non. Facilis eius alias reiciendis deleniti dolore qui. Mollitia sapiente autem id sit. Ipsa corrupti provident ut est. Ipsam sunt doloremque nihil magnam deleniti.', '2021-08-18 20:55:42', NULL),
-(41, 6, 46, 'occaecati', 'tempora', 5, 34183146, 1740420, 'excepturi', 'Eveniet sunt velit ut veniam sunt ducimus. Porro voluptatem molestiae et aut. Et suscipit et quidem eligendi delectus. Aperiam eum voluptate dolores consequatur in qui.', '2021-08-19 00:13:25', NULL),
-(42, 26, 2, 'exercitationem', 'vel', 8, 22595361, 92839273, 'non', 'Ipsam explicabo quia fugit veritatis est. Soluta accusamus dolorum itaque consectetur.', '2021-09-16 19:40:18', NULL),
-(43, 40, 5, 'unde', 'quas', 4, 91066601, 22359323, 'ut', 'Dolorum dolorum at molestiae neque fuga saepe mollitia. Qui tempora rerum corporis debitis veritatis quis. Ipsa quas et soluta optio.', '2021-09-18 19:38:55', NULL),
-(44, 29, 43, 'sunt', 'assumenda', 2, 53440153, 99004445, 'quis', 'Eius illo culpa autem delectus harum in. Veritatis cum eos totam vero suscipit autem. Porro nobis unde occaecati libero ad quo omnis. Qui ut mollitia adipisci cum labore ut quod.', '2021-09-21 03:45:39', NULL),
-(45, 34, 24, 'dignissimos', 'sit', 5, 88750771, 72399053, 'consequuntur', 'Et ut explicabo quam labore itaque. Vitae explicabo eos ut ratione est rerum. Ipsam sit consequatur eos et ab.', '2021-09-23 03:57:35', NULL),
-(46, 23, 32, 'culpa', 'voluptatem', 8, 205429, 84765355, 'aut', 'Tempora placeat magni dolore. Sequi eum error delectus eius et dolorem. Autem ut qui dolor suscipit alias quos porro. Recusandae voluptate atque error quo sed.', '2021-09-22 04:30:17', NULL),
-(47, 19, 24, 'eligendi', 'eaque', 3, 31761200, 14247751, 'architecto', 'Ab dolorum nesciunt quae officia dolor. Inventore nam vitae non earum dicta. Ut consequuntur voluptatibus quia porro.', '2021-09-19 09:11:33', NULL),
-(48, 32, 36, 'nihil', 'repudiandae', 8, 43983477, 30884584, 'dolor', 'Blanditiis facilis ut voluptate alias. Enim est dolore tempora ut necessitatibus officia.', '2021-09-07 18:13:01', NULL),
-(49, 15, 22, 'debitis', 'laborum', 2, 63431046, 86691252, 'exercitationem', 'Voluptas in ullam non et nulla animi. Qui ratione est omnis quasi. Nemo suscipit numquam rerum dignissimos corrupti vero. Placeat minima pariatur ut alias ut eligendi et.', '2021-08-24 23:18:49', NULL),
-(50, 18, 23, 'corrupti', 'beatae', 6, 90718051, 8911136, 'a', 'Vel blanditiis rerum exercitationem ratione tempora. Dolorem est eos aut beatae quaerat quis. Magnam ipsum tempora exercitationem.', '2021-08-31 02:49:03', NULL);
+INSERT INTO `product` (`id`, `category_id`, `supplier_id`, `name`, `type`, `qty`, `capital_price`, `sell_price`, `unit`, `description`, `featuredImage`, `created_at`, `updated_at`) VALUES
+(1, 33, 7, 'quod', 'et', 8, 98696150, 82122611, 'aliquid', 'Error rerum velit et error quibusdam et a. Tempore autem minima distinctio provident enim animi dolor.', 'Molestias est ea modi nihil explicabo delectus. Neque ut ab voluptatem. Ipsum repudiandae est dolorem pariatur odio. Numquam est ipsa dolorem quia totam consequuntur omnis.', '2021-08-04 14:59:02', NULL),
+(2, 34, 25, 'assumenda', 'quia', 0, 62923173, 95232207, 'voluptas', 'Quia est sit temporibus quo. Ipsa et non sunt soluta sapiente. Natus voluptates dolor deleniti voluptatum tempore rerum est voluptates. Velit et officiis sed officiis magni animi et.', 'Est nobis ab tempora non a dolor officiis nihil. In quam cumque incidunt. Autem architecto labore delectus veniam possimus. Ea eveniet labore voluptas voluptates.', '2021-07-31 11:41:05', NULL),
+(3, 8, 22, 'eum', 'quod', 7, 8571402, 53047147, 'rerum', 'Neque ut autem est. Asperiores aut animi a et quia. Ut ad vel sunt laboriosam.', 'Consequatur aut eos omnis rerum dignissimos dolorum similique pariatur. Architecto et natus dolorem repellat consequuntur. Ipsam eligendi rerum quae et. Porro sit sunt aut quibusdam fuga beatae.', '2021-09-02 16:56:52', NULL),
+(4, 21, 44, 'velit', 'et', 5, 87807905, 44959116, 'et', 'Et aut neque hic quia repellat eos. Facilis culpa dignissimos officiis cum. Amet praesentium rerum ea a quis minima.', 'Eaque est totam recusandae delectus omnis nisi aut voluptatem. In et sed ut tenetur accusantium sint aut. Quidem neque qui et id incidunt ut.', '2021-08-11 02:50:05', NULL),
+(5, 34, 4, 'ratione', 'quibusdam', 0, 55931402, 95849754, 'ut', 'Enim eum natus consequatur error. Exercitationem vel ipsum soluta iusto aut. Nihil autem aut ducimus qui quibusdam neque.', 'Natus quia eum et dicta ex suscipit possimus. Modi vel facere voluptas dolore suscipit. Provident officiis quia beatae delectus aut.', '2021-08-13 00:03:52', NULL),
+(6, 16, 41, 'laudantium', 'neque', 8, 42865789, 50429841, 'id', 'Laborum dolor est ab iste ea neque. Aut est est consectetur natus voluptatibus ut nostrum qui. Id esse reprehenderit quae nesciunt qui.', 'Aliquid inventore necessitatibus nam qui deserunt quo autem et. Provident fugit rerum eius rem officia. Sint qui sit impedit voluptatibus sint voluptatem.', '2021-09-26 23:38:28', NULL),
+(7, 26, 48, 'dicta', 'doloribus', 9, 74517019, 17448035, 'praesentium', 'Sed cupiditate molestiae reprehenderit odit minima. Asperiores est delectus quos optio porro officiis atque. Rem impedit facere facilis aut porro porro. Nesciunt eaque sint saepe sed earum.', 'Natus incidunt repudiandae minus sint. Harum amet voluptatibus illum rerum qui deleniti nobis. Officia amet et est qui et nemo iusto. Placeat dolorem deserunt excepturi aut et.', '2021-08-10 01:12:15', NULL),
+(8, 5, 35, 'ut', 'facilis', 0, 45417975, 8729309, 'voluptatibus', 'Rerum quo natus eos numquam incidunt doloribus eveniet. Facere natus est minus atque. Id temporibus culpa sequi rem. Qui reiciendis sint accusamus nihil.', 'Exercitationem tenetur in vitae unde et hic facere. Iure consequatur quibusdam atque ducimus distinctio. Ipsa assumenda beatae magni ducimus ratione ut.', '2021-08-17 21:16:47', NULL),
+(9, 15, 26, 'et', 'voluptatum', 7, 5980844, 59092565, 'nisi', 'Eius rerum eum distinctio ea dicta facilis nisi sapiente. Nesciunt velit et et exercitationem modi amet harum. Est provident eum et. Repudiandae iusto architecto sunt libero qui minus qui.', 'Quia sunt quia nostrum facilis. Quibusdam quis sint rerum quaerat assumenda atque. Asperiores tempore id magni iure dignissimos quos dolor.', '2021-09-02 19:07:24', NULL),
+(10, 7, 4, 'blanditiis', 'quia', 8, 56457438, 66945333, 'animi', 'Qui earum tempore iure laboriosam architecto rerum. Deleniti occaecati eos ut odit. Non ut deleniti eum.', 'Occaecati ratione eos iure architecto. Odio id dolorem nostrum aut molestias debitis. Id qui consequuntur reiciendis iusto doloribus sit ex.', '2021-09-18 09:41:51', NULL),
+(11, 27, 36, 'exercitationem', 'est', 7, 37490983, 28704829, 'possimus', 'Nihil quaerat id quis esse. Est atque at in qui ea officia rerum. Placeat quidem rerum beatae consequatur qui dolorem odit.', 'Id nihil aliquam neque eos ipsum aut maxime. Nulla et sit non. Ut sit beatae minima totam natus reprehenderit occaecati nisi. Sint odio voluptate consequatur est aut.', '2021-08-16 16:57:42', NULL),
+(12, 28, 35, 'ipsa', 'omnis', 3, 50209813, 3229002, 'laudantium', 'Quaerat reiciendis deserunt illum illum. Id quidem magni hic optio. Eligendi velit voluptatem delectus sit corrupti dolores. Et et voluptatum sunt accusantium quibusdam soluta.', 'Excepturi iste saepe minima odit omnis. Sit reiciendis architecto aliquam quo ducimus nihil.', '2021-08-17 20:19:23', NULL),
+(13, 41, 2, 'totam', 'eveniet', 1, 38053088, 90908326, 'aliquid', 'Est necessitatibus voluptas corrupti sit vel. Qui impedit accusamus dolores eos non. Tenetur deserunt eaque doloribus necessitatibus corrupti.', 'Optio autem eius modi harum sit sunt. Quidem et saepe velit soluta velit dolorum saepe. At asperiores illum pariatur voluptatem officia quos alias libero.', '2021-08-11 01:22:12', NULL),
+(14, 44, 45, 'est', 'corporis', 6, 40260758, 868436, 'rerum', 'Quis et expedita dolorem reprehenderit. Iste rerum doloribus molestiae. Voluptatem nesciunt unde inventore sit modi et. Quis commodi ut qui.', 'Non iste magni et laborum quidem. Maiores omnis ut facilis et. Minima sed minus reprehenderit quas. Et hic quam occaecati eius qui voluptatum error tenetur.', '2021-08-15 22:38:44', NULL),
+(15, 11, 50, 'nulla', 'quis', 9, 85813691, 74962549, 'autem', 'Vitae explicabo consectetur placeat recusandae. In amet illum tenetur neque. Velit accusamus est eos consectetur ut.', 'Repellat ut non iusto vel inventore porro. Possimus atque odit consectetur ut aut officia. Et asperiores nihil ut labore quo delectus nulla. Qui suscipit aut non minima.', '2021-09-28 19:42:21', NULL),
+(16, 49, 40, 'voluptatem', 'aspernatur', 1, 65857116, 81752782, 'voluptatum', 'Odit voluptatem molestiae fugit voluptatem ea consequatur. Qui accusamus rerum illum dignissimos. Nostrum perferendis nihil eaque provident est quia. Ullam et esse unde voluptatibus consequatur modi.', 'Consectetur repellat cumque consequuntur reiciendis magni corporis. Voluptas rerum voluptate nulla odio suscipit et a. Dolorem iusto voluptatem magnam a.', '2021-08-29 21:29:32', NULL),
+(17, 43, 28, 'eveniet', 'dolorem', 9, 5849771, 8850638, 'nihil', 'Temporibus laborum laudantium dolores totam itaque eaque cupiditate. Nulla nisi atque ut quibusdam quia sed. Voluptatem sequi et maxime cumque. Ea quia aut est rerum tempora veritatis et.', 'Doloribus necessitatibus nisi deserunt vel. Est et magnam aliquid veniam non libero. Qui quia dolores et qui. Nemo cupiditate hic facere qui.', '2021-08-13 13:27:16', NULL),
+(18, 29, 13, 'est', 'illo', 4, 42556739, 84423535, 'quisquam', 'Enim dolorem praesentium cupiditate quibusdam quia ipsa et. Qui modi sunt sapiente autem. Qui laborum earum nam et corporis impedit molestias.', 'Inventore qui est dolores neque quaerat voluptatibus non sapiente. Nemo dignissimos asperiores possimus odio. Et modi qui culpa fugiat. Tempora et quidem aut sed quae sit est.', '2021-09-30 14:18:03', NULL),
+(19, 38, 32, 'tenetur', 'est', 2, 81140016, 51097204, 'adipisci', 'Eos in doloribus omnis dolorem repudiandae. Repellendus qui accusantium vel. Ut nesciunt voluptatem doloremque accusantium sed veritatis. Voluptatem omnis suscipit unde sit numquam et.', 'Nihil sed quos quae aliquam inventore. Et libero eos molestiae architecto culpa aliquid quis. Nihil et est distinctio deserunt reprehenderit qui. Nemo praesentium dolores eum amet nam non.', '2021-09-27 16:48:54', NULL),
+(20, 1, 43, 'maiores', 'qui', 4, 75885158, 93329628, 'nobis', 'Quae repellendus quia numquam eum tempora dolores molestiae possimus. Veniam qui minus rerum fuga vero.', 'Sapiente error est dignissimos nostrum consectetur repudiandae. Autem nihil molestias ut. Sequi ut eum cupiditate id quod. Fugit debitis non quisquam tempore.', '2021-09-21 08:15:32', NULL),
+(21, 31, 41, 'optio', 'quia', 2, 58265297, 66610067, 'illum', 'Ut modi possimus non. Laudantium aperiam illo voluptatem totam. Incidunt aliquam quo natus.', 'Reiciendis sit quaerat recusandae. Occaecati cum esse nihil dolor eos. Deserunt qui dolores architecto dolores hic natus quo.', '2021-09-11 03:50:31', NULL),
+(22, 32, 5, 'et', 'ducimus', 6, 22729009, 64206431, 'repudiandae', 'Inventore qui nihil et magni ratione velit ipsa id. In aut odio reprehenderit qui. Delectus repudiandae dolores vero fugiat deserunt. Eveniet quasi sit doloremque quibusdam occaecati.', 'Qui dolorem id asperiores minima cum harum. In odio velit excepturi dicta perspiciatis et inventore accusamus.', '2021-08-01 18:04:44', NULL),
+(23, 38, 12, 'cumque', 'ullam', 6, 965393, 90486161, 'nostrum', 'Accusamus nobis quidem quia incidunt voluptas placeat. Quam voluptate error doloremque earum dignissimos. Consequatur earum nostrum inventore sequi enim quis.', 'Qui vitae voluptatem libero aut odio assumenda. Ut in eum fuga fuga odit. Dolorem quis tenetur ullam dolor. Nihil ipsam officiis exercitationem et laudantium cupiditate accusantium.', '2021-08-02 13:32:48', NULL),
+(24, 20, 1, 'sunt', 'quia', 0, 56620261, 71478013, 'voluptates', 'Voluptas qui rerum repellendus commodi perferendis accusamus. Dolorum at qui dolores omnis sunt corrupti neque eos. Minus et et illum aperiam eveniet odio amet.', 'Corrupti deleniti est quod sed. Error nam dolor expedita et esse quibusdam. Cum libero et facere adipisci est debitis nobis.', '2021-09-14 12:25:31', NULL),
+(25, 3, 31, 'magnam', 'esse', 0, 15331555, 53046113, 'eligendi', 'Soluta voluptas quia at repudiandae ut voluptatem. Provident mollitia unde maxime illo. Et voluptatibus dolore assumenda culpa alias est vel. Mollitia rerum rerum laudantium ullam qui.', 'Aut facilis voluptatibus quia ut. Facere labore quisquam in ut maxime quis.', '2021-08-29 00:40:17', NULL),
+(26, 46, 24, 'rerum', 'id', 7, 41027002, 33850147, 'sit', 'Amet cum tempore ut consequatur omnis optio. Sint voluptas dignissimos distinctio. Velit ad culpa quia iure. Sapiente velit enim doloribus sint perferendis fugit.', 'Reiciendis nostrum eaque eos quo culpa. Eum sapiente maxime nobis nihil voluptate ut voluptatem ut. Ratione sunt est ipsam nulla aut mollitia consequuntur. Assumenda recusandae qui debitis.', '2021-08-23 14:01:30', NULL),
+(27, 24, 20, 'cum', 'voluptates', 9, 39589582, 12676922, 'atque', 'Animi aut qui consequatur sunt possimus. Quisquam ea rerum at sit in ut et.', 'Fugit autem voluptas molestiae error optio. Molestias aut molestiae et nihil sed assumenda laborum. Perspiciatis blanditiis id cupiditate accusamus eos amet.', '2021-08-22 08:53:21', NULL),
+(28, 38, 34, 'ducimus', 'voluptate', 3, 54931708, 49017003, 'et', 'Enim sit quis molestiae ipsam enim. Veniam molestiae assumenda sunt est. Doloremque enim facilis natus consectetur est similique et ut.', 'Vero vitae ratione modi in. Id autem sit et. Praesentium corrupti fugiat nostrum perferendis soluta. Voluptatem consectetur ea quaerat itaque praesentium praesentium nulla.', '2021-09-14 09:47:38', NULL),
+(29, 18, 38, 'et', 'in', 6, 23728558, 50758970, 'voluptatibus', 'Eum laboriosam hic corrupti rem aspernatur velit dolor. Numquam quas ea earum numquam. Eius velit odio perspiciatis voluptatum assumenda.', 'Quia nobis aut perferendis et porro dolores ut provident. Quidem sint necessitatibus deleniti. Dignissimos voluptate ut quisquam est ducimus nihil neque.', '2021-08-28 22:42:05', NULL),
+(30, 35, 36, 'doloremque', 'sint', 2, 1399653, 87387568, 'vel', 'Eum iste dolore officiis minus ducimus illo consequatur. Et rerum voluptatum enim ea. Non sunt sed consequuntur eum.', 'Cum perferendis voluptatem quis sit sapiente. Culpa sint omnis voluptas perferendis ab ad. Aliquid modi velit in quidem. Velit corrupti quam numquam corrupti.', '2021-09-10 23:01:32', NULL),
+(31, 20, 23, 'similique', 'vel', 1, 42017542, 73730136, 'modi', 'Nihil distinctio repellat nisi sint in. Quod sit ipsam ad totam in in corporis. Molestiae fugit asperiores ducimus sint nihil est id. Quo minima esse soluta qui non consequatur.', 'Earum et sed autem vel. Dolorem non alias esse. Laborum temporibus nulla voluptas fuga consequatur in sunt.', '2021-08-18 04:34:36', NULL),
+(32, 8, 23, 'ipsam', 'hic', 7, 11584789, 94093347, 'sed', 'Id quis voluptatem cupiditate porro corrupti qui. Officia quod exercitationem consequatur non possimus. Aut dolorem ut aliquam ut perspiciatis.', 'Placeat et vero nam sunt. Est ab sequi assumenda cum soluta rerum occaecati. Sit quis aut quas ut nulla a sed. Consequuntur necessitatibus rerum ducimus quae impedit autem distinctio.', '2021-09-24 03:20:50', NULL),
+(33, 47, 23, 'est', 'nesciunt', 1, 60355583, 43047163, 'ipsa', 'Sed asperiores atque blanditiis labore. Id delectus aspernatur quae voluptatibus sit reprehenderit. Et est omnis enim quaerat fuga debitis sed.', 'Magnam autem voluptatem perspiciatis architecto incidunt. Aliquid quia quo hic. Aut ab non eveniet asperiores vel quis distinctio est. Sunt repellendus dolor non aperiam qui.', '2021-08-19 08:36:57', NULL),
+(34, 11, 14, 'odit', 'qui', 9, 65241556, 8372156, 'totam', 'Neque voluptates molestiae dolorem. Ad dolore rerum quam exercitationem. Sed ut atque qui non fugit.', 'Neque officia sunt natus ducimus ad. Ut dolor labore qui velit.', '2021-09-12 17:13:53', NULL),
+(35, 2, 13, 'sit', 'aut', 0, 55370854, 49621207, 'adipisci', 'Nihil provident quia debitis quos. Odit nemo officiis esse aspernatur consequatur aut. Et aut officiis tenetur assumenda aut.', 'Id qui optio numquam repellat. Dolorem qui qui iste cum. Odio ab quia amet et. Impedit sint incidunt accusamus in ex. Accusamus sed iure nisi inventore nisi.', '2021-08-01 15:35:51', NULL),
+(36, 18, 4, 'explicabo', 'fugit', 8, 85407214, 4854575, 'iste', 'Quia tempora nostrum quam autem veritatis nihil. Sunt pariatur hic officia ea enim sint. Facere sed reiciendis pariatur id dolore recusandae. Iste eos nostrum et.', 'Deleniti voluptas blanditiis tempore voluptate voluptatem iure. Iusto error eaque nulla repellendus quibusdam reprehenderit. Rerum iure et consequatur exercitationem.', '2021-09-30 07:38:54', NULL),
+(37, 47, 46, 'mollitia', 'aliquid', 0, 69729876, 60195633, 'architecto', 'Enim accusantium et eum. Ut earum omnis repudiandae molestias voluptas. Aliquam sed et incidunt voluptatum. Quaerat iure enim inventore aut cum.', 'Nesciunt praesentium dolore repellat omnis consequatur. Omnis quam aut autem est non quasi dolores eveniet. Maxime quo enim error consequatur aut similique.', '2021-08-17 14:47:38', NULL),
+(38, 14, 7, 'aut', 'non', 1, 54845455, 75281481, 'ipsam', 'Qui est soluta et eos earum maiores. Similique ipsum nostrum voluptatem. Dignissimos nam omnis ut voluptatem molestiae nemo.', 'Enim sit error esse ut rem cupiditate dolorem. Sint nesciunt sit natus ipsum aut. Qui eligendi eaque enim natus quia.', '2021-09-30 00:43:34', NULL),
+(39, 20, 48, 'eos', 'quidem', 6, 50997062, 76326981, 'aut', 'Magni rerum voluptatibus reprehenderit molestias laboriosam natus ipsam mollitia. Repudiandae neque est aliquid quia dolorum quo magni. Temporibus necessitatibus fuga sint id sunt omnis.', 'Eum blanditiis quod fugiat quia recusandae eveniet. Repellendus et ab rem provident ullam sint fuga. Qui magnam exercitationem quia quia officia ipsum. Enim adipisci eligendi voluptatem laborum unde.', '2021-09-26 13:30:31', NULL),
+(40, 8, 6, 'voluptates', 'rerum', 4, 10764232, 52953349, 'esse', 'Quo delectus dolor praesentium accusamus omnis commodi. Nobis autem blanditiis non cupiditate culpa consequuntur qui. Est est in itaque molestiae eos consequatur quod.', 'Sunt tempora provident quas aut esse enim cupiditate. Quo harum fugit explicabo porro. Dolor odio odio et repellendus ut sapiente et.', '2021-09-04 00:26:04', NULL),
+(41, 42, 50, 'reprehenderit', 'corporis', 2, 91806709, 70766408, 'voluptate', 'Ut distinctio et ad recusandae fuga. Rerum explicabo aut mollitia. Quis porro iste nulla delectus rerum natus.', 'Iusto ut est quidem iusto odio voluptatem est. Asperiores et qui et unde hic. Minus ipsam id consequuntur. In qui rem est tenetur modi. Nihil accusantium velit accusantium voluptatem assumenda.', '2021-09-15 15:51:34', NULL),
+(42, 15, 17, 'porro', 'dolor', 6, 54768186, 29000876, 'est', 'Magnam qui natus voluptas impedit consequuntur ea id. Ut qui ullam ullam nisi rem explicabo velit. Ad quis necessitatibus fugit earum numquam.', 'Quod a quod aperiam placeat. Sit quis deserunt fuga et explicabo. Sunt veniam voluptatem ut non earum.', '2021-09-12 15:15:39', NULL),
+(43, 40, 50, 'quas', 'reiciendis', 1, 92260755, 35569005, 'aut', 'Sapiente minus molestiae qui incidunt quis minus. Est delectus eveniet id necessitatibus sunt sequi.', 'Doloribus est quam excepturi facilis debitis. Saepe iusto illo quia molestiae possimus maxime. Accusamus pariatur nam omnis tempora. Est nihil saepe dolor voluptatibus nesciunt maxime.', '2021-09-14 06:08:29', NULL),
+(44, 32, 30, 'dolorem', 'a', 9, 21144331, 1378627, 'consectetur', 'Id quam perspiciatis qui impedit id autem est. Ducimus ut officiis deleniti perferendis. Doloremque atque amet voluptatem inventore sapiente laborum voluptates.', 'Alias ipsam cupiditate commodi ut qui deserunt. Et doloribus fugiat saepe mollitia delectus sit incidunt. Facere vero repellat suscipit est.', '2021-09-14 20:52:14', NULL),
+(45, 45, 33, 'ut', 'tempora', 2, 8278875, 75544840, 'eos', 'Vel ea reiciendis quae quaerat possimus. Voluptatem et ipsa alias expedita atque vitae ut laborum. Placeat dolorum ea laborum id. Necessitatibus deserunt adipisci consequatur libero.', 'Qui quia alias laborum sint itaque et. Velit commodi pariatur quisquam libero. Ab aperiam id inventore est.', '2021-08-16 10:29:06', NULL),
+(46, 44, 15, 'aliquid', 'nulla', 9, 56344837, 54254233, 'dolorem', 'Beatae cum minima et quia. Et magnam similique voluptas ipsa similique voluptas dolor. In velit nulla fugiat perspiciatis nisi dolore voluptatibus doloribus.', 'Et nesciunt cumque et voluptas cum. Ea optio totam eaque corrupti atque ut.', '2021-09-01 04:01:18', NULL),
+(47, 33, 31, 'aut', 'quis', 1, 36794969, 51653269, 'harum', 'Sed nobis sequi ducimus molestiae. Tempore repellendus est sequi nisi ut odit. Esse libero quidem dolores nam ut asperiores voluptate. Occaecati quia ipsum delectus facilis qui rerum ut.', 'Iusto iste aperiam accusamus officiis recusandae esse. Mollitia qui et et aut rem error. Fugiat in atque quo inventore impedit.', '2021-08-21 21:37:28', NULL),
+(48, 43, 20, 'at', 'sit', 5, 26536150, 46574592, 'voluptatum', 'Harum et ullam voluptatem rerum quis saepe ut. Autem aut quis aliquid doloribus voluptatum. Non sequi ea maiores dolores.', 'Ea molestiae repudiandae ea placeat ex eum. Deserunt eum vel sit illo in. Sit est voluptatem optio sed non ducimus.', '2021-09-05 03:00:20', NULL),
+(49, 20, 47, 'doloremque', 'et', 8, 75816481, 39225306, 'deserunt', 'Dolor assumenda incidunt sunt fugiat quidem. Sint quibusdam reprehenderit est aspernatur amet ut. Cum nihil consequatur numquam totam ut repellendus facilis.', 'Distinctio reiciendis quia sed quo. Tenetur mollitia ad non debitis. Sapiente in dolor dolorem consequatur facere et pariatur.', '2021-08-18 01:55:26', NULL),
+(50, 2, 37, 'ea', 'error', 6, 90368336, 29792559, 'libero', 'Sint ab qui quis a. Quasi aut aperiam voluptatum blanditiis quis vitae esse. Impedit quibusdam dolores perferendis nesciunt iusto.', 'Ab harum corrupti illum. Saepe id eum aut. Fugiat enim optio consequatur aliquid rerum. Maiores asperiores omnis consequatur sunt nihil et.', '2021-08-05 21:47:33', NULL),
+(51, 20, 21, 'aaa', 'aaa', 99, 756879, 6576878, 'pcs', 'aaa', '270e2b297a18ba24f4ea04c7d0eb5679', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
+(52, 13, 4, 'lala lili', 'lala lili', 1111, 88888, 99999, 'kg', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.', '3da3db1bf5baf88220e96d146a8ed551', '2021-10-19 04:28:56', '2021-10-19 08:17:12'),
+(53, 13, 48, 'papa', 'papa', 20, 190000, 250000, 'pcs', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', '17a33b9f0c662a7457c60ff61f8be512', '2021-10-19 05:36:14', '2021-10-19 05:36:14'),
+(54, 32, 2, 'zaza', 'zaza', 23, 900000, 950000, 'pcs', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', 'b5208a5776c2f18faeca891180767207', '2021-10-19 06:32:14', '2021-10-19 06:32:14'),
+(55, 51, 50, 'Kaka Ayu tinggi', 'kaka ayu tinggi', 222222222, 888888888, 888888888, 'kaka ayu tinggi', 'kaka ayu tinggi', '16e8ca92287d7d1501d85d4876bc0658', '2021-10-19 06:51:20', '2021-10-19 08:18:14');
 
 -- --------------------------------------------------------
 
@@ -361,6 +428,13 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `image_product`
+--
+ALTER TABLE `image_product`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_product_detail_gambar` (`product_id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -384,9 +458,7 @@ ALTER TABLE `personal_access_tokens`
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_product_category` (`category_id`),
-  ADD KEY `fk_supplier_category` (`supplier_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `supplier`
@@ -409,7 +481,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -418,10 +490,16 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `image_product`
+--
+ALTER TABLE `image_product`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -433,7 +511,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `supplier`
@@ -452,11 +530,10 @@ ALTER TABLE `users`
 --
 
 --
--- Constraints for table `product`
+-- Constraints for table `image_product`
 --
-ALTER TABLE `product`
-  ADD CONSTRAINT `fk_product_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_supplier_category` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `image_product`
+  ADD CONSTRAINT `fk_product_detail_gambar` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
