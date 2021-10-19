@@ -25,7 +25,9 @@ class Product extends Component
     public $idPro, $category_id, $supplier_id, $name, $type, $qty, $capital_price, $sell_price;
     public $unit, $description, $listCategory=[], $listSupplier=[], $detailProduk = [], $detailGambarProduk= [];
     public $imageFeatured;
+    public $imageFeaturedEdit;
     public $image=[];
+    public $imageEdit=[];
 
     
     public function updatingSearch(){
@@ -56,7 +58,7 @@ class Product extends Component
         $this->supplier_id = $id;
     }
 
-    public function validateDesc(){
+    public function validateDesc($stat){
         $this->validate([
             'category_id' => 'required',
             'supplier_id' => 'required',
@@ -68,39 +70,18 @@ class Product extends Component
             'unit' => 'required',
             //'description' => 'required'
         ]);
-        $this->dispatchBrowserEvent('show-modal-gambar');
-        // ProductModel::create([
-        //     'category_id' => $this->category_id,
-        //     'supplier_id' => $this->supplier_id,
-        //     'name' => $this->name,
-        //     'type' => $this->type,
-        //     'qty' => $this->qty,
-        //     'capital_price' => preg_replace("/[^0-9]/", "", $this->capital_price),
-        //     'sell_price' => preg_replace("/[^0-9]/", "", $this->sell_price),
-        //     'unit' => $this->unit,
-        //     'description' => $this->description,
-        // ]);
-
-        // $this->category_id = "";
-        // $this->supplier_id = "";
-        // $this->name = "";
-        // $this->type = "";
-        // $this->qty = "";
-        // $this->capital_price = "";
-        // $this->sell_price = "";
-        // $this->unit = "";
-        // $this->description = "";
-        // $this->dispatchBrowserEvent('close-modal');
-        // $this->dispatchBrowserEvent('swal:modal', [
-        //     'type' => 'success',  
-        //     'message' => 'Produk Baru berhasil dibuat! Silahkan tambahkan Gambar untuk produk ini !', 
-        //     'text' => 'Data ditambahkan ke database.'
-        // ]);
+        if($stat==1){
+            $this->dispatchBrowserEvent('show-modal-gambar');
+        }else{
+            $this->dispatchBrowserEvent('show-modal-editgambar');
+        }
+        
     }
 
     public function save(){
         $this->validate([
-            'image.*' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:5000', // 1MB Max
+            'image.0' => 'required',
+            'image.*' => 'image|mimes:jpg,jpeg,png,svg,gif|max:5000', // 1MB Max
             'imageFeatured' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:5000',
         ]);
 
@@ -181,16 +162,16 @@ class Product extends Component
     }
 
     public function update(){
-        $this->validate([
-            'category_id' => 'required',
-            'supplier_id' => 'required',
-            'name' => 'required',
-            'type' => 'required',
-            'qty' => 'required',
-            'capital_price' => 'required',
-            'sell_price' => 'required',
-            'unit' => 'required',
-        ]);
+        // $this->validate([
+        //     'category_id' => 'required',
+        //     'supplier_id' => 'required',
+        //     'name' => 'required',
+        //     'type' => 'required',
+        //     'qty' => 'required',
+        //     'capital_price' => 'required',
+        //     'sell_price' => 'required',
+        //     'unit' => 'required',
+        // ]);
 
         if($this->idPro){
             $pro = ProductModel::find($this->idPro);

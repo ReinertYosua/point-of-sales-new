@@ -155,7 +155,7 @@
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                         Batal
                                         </button>
-                                        <button type="button" wire:click.prevent="validateDesc()" class="btn btn-primary">Selanjutnya</button>
+                                        <button type="button" wire:click.prevent="validateDesc(1)" class="btn btn-primary">Selanjutnya</button>
                                         <!-- <button type="button" wire:click.prevent="validateDesc()" class="btn btn-primary close-modal">Simpan</button> -->
                                     </div>
                             </div>
@@ -266,14 +266,14 @@
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                         Batal
                                         </button>
-                                        <button type="button" wire:click.prevent="update()" class="btn btn-primary close-modal">Simpan</button>
+                                        <button type="button" wire:click.prevent="validateDesc(0)" class="btn btn-primary close-modal">Selanjutnya</button>
                                     </div>
                             </div>
                         </div>
                     </div>
                     <!-- Detail Modal -->
                     <div wire:ignore.self class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h3 class="modal-title font-weight-bold mb-3" id="detailModalLabel">Detail Produk</h3>
@@ -424,7 +424,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label>Gambar Pendukung (Bisa pilih lebih dari satu)</label>
+                                                        <label>Gambar Pendukung (Bisa pilih lebih dari satu)</label><span class="text-danger">*</span>
                                                         <div class="custom-file">
                                                             <input type="file" class="custom-file-input" id="customFile" wire:model="image" multiple>
                                                             <label for="customFile" class="custom-file-label">Pilih Gambar</label>    
@@ -454,6 +454,75 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Update Gambar Modal -->
+                    <div wire:ignore.self class="modal fade" id="UpdateGambarModal" tabindex="-1" role="dialog" aria-labelledby="UpdateGambarModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title font-weight-bold mb-3" id="UpdateGambarModalLabel">Gambar Produk</h3>
+                                    <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    >&times;</button>
+                                </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Gambar Utama</label><span class="text-danger">*</span>
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" id="customFile" wire:model="imageFeaturedEdit">
+                                                            <label for="customFile" class="custom-file-label">Pilih Gambar</label>
+                                                            <div wire:loading wire:target="imageFeaturedEdit">Uploading...</div>                            
+                                                            @error('imageFeaturedEdit') <small class="text-danger">{{$message}}</small>@enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                @if($imageFeaturedEdit)
+                                                    
+                                                        <div class="col-4 card mx-auto">
+                                                            <img src="{{ $imageFeaturedEdit->temporaryUrl() }}" class="img-fluid" alt="Preview Image">
+                                                        </div>
+                                                @endif
+                                            </div>
+                                            </br>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Gambar Pendukung (Bisa pilih lebih dari satu)</label><span class="text-danger">*</span>
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" id="customFile" wire:model="imageEdit" multiple>
+                                                            <label for="customFile" class="custom-file-label">Pilih Gambar</label>    
+                                                            <div wire:loading wire:target="imageEdit">Uploading...</div>                        
+                                                            @error('imageEdit.*') <small class="text-danger">{{$message}}</small>@enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                @if($imageEdit)
+                                                    @foreach ($imageEdit as $imageEdit)
+                                                        <div class="col-4 card me-1 mb-1">
+                                                            <img src="{{ $imageEdit->temporaryUrl() }}" class="img-fluid" alt="Preview Image">
+                                                        </div>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#updateModal" data-dismiss="modal">
+                                        Kembali
+                                        </button>
+                                        <button type="button" wire:click.prevent="update()" class="btn btn-primary close-modal">Simpan</button>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -472,11 +541,16 @@
         // $('#exampleModal').modal('hide'),
         $('#updateModal').modal('hide')
         $('#gambarModal').modal('hide')
+        $('#UpdateGambarModal').modal('hide')
     })
 
     window.addEventListener('show-modal-gambar', event=> {
         $('#gambarModal').modal('show'),
         $('#exampleModal').modal('hide')
+    })
+    window.addEventListener('show-modal-editgambar', event=> {
+        $('#UpdateGambarModal').modal('show'),
+        $('#updateModal').modal('hide')
     })
 
     window.addEventListener('tampilData', event=>{
