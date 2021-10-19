@@ -9,6 +9,9 @@ use Livewire\WithFileUploads;
 use App\Models\Product as ProductModel;
 use App\Models\Category as CategoryModel;
 use App\Models\Supplier as SupplierModel;
+use App\Models\ImageProduct as ImageProductModel;
+
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Component
 {
@@ -20,8 +23,11 @@ class Product extends Component
     public $search;
 
     public $idPro, $category_id, $supplier_id, $name, $type, $qty, $capital_price, $sell_price;
-    public $unit, $description, $listCategory=[], $listSupplier=[], $detailProduk = [];
+    public $unit, $description, $listCategory=[], $listSupplier=[], $detailProduk = [], $detailGambarProduk= [];
+    public $imageFeatured;
+    public $image=[];
 
+    
     public function updatingSearch(){
         $this->resetPage();
     }
@@ -50,7 +56,7 @@ class Product extends Component
         $this->supplier_id = $id;
     }
 
-    public function store(){
+    public function validateDesc(){
         $this->validate([
             'category_id' => 'required',
             'supplier_id' => 'required',
@@ -62,8 +68,49 @@ class Product extends Component
             'unit' => 'required',
             //'description' => 'required'
         ]);
+        $this->dispatchBrowserEvent('show-modal-gambar');
+        // ProductModel::create([
+        //     'category_id' => $this->category_id,
+        //     'supplier_id' => $this->supplier_id,
+        //     'name' => $this->name,
+        //     'type' => $this->type,
+        //     'qty' => $this->qty,
+        //     'capital_price' => preg_replace("/[^0-9]/", "", $this->capital_price),
+        //     'sell_price' => preg_replace("/[^0-9]/", "", $this->sell_price),
+        //     'unit' => $this->unit,
+        //     'description' => $this->description,
+        // ]);
 
-        ProductModel::create([
+        // $this->category_id = "";
+        // $this->supplier_id = "";
+        // $this->name = "";
+        // $this->type = "";
+        // $this->qty = "";
+        // $this->capital_price = "";
+        // $this->sell_price = "";
+        // $this->unit = "";
+        // $this->description = "";
+        // $this->dispatchBrowserEvent('close-modal');
+        // $this->dispatchBrowserEvent('swal:modal', [
+        //     'type' => 'success',  
+        //     'message' => 'Produk Baru berhasil dibuat! Silahkan tambahkan Gambar untuk produk ini !', 
+        //     'text' => 'Data ditambahkan ke database.'
+        // ]);
+    }
+
+    public function save(){
+        $this->validate([
+            'image.*' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:5000', // 1MB Max
+            'imageFeatured' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:5000',
+        ]);
+
+        $imageFeaturedName = md5($this->imageFeatured.microtime().'.'.$this->imageFeatured->extension());
+        Storage::putFileAs(
+            'public/images',
+            $this->imageFeatured,
+            $imageFeaturedName
+        );
+        $product=ProductModel::create([
             'category_id' => $this->category_id,
             'supplier_id' => $this->supplier_id,
             'name' => $this->name,
@@ -73,7 +120,24 @@ class Product extends Component
             'sell_price' => preg_replace("/[^0-9]/", "", $this->sell_price),
             'unit' => $this->unit,
             'description' => $this->description,
+            'featuredImage' => $imageFeaturedName
         ]);
+        
+        foreach ($this->image as $key => $gbr) {
+            //$this->image[$key] = $gbr->store('images','public');
+            $imageName= md5($gbr.microtime().'.'.$gbr->extension());
+            Storage::putFileAs(
+                'public/images',
+                $this->image[$key],
+                $imageName,
+            );
+            ImageProductModel::create([
+                'product_id' => $product->id,
+                'image' => $imageName
+            ]);
+        }
+
+        
 
         $this->category_id = "";
         $this->supplier_id = "";
@@ -87,7 +151,7 @@ class Product extends Component
         $this->dispatchBrowserEvent('close-modal');
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',  
-            'message' => 'Produk Baru berhasil dibuat! Silahkan tambahkan Gambar untuk produk ini !', 
+            'message' => 'Produk Baru berhasil dibuat!', 
             'text' => 'Data ditambahkan ke database.'
         ]);
     }
@@ -97,6 +161,8 @@ class Product extends Component
                             ->join('supplier', 'supplier.id','=','product.supplier_id')
                             ->where('product.id', $id)
                             ->get(['product.*', 'category.name as cat_name', 'supplier.company_name as company_name','supplier.contact_name as contact_name']);
+
+        $this->detailGambarProduk = ImageProductModel::where('product_id',$id)->get('image_product.image as detailImage');
     }
 
     public function edit($id){
@@ -176,4 +242,11 @@ class Product extends Component
             ]);
         }
     }
+
+    // public function detilProdukGambar($id){
+    //     $this->detailProduk = ProductModel::join('category', 'category.id', '=', 'product.category_id')
+    //                         ->join('supplier', 'supplier.id','=','product.supplier_id')
+    //                         ->where('product.id', $id)
+    //                         ->get(['product.*', 'category.name as cat_name', 'supplier.company_name as company_name','supplier.contact_name as contact_name']);
+    // }
 }

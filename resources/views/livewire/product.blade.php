@@ -17,11 +17,12 @@
                             <tr>
                                 <th style="width: 5%">No</th>
                                 <th style="width: 15%">Kategori</th>
-                                <th style="width: 20%">Supplier</th>
-                                <th style="width: 25%">Nama Produk</th>
+                                <th style="width: 15%">Supplier</th>
+                                <th style="width: 20%">Nama Produk</th>
                                 <th style="width: 5%">Quantity</th>
                                 <th style="width: 15%">Harga Jual</th>
-                                <th style="width: 15%">Tindakan</th>
+                                <th style="width: 15%">Gambar</th>
+                                <th style="width: 10%">Tindakan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,8 +34,9 @@
                                 <td style="cursor:pointer" data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" data-placement="top" title="Klik untuk lihat detail">{{$product->name}}</td>
                                 <td style="cursor:pointer" data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" data-placement="top" title="Klik untuk lihat detail">{{$product->qty}}</td>
                                 <td style="cursor:pointer" data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" data-placement="top" title="Klik untuk lihat detail">@currency($product->sell_price)</td>
+                                <td style="cursor:pointer" data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" data-placement="top" title="Klik untuk lihat detail"><img src="{{ asset('storage/images/'.$product->featuredImage)}}" alt="Gambar Produk" style="object-fit:contain; width:100%; height:125px"></td>
                                 <td>
-                                    <button data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $product->id }})" class="btn btn-success btn-sm">Tambah Gambar</button>
+                                    <!-- <button data-toggle="modal" data-target="#gambarModal" wire:click="detilProdukGambar({{ $product->id }})" class="btn btn-success btn-sm">Tambah Gambar</button> -->
                                     <button data-toggle="modal" data-target="#updateModal" wire:click="edit({{ $product->id }})" class="btn btn-primary btn-sm">Ubah</button>
                                     <button wire:click="deleteConfirm({{ $product->id }})" class="btn btn-danger btn-sm">Hapus</button>
                                 </td>
@@ -153,7 +155,8 @@
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                         Batal
                                         </button>
-                                        <button type="button" wire:click.prevent="store()" class="btn btn-primary close-modal">Simpan</button>
+                                        <button type="button" wire:click.prevent="validateDesc()" class="btn btn-primary">Selanjutnya</button>
+                                        <!-- <button type="button" wire:click.prevent="validateDesc()" class="btn btn-primary close-modal">Simpan</button> -->
                                     </div>
                             </div>
                         </div>
@@ -348,6 +351,105 @@
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                         Tutup
                                         </button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detailGambarModal" onclick="closeModal()">Selanjutnya</button>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Detail Gambar Modal -->
+                    <div wire:ignore.self class="modal fade" id="detailGambarModal" tabindex="-1" role="dialog" aria-labelledby="detailGambarModal" aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title font-weight-bold mb-3" id="detailGambarModal">Detail Gambar Produk</h3>
+                                    <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    >&times;</button>
+                                </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            @foreach($detailGambarProduk as $gapro)
+                                                <div class="col-4 card mx-auto">
+                                                    <img src="{{ asset('storage/images/'.$gapro->detailImage)}}" class="img-fluid" alt="Preview Image">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                        Tutup
+                                        </button>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tambah Gambar Modal -->
+                    <div wire:ignore.self class="modal fade" id="gambarModal" tabindex="-1" role="dialog" aria-labelledby="gambarModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title font-weight-bold mb-3" id="gambarModalLabel">Gambar Produk</h3>
+                                    <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    >&times;</button>
+                                </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Gambar Utama</label><span class="text-danger">*</span>
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" id="customFile" wire:model="imageFeatured">
+                                                            <label for="customFile" class="custom-file-label">Pilih Gambar</label>
+                                                            <div wire:loading wire:target="imageFeatured">Uploading...</div>                            
+                                                            @error('imageFeatured') <small class="text-danger">{{$message}}</small>@enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                @if($imageFeatured)
+                                                    
+                                                        <div class="col-4 card mx-auto">
+                                                            <img src="{{ $imageFeatured->temporaryUrl() }}" class="img-fluid" alt="Preview Image">
+                                                        </div>
+                                                @endif
+                                            </div>
+                                            </br>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Gambar Pendukung (Bisa pilih lebih dari satu)</label>
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" id="customFile" wire:model="image" multiple>
+                                                            <label for="customFile" class="custom-file-label">Pilih Gambar</label>    
+                                                            <div wire:loading wire:target="image">Uploading...</div>                        
+                                                            @error('image.*') <small class="text-danger">{{$message}}</small>@enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                @if($image)
+                                                    @foreach ($image as $image)
+                                                        <div class="col-4 card me-1 mb-1">
+                                                            <img src="{{ $image->temporaryUrl() }}" class="img-fluid" alt="Preview Image">
+                                                        </div>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" data-dismiss="modal">
+                                        Kembali
+                                        </button>
+                                        <button type="button" wire:click.prevent="save()" class="btn btn-primary close-modal">Simpan</button>
                                     </div>
                             </div>
                         </div>
@@ -361,9 +463,20 @@
 
 @push('scripts')
 <script>
+    function closeModal(){
+        //detailModal
+        $('#detailModal').modal('hide')
+    }
+
     window.addEventListener('close-modal', event=> {
-        $('#exampleModal').modal('hide'),
+        // $('#exampleModal').modal('hide'),
         $('#updateModal').modal('hide')
+        $('#gambarModal').modal('hide')
+    })
+
+    window.addEventListener('show-modal-gambar', event=> {
+        $('#gambarModal').modal('show'),
+        $('#exampleModal').modal('hide')
     })
 
     window.addEventListener('tampilData', event=>{

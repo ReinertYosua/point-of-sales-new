@@ -29,6 +29,7 @@ class ProductSeeder extends Seeder
               'sell_price' => $faker->numberBetween($min = 10000, $max = 100000000),
               'unit' => $faker->word,
               'description' => $faker->text,
+              'featuredImage' => $faker->text,
               'created_at' => $faker->dateTimeBetween($startDate, $endDate),
           ]);
         }

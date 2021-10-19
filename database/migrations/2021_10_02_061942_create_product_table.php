@@ -24,6 +24,7 @@ class CreateProductTable extends Migration
             $table->integer('sell_price');
             $table->string('unit');
             $table->text('description');
+            $table->string('featuredImage');
             $table->timestamps();
         });
     }
