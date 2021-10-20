@@ -65,6 +65,9 @@
                 <a class="navbar-brand" href="{{ url('/product') }}">
                     Product
                 </a>
+                <a class="navbar-brand" href="{{ url('/barangkeluar') }}">
+                    Barang Keluar
+                </a>
                 @endguest
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
