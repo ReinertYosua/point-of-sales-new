@@ -129,6 +129,8 @@ class Product extends Component
         $this->sell_price = "";
         $this->unit = "";
         $this->description = "";
+        $this->imageFeatured = "";
+        unset($this->image);
         $this->dispatchBrowserEvent('close-modal');
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',  
@@ -228,6 +230,8 @@ class Product extends Component
             $this->sell_price = "";
             $this->unit = "";
             $this->description = "";
+            $this->imageFeaturedEdit = "";
+            unset($this->imageEdit);
             $this->dispatchBrowserEvent('close-modal');
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'success',  
@@ -235,6 +239,52 @@ class Product extends Component
                 'text' => 'Data pada database diubah.'
             ]);
         }
+    }
+
+    public function updateData(){
+        //update data hanya khusus data saja tidak gambar
+        $this->validate([
+            'category_id' => 'required',
+            'supplier_id' => 'required',
+            'name' => 'required',
+            'type' => 'required',
+            'qty' => 'required',
+            'capital_price' => 'required',
+            'sell_price' => 'required',
+            'unit' => 'required',
+            //'description' => 'required'
+        ]);
+
+        if($this->idPro){
+            $pro = ProductModel::find($this->idPro);
+            $pro->update([
+                'category_id' => $this->category_id,
+                'supplier_id' => $this->supplier_id,
+                'name' => $this->name,
+                'type' => $this->type,
+                'qty' => $this->qty,
+                'capital_price' => preg_replace("/[^0-9]/", "", $this->capital_price),
+                'sell_price' => preg_replace("/[^0-9]/", "", $this->sell_price),
+                'unit' => $this->unit,
+                'description' => $this->description,
+            ]);
+        }
+
+        $this->category_id = "";
+        $this->supplier_id = "";
+        $this->name = "";
+        $this->type = "";
+        $this->qty = "";
+        $this->capital_price = "";
+        $this->sell_price = "";
+        $this->unit = "";
+        $this->description = "";
+        $this->dispatchBrowserEvent('close-modal');
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'success',  
+            'message' => 'Produk berhasil diubah!', 
+            'text' => 'Data pada database diubah.'
+        ]);
     }
 
     public function deleteConfirm($id){
@@ -248,6 +298,14 @@ class Product extends Component
 
     public function delete($id){
         if($id){
+            $proDetailImage = ImageProductModel::where('product_id',$id)->get('image_product.image as detailImage');
+            //hapus gambar lama di folder storage
+            foreach ($proDetailImage as $gbrhps){
+                $deleted = Storage::disk('local')->delete('public/images/'.$gbrhps->detailImage);
+                if(!$deleted){
+                    dd("file gagal dihapus: ".$gbrhps->detailImage." - ".$id);
+                }    
+            }
             ProductModel::where('id',$id)->delete();
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'success',  

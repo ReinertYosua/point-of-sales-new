@@ -266,7 +266,8 @@
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                         Batal
                                         </button>
-                                        <button type="button" wire:click.prevent="validateDesc(0)" class="btn btn-primary close-modal">Selanjutnya</button>
+                                        <button type="button" wire:click.prevent="validateDesc(0)" class="btn btn-warning close-modal">Ubah Gambar</button>
+                                        <button type="button" wire:click.prevent="updateData(0)" class="btn btn-primary close-modal">Simpan</button>
                                     </div>
                             </div>
                         </div>
