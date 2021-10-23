@@ -104,8 +104,8 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Propinsi</label>
-                                                        <input wire:model="region" type="text" class="form-control">
-                                                        @error('region') <small class="text-danger">{{$message}}</small>@enderror
+                                                        <input wire:model="province" type="text" class="form-control">
+                                                        @error('province') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -223,8 +223,8 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Propinsi</label>
-                                                        <input wire:model="region" type="text" class="form-control">
-                                                        @error('region') <small class="text-danger">{{$message}}</small>@enderror
+                                                        <input wire:model="province" type="text" class="form-control">
+                                                        @error('province') <small class="text-danger">{{$message}}</small>@enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -335,7 +335,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="text-primary">Propinsi</label>
-                                                        <p class="h4">{{$detSup->region}}</p>
+                                                        <p class="h4">{{$detSup->province}}</p>
                                                     </div>
                                                 </div>
                                             </div>

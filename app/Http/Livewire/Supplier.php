@@ -14,7 +14,7 @@ class Supplier extends Component
     protected $listeners = ['delete'];
     
     public $idSup,$company_name,$contact_name,$contact_title,$address;
-    public $city,$region,$country,$postal_code,$phone,$account_number,$bank_name,$description;
+    public $city,$province,$country,$postal_code,$phone,$account_number,$bank_name,$description;
     public $search, $detailSup = [];
 
     public function updatingSearch(){
@@ -43,7 +43,7 @@ class Supplier extends Component
             'contact_title' => $this->contact_title,
             'address' => $this->address,
             'city' => $this->city,
-            'region' => $this->region,
+            'province' => $this->province,
             'country' => $this->country,
             'postal_code' => $this->postal_code,
             'phone' => $this->phone,
@@ -57,7 +57,7 @@ class Supplier extends Component
         $this->contact_title ="";
         $this->address ="";
         $this->city ="";
-        $this->region ="";
+        $this->province ="";
         $this->country ="";
         $this->postal_code ="";
         $this->phone ="";
@@ -80,7 +80,7 @@ class Supplier extends Component
         $this->contact_title = $sup->contact_title;
         $this->address = $sup->address;
         $this->city = $sup->city;
-        $this->region = $sup->region;
+        $this->province = $sup->province;
         $this->country = $sup->country;
         $this->postal_code = $sup->postal_code;
         $this->phone = $sup->phone;
@@ -105,7 +105,7 @@ class Supplier extends Component
                 'contact_title' => $this->contact_title,
                 'address' => $this->address,
                 'city' => $this->city,
-                'region' => $this->region,
+                'province' => $this->province,
                 'country' => $this->country,
                 'postal_code' => $this->postal_code,
                 'phone' => $this->phone,
@@ -118,7 +118,7 @@ class Supplier extends Component
             $this->contact_title ="";
             $this->address ="";
             $this->city ="";
-            $this->region ="";
+            $this->province ="";
             $this->country ="";
             $this->postal_code ="";
             $this->phone ="";

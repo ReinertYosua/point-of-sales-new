@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Category;
 use App\Http\Livewire\Supplier;
 use App\Http\Livewire\Product;
+use App\Http\Livewire\Customer;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,5 +26,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/kategori', Category::class);
     Route::get('/supplier', Supplier::class);
     Route::get('/product', Product::class);
+    Route::get('/pelanggan', Customer::class);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });

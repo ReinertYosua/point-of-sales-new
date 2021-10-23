@@ -20,7 +20,7 @@ class CreateSupplierTable extends Migration
             $table->string('contact_title');
             $table->text('address');
             $table->string('city');
-            $table->string('region');
+            $table->string('province');
             $table->string('country');
             $table->string('postal_code');
             $table->string('phone');
