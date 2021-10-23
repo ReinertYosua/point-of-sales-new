@@ -91,6 +91,71 @@ class Customer extends Component
         $this->description = $cus->description;
     }
 
+    public function update(){
+        $this->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'address' => 'required',
+            'phone1' => 'required'
+        ]);
+
+        if($this->idCust){
+            $sup = CustomerModel::find($this->idCust);
+            $sup->update([
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
+                'address' => $this->address,
+                'city' => $this->city,
+                'province' => $this->province,
+                'country' => $this->country,
+                'phone1' => $this->phone1,
+                'phone2' => $this->phone2,
+                'postal_code' => $this->postal_code,
+                'account_number' => $this->account_number,
+                'bank_name' => $this->bank_name,
+                'description' => $this->description
+            ]);
+            $this->first_name ="";
+            $this->last_name ="";
+            $this->address ="";
+            $this->city ="";
+            $this->province ="";
+            $this->country ="";
+            $this->phone1 ="";
+            $this->phone2 ="";
+            $this->postal_code ="";
+            $this->account_number ="";
+            $this->bank_name ="";
+            $this->description ="";
+            $this->dispatchBrowserEvent('close-modal');
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'success',  
+                'message' => 'Pelanggan berhasil diubah!', 
+                'text' => 'Data pada database diubah.'
+            ]);
+        }
+    }
+
+    public function deleteConfirm($id){
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type' => 'warning',  
+            'message' => 'Apakah anda yakin ?', 
+            'text' => 'Jika dihapus, anda tidak dapat mengembalikan data ini!',
+            'id' => $id,
+        ]);
+    }
+
+    public function delete($id){
+        if($id){
+            CustomerModel::where('id',$id)->delete();
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'success',  
+                'message' => 'Pelanggan berhasil dihapus!', 
+                'text' => 'Data pada database dihapus.'
+            ]);
+        }
+    }
+
     public function detail($id){
         $this->detailCus = CustomerModel::where('id', $id)->get();
     }

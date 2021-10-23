@@ -5,6 +5,7 @@ use App\Http\Livewire\Category;
 use App\Http\Livewire\Supplier;
 use App\Http\Livewire\Product;
 use App\Http\Livewire\Customer;
+use App\Http\Livewire\Order;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,5 +28,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/supplier', Supplier::class);
     Route::get('/product', Product::class);
     Route::get('/pelanggan', Customer::class);
+    Route::get('/pesanan', Order::class);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
