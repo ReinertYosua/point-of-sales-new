@@ -12,5 +12,7 @@ class DetailOrder extends Model
     protected $table = 'detail_order';
     protected $guarded = [];
 
-    
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
 }
