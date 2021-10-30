@@ -8,7 +8,8 @@
                     {{ session('message') }}
                     </div>
                 @endif
-                <a href="{{ route('tambahpesanan') }}" class="btn btn-primary mb-3"><i class="fas fa-plus"> Tambah</i></a>
+                <a href="{{ url('/tambahpesanan') }}" class="btn btn-primary mb-3"><i class="fas fa-plus"> Tambah</i></a>
+                <!-- <button class="btn btn-primary mb-3" wire:click="addOrder"><i class="fas fa-plus"> Tambah</i></button> -->
                 <div class="col-md-8 float-md-right"><input wire:model="search" type="text" class="form-control" placeholder="Cari Pesanan"></div>
                 <!-- <div class="container-fluid"> -->
                 <table class="table">
