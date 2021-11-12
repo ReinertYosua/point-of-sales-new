@@ -581,7 +581,7 @@
         livewire.emit('tmpCategory', data);
         //@this.set('category_id', data);
     });
-
+    
     $('#select-category').on('change', function (e) {
         let data = $('#select-category').val();
         livewire.emit('tmpCategory', data);
