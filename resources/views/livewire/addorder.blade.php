@@ -20,7 +20,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Pelanggan</label><span class="text-danger">*</span>
-                                <input wire:model="customer" type="text" class="form-control">
+                                <input wire:model="customer" placeholder="Klik untuk memilih Pelanggan" type="text" class="form-control" data-toggle="modal" data-target="#ModalCustomer" data-placement="top">
                                 @error('customer') <small class="text-danger">{{$message}}</small>@enderror
                                 
                             </div>
@@ -150,6 +150,61 @@
                                                     <td>
                                                         <button wire:click="deleteConfirm({{ $det->id }})" class="btn btn-danger btn-sm">Hapus</button>
                                                     </td>
+                                                </tr>
+                                                @empty
+                                                <td colspan="8"><h6 class="text-center">Data Kosong</h6></td>
+                                                @endforelse
+                                            
+                                            </tbody>
+                                            </table>
+                                            <div style="display:flex; justify-content:center">
+                                                {{$termpay->links()}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Tutup
+                                    </button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Customer -->
+                <div wire:ignore.self class="modal fade" id="ModalCustomer" tabindex="-1" role="dialog" aria-labelledby="ModalCustomerLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title font-weight-bold mb-3" id="ModalCustomerLabel">Daftar Pelangan</h3>
+                                <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                >&times;</button>
+                            </div>
+                                <div class="modal-body">
+                                    <h6 class="text-danger">*Wajib diisi</h6>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                        <input wire:model="search" type="text" class="form-control" placeholder="Cari Customer">
+                                            <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 10%">No</th>
+                                                    <th style="width: 30%">Nama</th>
+                                                    <th style="width: 35%">Alamat</th>
+                                                    <th style="width: 25%">Kontak</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse($termpay as $index=>$det)
+                                                <tr>
+                                                    <td>{{$det->day}}</td>
+                                                    <td>{{substr($det->description,0,50)}}</td>
+                                                    <td>{{$det->day}}</td>
+                                                    <td>{{$det->day}}</td>
                                                 </tr>
                                                 @empty
                                                 <td colspan="8"><h6 class="text-center">Data Kosong</h6></td>
