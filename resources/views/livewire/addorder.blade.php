@@ -20,7 +20,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Pelanggan</label><span class="text-danger">*</span>
-                                <input wire:model="customer" placeholder="Klik untuk memilih Pelanggan" type="text" class="form-control" data-toggle="modal" data-target="#ModalCustomer" data-placement="top">
+                                <input readonly wire:model="customer" placeholder="Klik untuk memilih Pelanggan" type="text" class="form-control" data-toggle="modal" data-target="#ModalCustomer" data-placement="top">
                                 @error('customer') <small class="text-danger">{{$message}}</small>@enderror
                                 
                             </div>
@@ -30,9 +30,12 @@
                                 <label>Jangka Waktu Pembayaran</label><span class="text-danger">*</span>
                                 <div class="input-group date">
                                 <select wire:model="term_payment" class="form-control" id="term_payment" onclick=tampil()>
-                                    <option>--Pilih--</option>
-                                    {{$test}}
-                                    
+                                    <option value="">--Pilih--</option>
+                                    @forelse($listTerm as $lst)
+                                        <option value="{{ $lst->id }}">{{ $lst->day }} Hari</option>
+                                    @empty
+                                        <option value="">Data Tidak ada</option>
+                                    @endforelse
                                 </select>&nbsp
                                 <button type="button" class="btn btn-success" style="cursor:pointer" data-toggle="modal" data-target="#exampleModal" data-placement="top" title="Tambah Jangka Waktu Pembayaran">
                                         <i class="fa fa-plus"></i>
@@ -76,8 +79,8 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Deskripsi</label>
-                                <textarea wire:model="description" name="" class="form-control"></textarea>
-                                @error('description') <small class="text-danger">{{$message}}</small>@enderror
+                                <textarea wire:model="descriptionOrder" name="" class="form-control"></textarea>
+                                @error('descriptionOrder') <small class="text-danger">{{$message}}</small>@enderror
                                 <!-- <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
@@ -185,26 +188,31 @@
                                 >&times;</button>
                             </div>
                                 <div class="modal-body">
-                                    <h6 class="text-danger">*Wajib diisi</h6>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h6 class="text-danger">*Wajib diisi</h6>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <p class="text-right font-weight-bold">Total Pelanggan: {{$listCus->total()}}</p>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-sm-12">
-                                        <input wire:model="search" type="text" class="form-control" placeholder="Cari Customer">
-                                            <table class="table">
+                                        <input wire:model="searchcus" type="text" class="form-control" placeholder="Cari Customer">
+                                            <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th style="width: 10%">No</th>
                                                     <th style="width: 30%">Nama</th>
                                                     <th style="width: 35%">Alamat</th>
                                                     <th style="width: 25%">Kontak</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse($termpay as $index=>$det)
-                                                <tr>
-                                                    <td>{{$det->day}}</td>
-                                                    <td>{{substr($det->description,0,50)}}</td>
-                                                    <td>{{$det->day}}</td>
-                                                    <td>{{$det->day}}</td>
+                                                @forelse($listCus as $index=>$cus)
+                                                <tr style="cursor:pointer" wire:click="assign({{ $cus->id }})" data-placement="top" title="Klik untuk Pilih Pelanggan" data-dismiss="modal">
+                                                    <td>{{$cus->first_name." ".$cus->last_name}}</td>
+                                                    <td>{{$cus->address}}</td>
+                                                    <td>{{$cus->phone1}}</td>
                                                 </tr>
                                                 @empty
                                                 <td colspan="8"><h6 class="text-center">Data Kosong</h6></td>
@@ -227,6 +235,72 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mt-3">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%">No</th>
+                            <th style="width: 25%">Nama Produk</th>
+                            <th style="width: 15%">Harga Jual</th>
+                            <th style="width: 10%">Kuantiti</th>
+                            <th style="width: 15%">Diskon</th>
+                            <th style="width: 15%">Jumlah</th>
+                            <th style="width: 15%">Deskripsi</th>
+                            <th style="width: 5%">Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><input wire:model="product.0" type="text" class="form-control"></td>
+                            <td><input wire:model="sell_price.0" type="text" class="form-control" readonly ></td>
+                            <td><input wire:model="qty.0" type="number" class="form-control"></td>
+                            <td>
+                                <div class="col-auto">
+                                <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                    <div class="input-group-text">%</div>
+                                    </div>
+                                    <input type="number" wire:model="discount.0" class="form-control" id="inlineFormInputGroup" placeholder="">
+                                </div>
+                                </div>
+                            </td>
+                            <td><input type="text" wire:model="total.0" class="form-control"></td>
+                            <td><input wire:model="type" type="number" class="form-control"></td>
+                            <td><button class="btn btn-primary mb-3" wire:click.prevent="add({{$i}})"><i class="fas fa-plus"></i></button></td>
+                        </tr>
+                        @foreach($inputs as $key=>$value)
+                        <tr>
+                            <td>{{$value}}</td>
+                            <td><input wire:model="product.v" type="text" class="form-control"></td>
+                            <td><input wire:model="sell_price.{{$value}}" type="text" class="form-control" readonly ></td>
+                            <td><input wire:model="qty.{{$value}}" type="number" class="form-control"></td>
+                            <td>
+                                <div class="col-auto">
+                                <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                    <div class="input-group-text">%</div>
+                                    </div>
+                                    <input type="number" wire:model="discount.{{$value}}" class="form-control" id="inlineFormInputGroup" placeholder="">
+                                </div>
+                                </div>
+                            </td>
+                            <td><input type="text" wire:model="total.{{$value}}" class="form-control"></td>
+                            <td><input wire:model="type" type="number" class="form-control"></td>
+                            <td><button class="btn btn-primary mb-3" wire:click.prevent="remove({{$i}})"><i class="fas fa-plus"></i></button></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

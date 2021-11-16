@@ -4,8 +4,10 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Http\Request;
 
 use App\Models\TermPayment as TermPaymentModel;
+use App\Models\Customer as CustomerModel;
 
 class Addorder extends Component
 {
@@ -13,22 +15,31 @@ class Addorder extends Component
     protected $paginationTheme = 'bootstrap';
     protected $listeners = ['delete'];
     public $search;
+    public $searchcus;
 
-    public $date_order, $sent_date, $payment_status, $customer, $description;
+    public $date_order, $sent_date, $customer, $term_payment, $address, $descriptionOrder;
 
     public $day_term, $descriptionterm, $listTermPayment=[];
 
-    public $test;
+    public $inputs = [];
+    public $i = 1;
 
     public function updatingSearch(){
         $this->resetPage();
     }
 
-    public function mount(){
-        $this->listTermPayment = TermPaymentModel::all(); 
-        $this->test = "Reinert"; 
+    public function add($ip)
+    {
+        dd($ip);
+        $ip = $ip + 1;
+        $this->i = $ip;
+        array_push($this->inputs ,$ip);
     }
 
+    public function remove($i)
+    {
+        unset($this->inputs[$i]);
+    }
 
     public function render()
     {
@@ -36,8 +47,15 @@ class Addorder extends Component
         $termpay = TermPaymentModel::where('day','like','%'.$this->search.'%')
                     ->orWhere('description','like','%'.$this->search.'%')
                     ->orderBy('created_at', 'DESC')->paginate(3);
-        // $detailJangka= TermPaymentModel::all()->paginate(10);
-        return view('livewire.addorder',['termpay'=>$termpay]);
+        
+        $listcustomer = CustomerModel::where('first_name','like','%'.$this->searchcus.'%')
+                        ->orWhere('last_name','like','%'.$this->searchcus.'%')
+                        ->orWhere('address','like','%'.$this->searchcus.'%')
+                        ->orWhere('phone1','like','%'.$this->searchcus.'%')
+                        ->paginate(5);
+
+        $lstTermPayment = TermPaymentModel::all(); 
+        return view('livewire.addorder',['termpay'=>$termpay, 'listTerm' => $lstTermPayment, 'listCus' => $listcustomer]);
     }
 
     public function saveTermPayment(){
@@ -80,6 +98,12 @@ class Addorder extends Component
                 'text' => 'Data pada database dihapus.'
             ]);
         }
+    }
+
+    public function assign($id){
+        $cust = CustomerModel::where('id',$id)->first();
+        $this->address = $cust->address;
+        $this->customer = $cust->first_name." ".$cust->last_name." - ".$cust->phone1;
     }
 
 }

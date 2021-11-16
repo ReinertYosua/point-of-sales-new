@@ -16,14 +16,17 @@ class CreateOrderTable extends Migration
         Schema::create('order', function (Blueprint $table) {
             $table->id();
             $table->string('invoice_number')->unique();
-            $table->bigInteger('customer_id')->unsigned();
+            $table->foreignId('customer_id')->unsigned();
             $table->date('date_order');
-            $table->string('payment_status');//hutang & lunas
-            $table->text('desc_payment');
-            $table->date('payment_date');
+            $table->string('term_payment');//date
+            $table->text('desc_order');
+            $table->date('sent_date');
+            $table->date('sent_address');
             $table->string('transaction_status');//process, finish
             $table->integer('grand_total');
             $table->timestamps();
+
+            $table->foreign('customer_id')->references('id')->on('customer');
         });
     }
 
