@@ -243,6 +243,7 @@
     <div class="col-md-12">
         <div class="card mt-3">
             <div class="card-body">
+            <button class="btn btn-primary mb-3" wire:click="add({{$i}})"><i class="fas fa-plus"></i></button>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -275,7 +276,7 @@
                             </td>
                             <td><input type="text" wire:model="total.0" class="form-control"></td>
                             <td><input wire:model="type" type="number" class="form-control"></td>
-                            <td><button class="btn btn-primary mb-3" wire:click.prevent="add({{$i}})"><i class="fas fa-plus"></i></button></td>
+                            <td><button class="btn btn-danger mb-3" wire:click.prevent="remove({{$i}})"><i class="fas fa-minus"></i></button></td>
                         </tr>
                         @foreach($inputs as $key=>$value)
                         <tr>
