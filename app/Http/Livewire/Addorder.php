@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Models\TermPayment as TermPaymentModel;
 use App\Models\Customer as CustomerModel;
+use App\Models\Product as ProductModel;
 
 class Addorder extends Component
 {
@@ -16,29 +17,32 @@ class Addorder extends Component
     protected $listeners = ['delete'];
     public $search;
     public $searchcus;
+    public $searchpro;
 
     public $date_order, $sent_date, $customer, $term_payment, $address, $descriptionOrder;
+
+    public $product, $sellPrice, $qty, $discount, $total, $descriptionTrans;
 
     public $day_term, $descriptionterm, $listTermPayment=[];
 
     public $inputs = [];
-    public $i = 1;
+    public $i = 0;
 
     public function updatingSearch(){
         $this->resetPage();
     }
 
-    public function add($ip)
-    {
-        dd($ip);
-        $ip = $ip + 1;
-        $this->i = $ip;
-        array_push($this->inputs ,$ip);
-    }
+    // public function add($i)
+    // {
+    //     $i = $i + 1;
+    //     $this->i = $i;
+    //     array_push($this->inputs ,$i);
+    // }
 
     public function remove($i)
     {
         unset($this->inputs[$i]);
+        
     }
 
     public function render()
@@ -53,9 +57,13 @@ class Addorder extends Component
                         ->orWhere('address','like','%'.$this->searchcus.'%')
                         ->orWhere('phone1','like','%'.$this->searchcus.'%')
                         ->paginate(5);
+        $listproduct = ProductModel::where('name','like','%'.$this->searchpro.'%')
+                        ->orWhere('type','like','%'.$this->searchpro.'%')
+                        ->orWhere('unit','like','%'.$this->searchpro.'%')
+                        ->paginate(10);
 
         $lstTermPayment = TermPaymentModel::all(); 
-        return view('livewire.addorder',['termpay'=>$termpay, 'listTerm' => $lstTermPayment, 'listCus' => $listcustomer]);
+        return view('livewire.addorder',['termpay'=>$termpay, 'listTerm' => $lstTermPayment, 'listCus' => $listcustomer, 'listPro' => $listproduct]);
     }
 
     public function saveTermPayment(){
@@ -104,6 +112,17 @@ class Addorder extends Component
         $cust = CustomerModel::where('id',$id)->first();
         $this->address = $cust->address;
         $this->customer = $cust->first_name." ".$cust->last_name." - ".$cust->phone1;
+    }
+
+    public function assignPro($id, $i){
+        $i = $i + 1;
+        $this->i = $i;
+        array_push($this->inputs ,$i);
+
+        $pro = ProductModel::where('id',$id)->first();
+        $this->product[$this->i] = $pro->name;
+        $this->sellPrice[$this->i] = "Rp. " . number_format($pro->sell_price,0,',','.');
+
     }
 
 }

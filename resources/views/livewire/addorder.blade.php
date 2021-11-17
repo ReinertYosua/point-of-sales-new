@@ -1,3 +1,4 @@
+<div class="container-fluid">
 <div class="row">
     <div class="col-md-12">
         <div class="card mt-3">
@@ -189,10 +190,10 @@
                             </div>
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="col-sm-6">
-                                            <h6 class="text-danger">*Wajib diisi</h6>
+                                        <div class="col-sm-8">
+                                            <p class="font-weight-bold">Silahkan klik pada baris untuk memilih pelanggan yang diinginkan</p>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-4">
                                             <p class="text-right font-weight-bold">Total Pelanggan: {{$listCus->total()}}</p>
                                         </div>
                                     </div>
@@ -221,7 +222,7 @@
                                             </tbody>
                                             </table>
                                             <div style="display:flex; justify-content:center">
-                                                {{$termpay->links()}}
+                                                {{$listCus->links()}}
                                             </div>
                                         </div>
                                     </div>
@@ -243,7 +244,7 @@
     <div class="col-md-12">
         <div class="card mt-3">
             <div class="card-body">
-            <button class="btn btn-primary mb-3" wire:click="add({{$i}})"><i class="fas fa-plus"></i></button>
+            <button class="btn btn-primary mb-3"  data-toggle="modal" data-target="#ModalProduk" data-placement="top"><i class="fas fa-plus"></i>&nbspTambah Produk Pesanan</button>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -258,54 +259,97 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><input wire:model="product.0" type="text" class="form-control"></td>
-                            <td><input wire:model="sell_price.0" type="text" class="form-control" readonly ></td>
-                            <td><input wire:model="qty.0" type="number" class="form-control"></td>
-                            <td>
-                                <div class="col-auto">
-                                <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                    <div class="input-group-text">%</div>
-                                    </div>
-                                    <input type="number" wire:model="discount.0" class="form-control" id="inlineFormInputGroup" placeholder="">
-                                </div>
-                                </div>
-                            </td>
-                            <td><input type="text" wire:model="total.0" class="form-control"></td>
-                            <td><input wire:model="type" type="number" class="form-control"></td>
-                            <td><button class="btn btn-danger mb-3" wire:click.prevent="remove({{$i}})"><i class="fas fa-minus"></i></button></td>
-                        </tr>
                         @foreach($inputs as $key=>$value)
                         <tr>
-                            <td>{{$value}}</td>
-                            <td><input wire:model="product.v" type="text" class="form-control"></td>
-                            <td><input wire:model="sell_price.{{$value}}" type="text" class="form-control" readonly ></td>
+                            <td>{{$loop->iteration}}</td>
+                            <td><input wire:model="product.{{$value}}" type="text" class="form-control" placeholder="Klik untuk memilih produk"  readonly></td>
+                            <td><input wire:model="sellPrice.{{$value}}" type="text" class="form-control" readonly ></td>
                             <td><input wire:model="qty.{{$value}}" type="number" class="form-control"></td>
                             <td>
-                                <div class="col-auto">
-                                <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                    <div class="input-group-text">%</div>
-                                    </div>
-                                    <input type="number" wire:model="discount.{{$value}}" class="form-control" id="inlineFormInputGroup" placeholder="">
+                            <div class="input-group">
+                                <input type="number" wire:model="discount.{{$value}}" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
                                 </div>
-                                </div>
+                            </div>
                             </td>
                             <td><input type="text" wire:model="total.{{$value}}" class="form-control"></td>
-                            <td><input wire:model="type" type="number" class="form-control"></td>
-                            <td><button class="btn btn-primary mb-3" wire:click.prevent="remove({{$i}})"><i class="fas fa-plus"></i></button></td>
+                            <td><input wire:model="descriptionTrans.{{$value}}" type="text" class="form-control"></td>
+                            <td><button class="btn btn-danger mb-3" wire:click.prevent="remove({{$key}})"><i class="fas fa-minus"></i></button></td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+                <!-- Modal Produk -->
+                <div wire:ignore.self class="modal fade" id="ModalProduk" tabindex="-1" role="dialog" aria-labelledby="ModalProdukLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title font-weight-bold mb-3" id="ModalCustomerLabel">Daftar Produk</h3>
+                                <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                >&times;</button>
+                            </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <p class="font-weight-bold">Silahkan klik pada baris untuk memilih produk yang diinginkan</p>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <p class="text-right font-weight-bold">Total Produk: {{$listPro->total()}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                        <input wire:model="searchpro" type="text" class="form-control" placeholder="Cari Produk">
+                                            <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 35%">Nama Produk</th>
+                                                    <th style="width: 20%">Tipe</th>
+                                                    <th style="width: 10%">Stok</th>
+                                                    <th style="width: 15%">Unit</th>
+                                                    <th style="width: 20%">Harga Jual</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse($listPro as $index=>$pro)
+                                                <tr style="cursor:pointer" wire:click="assignPro({{ $pro->id }}, {{ $i }})" data-placement="top" title="Klik untuk Pilih Produk" data-dismiss="modal">
+                                                    <td>{{$pro->name}}</td>
+                                                    <td>{{$pro->type}}</td>
+                                                    <td>{{$pro->qty}}</td>
+                                                    <td>{{$pro->unit}}</td>
+                                                    <td>@currency($pro->sell_price)</td>
+                                                </tr>
+                                                @empty
+                                                <td colspan="8"><h6 class="text-center">Data Kosong</h6></td>
+                                                @endforelse
+                                            
+                                            </tbody>
+                                            </table>
+                                            <div style="display:flex; justify-content:center">
+                                                {{$listPro->links()}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Tutup
+                                    </button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+</div>
+
 <script>
     function tampil(){
         let x = document.getElementById("tgl");
