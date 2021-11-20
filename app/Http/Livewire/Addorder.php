@@ -62,6 +62,13 @@ class Addorder extends Component
                         ->orWhere('unit','like','%'.$this->searchpro.'%')
                         ->paginate(10);
 
+        // if(session('cart')){
+        //     foreach(session('cart') as $id => $details){
+        //         $this->total =  $this->sellPrice * $this->qty;
+        //     }
+        // }
+        
+
         $lstTermPayment = TermPaymentModel::all(); 
         return view('livewire.addorder',['termpay'=>$termpay, 'listTerm' => $lstTermPayment, 'listCus' => $listcustomer, 'listPro' => $listproduct]);
     }
@@ -122,6 +129,30 @@ class Addorder extends Component
         $pro = ProductModel::where('id',$id)->first();
         $this->product[$this->i] = $pro->name;
         $this->sellPrice[$this->i] = "Rp. " . number_format($pro->sell_price,0,',','.');
+
+        if(count($this->product)>=3){
+            foreach ($this->product as $key => $value) {
+                dump($this->product[$key]);
+                //Account::create(['account' => $this->account[$key], 'username' => $this->username[$key]]);
+            }
+        }
+        
+        
+        // $cart = session()->get('cart');
+        // if(!$cart){
+        //     $cart=[
+        //         $id => [
+        //             "invoice_number" => 11111,
+        //             "product_id" => $pro->id,
+        //             "quantity" => 0,
+        //             "discount" => 0,
+        //             "total_price" => 0,
+        //             "description" => "Kolom"
+        //         ]
+        //     ];
+        // }
+
+        // session()->put('cart', $cart);
 
     }
 

@@ -244,7 +244,15 @@
     <div class="col-md-12">
         <div class="card mt-3">
             <div class="card-body">
-            <button class="btn btn-primary mb-3"  data-toggle="modal" data-target="#ModalProduk" data-placement="top"><i class="fas fa-plus"></i>&nbspTambah Produk Pesanan</button>
+                <div class="row">
+                    <div class="col-md-8">
+                        <button class="btn btn-primary mb-3"  data-toggle="modal" data-target="#ModalProduk" data-placement="top"><i class="fas fa-plus"></i>&nbspTambah Produk Pesanan</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="float-right btn btn-success mb-3"><i class="fas fa-save"></i>&nbsp Simpan Pesanan</button>
+                    </div>
+                </div>
+                
                 <table class="table table-hover">
                     <thead>
                         <tr>
