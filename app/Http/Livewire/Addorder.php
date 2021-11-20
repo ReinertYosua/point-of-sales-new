@@ -14,7 +14,7 @@ class Addorder extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['delete'];
+    protected $listeners = ['delete','descriptionTrans'];
     public $search;
     public $searchcus;
     public $searchpro;
@@ -45,6 +45,10 @@ class Addorder extends Component
         
     }
 
+    public function descriptionTrans(){
+            dd("asdasd");
+    }
+
     public function render()
     {
         //$termpay = TermPaymentModel::paginate(3);
@@ -62,11 +66,18 @@ class Addorder extends Component
                         ->orWhere('unit','like','%'.$this->searchpro.'%')
                         ->paginate(10);
 
+        // if(!empty($this->product)){
+        //     foreach ($this->product as $key => $value) {
+        //         $this->total[$key] = (int)$this->sellPrice[$key] * (int)$this->qty[$key];
+        //         //Account::create(['account' => $this->account[$key], 'username' => $this->username[$key]]);
+        //     }
+        // }
         // if(session('cart')){
         //     foreach(session('cart') as $id => $details){
         //         $this->total =  $this->sellPrice * $this->qty;
         //     }
         // }
+        
         
 
         $lstTermPayment = TermPaymentModel::all(); 
@@ -122,38 +133,107 @@ class Addorder extends Component
     }
 
     public function assignPro($id, $i){
-        $i = $i + 1;
-        $this->i = $i;
-        array_push($this->inputs ,$i);
 
         $pro = ProductModel::where('id',$id)->first();
-        $this->product[$this->i] = $pro->name;
-        $this->sellPrice[$this->i] = "Rp. " . number_format($pro->sell_price,0,',','.');
-
-        if(count($this->product)>=3){
-            foreach ($this->product as $key => $value) {
-                dump($this->product[$key]);
-                //Account::create(['account' => $this->account[$key], 'username' => $this->username[$key]]);
+        // $this->product[$this->i] = $pro->name;
+        // $this->sellPrice[$this->i] = "Rp. " . number_format($pro->sell_price,0,',','.');
+        // $this->qty[$this->i] = 1;
+        // $this->total[$this->i] = $pro->sell_price * $this->qty[$this->i];
+        
+        
+        $cart = session()->get('cart',[]);
+        if($pro->qty == 0)
+        {
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',  
+                'message' => 'Stok Produk tidak mencukupi !', 
+                'text' => 'Kuantitas tidak bisa ditambah.'
+            ]);
+        }else{
+            if(isset($cart[$id])) {
+                if($cart[$id]["qty"]==$pro->qty){
+                    $this->dispatchBrowserEvent('swal:modal', [
+                        'type' => 'warning',  
+                        'message' => 'Stok Produk tidak mencukupi !', 
+                        'text' => 'Kuantitas tidak bisa ditambah.'
+                    ]);
+                }else{
+                    $cart[$id]["qty"]++;
+                }
+            } else {
+                $cart[$id] = [
+                    "id" => $pro->id,
+                    "product" => $pro->name,
+                    "qty" => 1,
+                    "price" => $pro->sell_price,
+                ];
+            
             }
         }
+        session()->put('cart', $cart);
         
-        
-        // $cart = session()->get('cart');
-        // if(!$cart){
-        //     $cart=[
-        //         $id => [
-        //             "invoice_number" => 11111,
-        //             "product_id" => $pro->id,
-        //             "quantity" => 0,
-        //             "discount" => 0,
-        //             "total_price" => 0,
-        //             "description" => "Kolom"
-        //         ]
-        //     ];
+        // $s=1;
+        // foreach(session('cart') as $id => $details){
+        //     //dd($this->i." - ".$s);
+           
+        //         $this->product[$s] = $details['product'];
+        //         $this->sellPrice[$s] = "Rp. " . number_format($details['price'],0,',','.');
+        //         $this->qty[$s] = $details['qty'];
+        //         $this->total[$s] = $details['price'] * $details['qty'];
+        //         $s++;
+            
         // }
+        
+    }
 
-        // session()->put('cart', $cart);
+    public function increaseItem($id){
+        $pro = ProductModel::where('id',$id)->first();
+        $cart = session()->get('cart',[]);
+        $checkItem = array_key_exists($id,$cart);
+        if($checkItem){
+            if($cart[$id]["qty"]==$pro->qty){
+                $this->dispatchBrowserEvent('swal:modal', [
+                    'type' => 'warning',  
+                    'message' => 'Stok Produk tidak mencukupi !', 
+                    'text' => 'Kuantitas tidak bisa ditambah.'
+                ]);
+            }else{
+                $cart[$id]["qty"]++;
+                session()->put('cart', $cart);
+            }
+        }
+    }
 
+    public function decreaseItem($id){
+        $pro = ProductModel::where('id',$id)->first();
+        $cart = session()->get('cart',[]);
+        $checkItem = array_key_exists($id,$cart);
+        if($checkItem){
+            if($cart[$id]["qty"] == 1){
+                foreach ($cart as $index => $product) {
+                    if ($product['id'] == $id) {
+                       unset($cart[$index]);
+                     }
+                  }
+                  session(['cart' => $cart]);
+            }else{
+                $cart[$id]["qty"]--;
+                session()->put('cart', $cart);
+            }
+            
+        }
+    }
+
+    public function removeItem($id){
+         $cart = session()->get('cart',[]);
+        
+        foreach ($cart as $index => $product) {
+            if ($product['id'] == $id) {
+               unset($cart[$index]);
+             }
+          }
+          session(['cart' => $cart]);
+        
     }
 
 }
