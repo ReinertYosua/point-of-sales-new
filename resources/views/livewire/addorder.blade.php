@@ -280,13 +280,13 @@
                             </td>
                             <td>
                             <div class="input-group">
-                                <input type="number" wire:model="discount.{{$loop->iteration}}" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <input type="number" wire:model ="discount.{{ $details['id'] }}" wire:change="discountDesc({{ $details['id'] }})"  class="form-control" aria-label="Amount (to the nearest dollar)">
                                 <div class="input-group-append">
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
                             </td>
-                            <td><input type="text" value="@currency( $details['price'] * $details['qty'] )" class="form-control" readonly></td>
+                            <td><input type="text" value="@currency( ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100)) )" class="form-control" readonly></td>
                             <td><input wire:change="descriptionTrans" type="text" class="form-control"></td>
                             <td><button class="btn btn-danger mb-3" wire:click.prevent="removeItem({{$id}})"><i class="fas fa-minus"></i></button></td>
                         </tr>

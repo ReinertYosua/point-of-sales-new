@@ -28,21 +28,9 @@ class Addorder extends Component
     public $inputs = [];
     public $i = 0;
 
+
     public function updatingSearch(){
         $this->resetPage();
-    }
-
-    // public function add($i)
-    // {
-    //     $i = $i + 1;
-    //     $this->i = $i;
-    //     array_push($this->inputs ,$i);
-    // }
-
-    public function remove($i)
-    {
-        unset($this->inputs[$i]);
-        
     }
 
     public function descriptionTrans(){
@@ -165,24 +153,18 @@ class Addorder extends Component
                     "id" => $pro->id,
                     "product" => $pro->name,
                     "qty" => 1,
+                    "disc" => 0,
                     "price" => $pro->sell_price,
                 ];
             
             }
         }
         session()->put('cart', $cart);
+        if(isset($cart[$id])){
+            $cart = session()->get('cart',[]);
+            $this->discount[$id] = $cart[$id]["disc"];
+        }
         
-        // $s=1;
-        // foreach(session('cart') as $id => $details){
-        //     //dd($this->i." - ".$s);
-           
-        //         $this->product[$s] = $details['product'];
-        //         $this->sellPrice[$s] = "Rp. " . number_format($details['price'],0,',','.');
-        //         $this->qty[$s] = $details['qty'];
-        //         $this->total[$s] = $details['price'] * $details['qty'];
-        //         $s++;
-            
-        // }
         
     }
 
@@ -234,6 +216,19 @@ class Addorder extends Component
           }
           session(['cart' => $cart]);
         
+    }
+
+    public function discountDesc($id){
+        //dd($this->discount[$id]);
+        $pro = ProductModel::where('id',$id)->first();
+        $cart = session()->get('cart',[]);
+        $checkItem = array_key_exists($id,$cart);
+        if($checkItem){
+            if($this->discount[$id]!=""){
+                $cart[$id]["disc"] = $this->discount[$id] ;
+                session()->put('cart', $cart);
+            }
+        }
     }
 
 }
