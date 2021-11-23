@@ -19,26 +19,35 @@ class Addorder extends Component
     public $searchcus;
     public $searchpro;
 
-    public $date_order, $sent_date, $customer, $term_payment, $address, $descriptionOrder;
-
-    public $product, $sellPrice, $qty, $discount, $total, $descriptionTrans;
+    // public $date_order, $sent_date, $customer, $term_payment, $address, $descriptionOrder;
 
     public $day_term, $descriptionterm, $listTermPayment=[];
-
-    public $inputs = [];
-    public $i = 0;
-
 
     public function updatingSearch(){
         $this->resetPage();
     }
 
-    public function descriptionTrans(){
-            dd("asdasd");
-    }
-
     public function render()
     {
+        $cartUser = session()->get('cartuser',[]);
+        
+        if(empty($cartUser))
+        {
+            $cartUser[auth()->id()] = [
+                "idUser" => auth()->id(),
+                "date_order" => "",
+                "sent_date" => "",
+                "idCustomer" => "",
+                "nameCustomer" => "",
+                "tlpCustomer" => "",
+                "term_payment" => "",
+                "address" => "",
+                "descriptionOrder" => ""
+            ];
+            session()->put('cartuser', $cartUser);
+        }
+        
+
         //$termpay = TermPaymentModel::paginate(3);
         $termpay = TermPaymentModel::where('day','like','%'.$this->search.'%')
                     ->orWhere('description','like','%'.$this->search.'%')
@@ -53,20 +62,6 @@ class Addorder extends Component
                         ->orWhere('type','like','%'.$this->searchpro.'%')
                         ->orWhere('unit','like','%'.$this->searchpro.'%')
                         ->paginate(10);
-
-        // if(!empty($this->product)){
-        //     foreach ($this->product as $key => $value) {
-        //         $this->total[$key] = (int)$this->sellPrice[$key] * (int)$this->qty[$key];
-        //         //Account::create(['account' => $this->account[$key], 'username' => $this->username[$key]]);
-        //     }
-        // }
-        // if(session('cart')){
-        //     foreach(session('cart') as $id => $details){
-        //         $this->total =  $this->sellPrice * $this->qty;
-        //     }
-        // }
-        
-        
 
         $lstTermPayment = TermPaymentModel::all(); 
         return view('livewire.addorder',['termpay'=>$termpay, 'listTerm' => $lstTermPayment, 'listCus' => $listcustomer, 'listPro' => $listproduct]);
@@ -116,18 +111,79 @@ class Addorder extends Component
 
     public function assign($id){
         $cust = CustomerModel::where('id',$id)->first();
-        $this->address = $cust->address;
-        $this->customer = $cust->first_name." ".$cust->last_name." - ".$cust->phone1;
+        $cartUser = session()->get('cartuser',[]);
+        $cartUser[auth()->id()]["idCustomer"] = $cust->id;
+        $cartUser[auth()->id()]["address"] = $cust->address;
+        $cartUser[auth()->id()]["nameCustomer"] = $cust->first_name." ".$cust->last_name;
+        $cartUser[auth()->id()]["tlpCustomer"] = $cust->phone1;
+        session()->put('cartuser', $cartUser);
+        
     }
 
-    public function assignPro($id, $i){
+    public function setSessionOrder($dateOrder, $sentDate, $idCustomer, $termPayment, $address, $descriptionOrder){
+        $cartUser = session()->get('cartuser',[]);
+        // $cartUser[auth()->id()] = [
+        //     "idUser" => auth()->id(),
+        //     "date_order" => $dateOrder,
+        //     "sent_date" => $sentDate,
+        //     "idCustomer" => $cust->id,
+        //     "nameCustomer" => $cust->first_name." ".$cust->last_name,
+        //     "tlpCustomer" => $cust->phone1,
+        //     "term_payment" => $termPayment,
+        //     "address" => $cust->address,
+        //     "descriptionOrder" => $descriptionOrder
+        // ];
+        // session()->put('cartuser', $cartUser);
+        if($dateOrder!=""){
+            $cartUser[auth()->id()]['date_order'] = $dateOrder;
+            session()->put('cartuser', $cartUser);
+        }
+        if($sentDate!=""){
+            $cartUser[auth()->id()]['sent_date'] = $sentDate;
+            session()->put('cartuser', $cartUser);
+        }
+        if($termPayment!=""){
+            $cartUser[auth()->id()]['term_payment'] = $termPayment;
+            session()->put('cartuser', $cartUser);
+        }
+        if($address!=""){
+            $cartUser[auth()->id()]['address'] = $address;
+            session()->put('cartuser', $cartUser);
+        }
+        if($descriptionOrder!=""){
+            $cartUser[auth()->id()]['descriptionOrder'] = $descriptionOrder;
+            session()->put('cartuser', $cartUser);
+        }
+        if($idCustomer!=""){
+            $cust = CustomerModel::where('id',$idCustomer)->first();
+            $cartUser[auth()->id()]['idCustomer'] =  $cust->id;
+            $cartUser[auth()->id()]['nameCustomer'] = $cust->first_name." ".$cust->last_name;
+            $cartUser[auth()->id()]['tlpCustomer'] = $cust->phone1;
+            $cartUser[auth()->id()]['address'] = $cust->address;
+            session()->put('cartuser', $cartUser);
+        }
+        //dd($cartUser);
+    }
+
+    public function checkInput(){
+        $cartUser = session()->get('cartuser',[]);
+        dd($cartUser);
+        // $this->validate([
+        //     'date_order'=>'required',
+        //     'sent_date'=>'required',
+        //     'customer'=>'required',
+        //     'term_payment'=>'required',
+        //     'address'=>'required',
+        //     'descriptionOrder'=>'required',
+        // ]);
+        
+        
+        // $this->dispatchBrowserEvent('show-modal-produk');
+    }
+
+    public function assignPro($id){
 
         $pro = ProductModel::where('id',$id)->first();
-        // $this->product[$this->i] = $pro->name;
-        // $this->sellPrice[$this->i] = "Rp. " . number_format($pro->sell_price,0,',','.');
-        // $this->qty[$this->i] = 1;
-        // $this->total[$this->i] = $pro->sell_price * $this->qty[$this->i];
-        
         
         $cart = session()->get('cart',[]);
         if($pro->qty == 0)
@@ -155,16 +211,12 @@ class Addorder extends Component
                     "qty" => 1,
                     "disc" => 0,
                     "price" => $pro->sell_price,
+                    "desc" => ""
                 ];
             
             }
         }
         session()->put('cart', $cart);
-        if(isset($cart[$id])){
-            $cart = session()->get('cart',[]);
-            $this->discount[$id] = $cart[$id]["disc"];
-        }
-        
         
     }
 
@@ -218,14 +270,29 @@ class Addorder extends Component
         
     }
 
-    public function discountDesc($id){
-        //dd($this->discount[$id]);
+    public function discountDesc($id, $disc){
         $pro = ProductModel::where('id',$id)->first();
         $cart = session()->get('cart',[]);
         $checkItem = array_key_exists($id,$cart);
         if($checkItem){
-            if($this->discount[$id]!=""){
-                $cart[$id]["disc"] = $this->discount[$id] ;
+            // if($this->discount[$id]!=""){
+            //     $cart[$id]["disc"] = $this->discount[$id] ;
+            //     session()->put('cart', $cart);
+            // }
+            if($disc!=""){
+                $cart[$id]["disc"] = $disc ;
+                session()->put('cart', $cart);
+            }
+        }
+    }
+
+    public function descriptionOr($id, $desc){
+        $pro = ProductModel::where('id',$id)->first();
+        $cart = session()->get('cart',[]);
+        $checkItem = array_key_exists($id,$cart);
+        if($checkItem){
+            if($desc!=""){
+                $cart[$id]["desc"] = $desc ;
                 session()->put('cart', $cart);
             }
         }

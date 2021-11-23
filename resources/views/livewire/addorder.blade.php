@@ -4,24 +4,26 @@
         <div class="card mt-3">
             <div class="card-body">
                 <h3 class="font-weight-bold mb-3">Tambah Pesanan</h3>
+               
                 <form>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Tanggal Pesanan</label><span class="text-danger">*</span>
-                                <div class="input-group date">
-                                    <input wire:model="date_order" type="text" class="form-control tanggal_order" onchange="this.dispatchEvent(new InputEvent('input'))"/>
+                                <input wire:change="setSessionOrder($event.target.value,'','','','','')" value="{{ session()->get('cartuser')[auth()->id()]['date_order'] }}" type="date" class="form-control"/>
+                                <!-- <div class="input-group date">
+                                    <input type="text" class="form-control tanggal_order" onchange="this.dispatchEvent(new InputEvent('input'))"/>
                                     <span class="input-group-append">
                                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                     </span>
-                                </div>
+                                </div> -->
                                 @error('date_order') <small class="text-danger">{{$message}}</small>@enderror
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Pelanggan</label><span class="text-danger">*</span>
-                                <input readonly wire:model="customer" placeholder="Klik untuk memilih Pelanggan" type="text" class="form-control" data-toggle="modal" data-target="#ModalCustomer" data-placement="top">
+                                <input readonly value="{{ session()->get('cartuser')[auth()->id()]['nameCustomer'].' '.session()->get('cartuser')[auth()->id()]['tlpCustomer'] }}" placeholder="Klik untuk memilih Pelanggan" type="text" class="form-control" data-toggle="modal" data-target="#ModalCustomer" data-placement="top">
                                 @error('customer') <small class="text-danger">{{$message}}</small>@enderror
                                 
                             </div>
@@ -30,7 +32,7 @@
                             <div class="form-group">
                                 <label>Jangka Waktu Pembayaran</label><span class="text-danger">*</span>
                                 <div class="input-group date">
-                                <select wire:model="term_payment" class="form-control" id="term_payment" onclick=tampil()>
+                                <select wire:change="setSessionOrder('','','',$event.target.value,'','')" class="form-control" id="term_payment" onclick=tampil()>
                                     <option value="">--Pilih--</option>
                                     @forelse($listTerm as $lst)
                                         <option value="{{ $lst->id }}">{{ $lst->day }} Hari</option>
@@ -62,25 +64,27 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Alamat Pengiriman</label><span class="text-danger">*</span>
-                                <textarea wire:model="address" name="" class="form-control"></textarea>
+                                <textarea wire:change="setSessionOrder('','','','',$event.target.value,'')" name="" class="form-control">{{ session()->get('cartuser')[auth()->id()]['address'] }}</textarea>
                                 @error('address') <small class="text-danger">{{$message}}</small>@enderror
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Tanggal Kirim</label><span class="text-danger">*</span>
-                                <div class="input-group date">
-                                    <input wire:model="sent_date" type="text" class="form-control tanggal_kirim" onchange="this.dispatchEvent(new InputEvent('input'))"/>
+                                <input wire:change="setSessionOrder('',$event.target.value,'','','','')" value="{{ session()->get('cartuser')[auth()->id()]['sent_date'] }}" type="date" class="form-control"/>
+                                <!-- <div class="input-group date">
+                                    <input type="text" class="form-control tanggal_kirim" onchange="this.dispatchEvent(new InputEvent('input'))"/>
                                     <span class="input-group-append">
                                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                     </span>
-                                </div>
+                                </div> -->
+                                @error('sent_date') <small class="text-danger">{{$message}}</small>@enderror
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Deskripsi</label>
-                                <textarea wire:model="descriptionOrder" name="" class="form-control"></textarea>
+                                <textarea wire:change="setSessionOrder('','','','','',$event.target.value)" name="" class="form-control">{{ session()->get('cartuser')[auth()->id()]['descriptionOrder'] }}</textarea>
                                 @error('descriptionOrder') <small class="text-danger">{{$message}}</small>@enderror
                                 <!-- <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -106,6 +110,7 @@
                         </div>
                     </div>
                 </form>
+               
                 <!-- Simpan Modal -->
                 <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
@@ -246,7 +251,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-8">
-                        <button class="btn btn-primary mb-3"  data-toggle="modal" data-target="#ModalProduk" data-placement="top"><i class="fas fa-plus"></i>&nbspTambah Produk Pesanan</button>
+                        <button class="btn btn-primary mb-3" wire:click.prevent="checkInput()"><i class="fas fa-plus"></i>&nbspTambah Produk Pesanan</button>
                     </div>
                     <div class="col-md-4">
                         <button class="float-right btn btn-success mb-3"><i class="fas fa-save"></i>&nbsp Simpan Pesanan</button>
@@ -280,14 +285,14 @@
                             </td>
                             <td>
                             <div class="input-group">
-                                <input type="number" wire:model ="discount.{{ $details['id'] }}" wire:change="discountDesc({{ $details['id'] }})"  class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <input type="number" value="{{ $details['disc'] }}" wire:change="discountDesc({{ $details['id'] }}, $event.target.value)"  class="form-control" aria-label="Amount (to the nearest dollar)">
                                 <div class="input-group-append">
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
                             </td>
                             <td><input type="text" value="@currency( ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100)) )" class="form-control" readonly></td>
-                            <td><input wire:change="descriptionTrans" type="text" class="form-control"></td>
+                            <td><input value="{{ $details['desc'] }}" wire:change="descriptionOr({{ $details['id'] }}, $event.target.value)" type="text" class="form-control"></td>
                             <td><button class="btn btn-danger mb-3" wire:click.prevent="removeItem({{$id}})"><i class="fas fa-minus"></i></button></td>
                         </tr>
                         @endforeach
@@ -330,7 +335,7 @@
                                             </thead>
                                             <tbody>
                                                 @forelse($listPro as $index=>$pro)
-                                                <tr style="cursor:pointer" wire:click="assignPro({{ $pro->id }}, {{ $i }})" data-placement="top" title="Klik untuk Pilih Produk" data-dismiss="modal">
+                                                <tr style="cursor:pointer" wire:click="assignPro({{ $pro->id }})" data-placement="top" title="Klik untuk Pilih Produk" data-dismiss="modal">
                                                     <td>{{$pro->name}}</td>
                                                     <td>{{$pro->type}}</td>
                                                     <td>{{$pro->qty}}</td>
@@ -373,4 +378,8 @@
             x.style.display = "none"
         }
     }
+
+    window.addEventListener('show-modal-produk', event=> {
+        $('#ModalProduk').modal('show')
+    })
 </script>

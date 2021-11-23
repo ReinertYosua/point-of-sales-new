@@ -40,10 +40,6 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!-- date picker -->
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script> -->
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     
@@ -159,16 +155,16 @@
             });
         });
             
-        $('.tanggal_order').datepicker({  
-            format: 'mm-dd-yyyy',
-            autoclose: true,
-            todayHighlight: true,
-        });
-        $('.tanggal_kirim').datepicker({  
-            format: 'mm-dd-yyyy',
-            autoclose: true,
-            todayHighlight: true,
-        });
+        // $('.tanggal_order').datepicker({  
+        //     format: 'mm-dd-yyyy',
+        //     autoclose: true,
+        //     todayHighlight: true,
+        // });
+        // $('.tanggal_kirim').datepicker({  
+        //     format: 'mm-dd-yyyy',
+        //     autoclose: true,
+        //     todayHighlight: true,
+        // });
     </script>
     @stack('scripts')
 </body>
