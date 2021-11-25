@@ -9,18 +9,20 @@ use Illuminate\Http\Request;
 use App\Models\TermPayment as TermPaymentModel;
 use App\Models\Customer as CustomerModel;
 use App\Models\Product as ProductModel;
+use App\Models\Order as OrderModel;
+use App\Models\DetailOrder as DetailOrderModel;
 
 class Addorder extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['delete','descriptionTrans'];
+    protected $listeners = ['delete','prosesOrder'];
     public $search;
     public $searchcus;
     public $searchpro;
 
     // public $date_order, $sent_date, $customer, $term_payment, $address, $descriptionOrder;
-
+    public $total =0;
     public $day_term, $descriptionterm, $listTermPayment=[];
 
     public function updatingSearch(){
@@ -42,7 +44,8 @@ class Addorder extends Component
                 "tlpCustomer" => "",
                 "term_payment" => "",
                 "address" => "",
-                "descriptionOrder" => ""
+                "descriptionOrder" => "",
+                "total" => ""
             ];
             session()->put('cartuser', $cartUser);
         }
@@ -167,7 +170,7 @@ class Addorder extends Component
 
     public function checkInput(){
         $cartUser = session()->get('cartuser',[]);
-        dd($cartUser);
+        //dd($cartUser);
         // $this->validate([
         //     'date_order'=>'required',
         //     'sent_date'=>'required',
@@ -176,9 +179,42 @@ class Addorder extends Component
         //     'address'=>'required',
         //     'descriptionOrder'=>'required',
         // ]);
+        if($cartUser[auth()->id()]['date_order']==""){
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',  
+                'message' => 'Tanggal Pesanan belum dipilih !', 
+                'text' => 'Tidak bisa melanjutkan proses.'
+            ]);
+        }else if($cartUser[auth()->id()]['idCustomer']==""){
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',  
+                'message' => 'Pelanggan belum dipilih !', 
+                'text' => 'Tidak bisa melanjutkan proses.'
+            ]);
+        }else if($cartUser[auth()->id()]['term_payment']==""){
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',  
+                'message' => 'Jangka Waktu Pembayaran belum dipilih !', 
+                'text' => 'Tidak bisa melanjutkan proses.'
+            ]);
+        }else if($cartUser[auth()->id()]['address']==""){
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',  
+                'message' => 'Alamat Pengiriman belum ada !', 
+                'text' => 'Tidak bisa melanjutkan proses.'
+            ]);
+        }else if($cartUser[auth()->id()]['sent_date']==""){
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',  
+                'message' => 'Tanggal Pengiriman belum dipilih !', 
+                'text' => 'Tidak bisa melanjutkan proses.'
+            ]);
+        }else{
+            $this->dispatchBrowserEvent('show-modal-produk');
+        }
         
         
-        // $this->dispatchBrowserEvent('show-modal-produk');
+         
     }
 
     public function assignPro($id){
@@ -296,6 +332,72 @@ class Addorder extends Component
                 session()->put('cart', $cart);
             }
         }
+    }
+
+    public function cekSaveOrder(){
+        $cartUser = session()->get('cartuser',[]);
+        $cart = session()->get('cart',[]);
+        if($cartUser[auth()->id()]['date_order']==""){
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',  
+                'message' => 'Tanggal Pesanan belum dipilih !', 
+                'text' => 'Tidak bisa melanjutkan proses.'
+            ]);
+        }else if($cartUser[auth()->id()]['idCustomer']==""){
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',  
+                'message' => 'Pelanggan belum dipilih !', 
+                'text' => 'Tidak bisa melanjutkan proses.'
+            ]);
+        }else if($cartUser[auth()->id()]['term_payment']==""){
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',  
+                'message' => 'Jangka Waktu Pembayaran belum dipilih !', 
+                'text' => 'Tidak bisa melanjutkan proses.'
+            ]);
+        }else if($cartUser[auth()->id()]['address']==""){
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',  
+                'message' => 'Alamat Pengiriman belum ada !', 
+                'text' => 'Tidak bisa melanjutkan proses.'
+            ]);
+        }else if($cartUser[auth()->id()]['sent_date']==""){
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',  
+                'message' => 'Tanggal Pengiriman belum dipilih !', 
+                'text' => 'Tidak bisa melanjutkan proses.'
+            ]);
+        }else if(empty($cart)){
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',  
+                'message' => 'Produk Pesanan belum ada !', 
+                'text' => 'Tidak bisa melanjutkan proses.'
+            ]);
+        }else{
+            $this->dispatchBrowserEvent('swal:confirmOrder', [
+                'type' => 'warning',  
+                'message' => 'Apakah anda yakin akan menyimpan pesanan ini ?', 
+                'text' => 'Pastikan semua data sudah terisi dengan benar',
+            ]);
+        }
+
+    }
+
+    public function prosesOrder(){
+        $cartUser = session()->get('cartuser',[]);
+        $cart = session()->get('cart',[]);
+
+        // $product=OrderModel::create([
+        //     'invoice_number ' => $this->category_id,
+        //     'customer_id' => $this->supplier_id,
+        //     'date_order' => $this->name,
+        //     'term_payment' => $this->type,
+        //     'desc_order' => $this->qty,
+        //     'sent_date' => preg_replace("/[^0-9]/", "", $this->capital_price),
+        //     'sent_address' => preg_replace("/[^0-9]/", "", $this->sell_price),
+        //     'transaction_status' => $this->unit,
+        //     'grand_total' => $this->description,
+        // ]);
     }
 
 }

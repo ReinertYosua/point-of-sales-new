@@ -23,7 +23,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Pelanggan</label><span class="text-danger">*</span>
-                                <input readonly value="{{ session()->get('cartuser')[auth()->id()]['nameCustomer'].' '.session()->get('cartuser')[auth()->id()]['tlpCustomer'] }}" placeholder="Klik untuk memilih Pelanggan" type="text" class="form-control" data-toggle="modal" data-target="#ModalCustomer" data-placement="top">
+                                <input placeholder="Klik untuk memilih Pelanggan" readonly value="{{ (session()->get('cartuser')[auth()->id()]['nameCustomer']!='')?session()->get('cartuser')[auth()->id()]['nameCustomer'].' '.session()->get('cartuser')[auth()->id()]['tlpCustomer']:'' }}" type="text" class="form-control" data-toggle="modal" data-target="#ModalCustomer" data-placement="top">
                                 @error('customer') <small class="text-danger">{{$message}}</small>@enderror
                                 
                             </div>
@@ -35,7 +35,7 @@
                                 <select wire:change="setSessionOrder('','','',$event.target.value,'','')" class="form-control" id="term_payment" onclick=tampil()>
                                     <option value="">--Pilih--</option>
                                     @forelse($listTerm as $lst)
-                                        <option value="{{ $lst->id }}">{{ $lst->day }} Hari</option>
+                                        <option value="{{ $lst->id }}" {{ ( $lst->id == session()->get('cartuser')[auth()->id()]['term_payment']) ? 'selected' : '' }}>{{ $lst->day }} Hari</option>
                                     @empty
                                         <option value="">Data Tidak ada</option>
                                     @endforelse
@@ -254,7 +254,7 @@
                         <button class="btn btn-primary mb-3" wire:click.prevent="checkInput()"><i class="fas fa-plus"></i>&nbspTambah Produk Pesanan</button>
                     </div>
                     <div class="col-md-4">
-                        <button class="float-right btn btn-success mb-3"><i class="fas fa-save"></i>&nbsp Simpan Pesanan</button>
+                        <button class="float-right btn btn-success mb-3" wire:click.prevent="cekSaveOrder()"><i class="fas fa-save"></i>&nbsp Simpan Pesanan</button>
                     </div>
                 </div>
                 
@@ -294,8 +294,14 @@
                             <td><input type="text" value="@currency( ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100)) )" class="form-control" readonly></td>
                             <td><input value="{{ $details['desc'] }}" wire:change="descriptionOr({{ $details['id'] }}, $event.target.value)" type="text" class="form-control"></td>
                             <td><button class="btn btn-danger mb-3" wire:click.prevent="removeItem({{$id}})"><i class="fas fa-minus"></i></button></td>
+                            <input type="hidden" value="{{  $total += ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100))  }}">
+                            
                         </tr>
                         @endforeach
+                        <tr>
+                            <td colspan="5" class="text-center"><h5>Total</h5></td>
+                            <td colspan="3"><h5>@currency( $total )</h5></td>
+                        </tr>
                     @endif
                     </tbody>
                 </table>
@@ -382,4 +388,19 @@
     window.addEventListener('show-modal-produk', event=> {
         $('#ModalProduk').modal('show')
     })
+
+    window.addEventListener('swal:confirmOrder', event => { 
+            swal({
+            title: event.detail.message,
+            text: event.detail.text,
+            icon: event.detail.type,
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                window.livewire.emit('prosesOrder');
+            }
+            });
+        });
 </script>
