@@ -18,15 +18,18 @@ class CreateOrderTable extends Migration
             $table->string('invoice_number')->unique();
             $table->foreignId('customer_id')->unsigned();
             $table->date('date_order');
-            $table->string('term_payment');//date
+            $table->foreignId('term_payment');//date
             $table->text('desc_order');
             $table->date('sent_date');
-            $table->date('sent_address');
-            $table->string('transaction_status');//process, finish
-            $table->integer('grand_total');
+            $table->text('sent_address');
+            $table->enum('transaction_status', ['proses', 'selesai']);//process, finish
+            $table->bigInteger('grand_total');
             $table->timestamps();
 
-            $table->foreign('customer_id')->references('id')->on('customer');
+            $table->foreign('customer_id')->references('id')->on('customer')->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreign('term_payment')->references('id')->on('term_payment')->onUpdate('cascade')
+            ->onDelete('cascade');
         });
     }
 

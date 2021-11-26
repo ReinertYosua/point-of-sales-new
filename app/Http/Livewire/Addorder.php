@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 use App\Models\TermPayment as TermPaymentModel;
 use App\Models\Customer as CustomerModel;
@@ -22,7 +23,7 @@ class Addorder extends Component
     public $searchpro;
 
     // public $date_order, $sent_date, $customer, $term_payment, $address, $descriptionOrder;
-    public $total =0;
+    public $GrandTotal=0;
     public $day_term, $descriptionterm, $listTermPayment=[];
 
     public function updatingSearch(){
@@ -37,6 +38,7 @@ class Addorder extends Component
         {
             $cartUser[auth()->id()] = [
                 "idUser" => auth()->id(),
+                "invoice_number" => "",
                 "date_order" => "",
                 "sent_date" => "",
                 "idCustomer" => "",
@@ -45,7 +47,7 @@ class Addorder extends Component
                 "term_payment" => "",
                 "address" => "",
                 "descriptionOrder" => "",
-                "total" => ""
+                "grandTotal" => ""
             ];
             session()->put('cartuser', $cartUser);
         }
@@ -247,7 +249,8 @@ class Addorder extends Component
                     "qty" => 1,
                     "disc" => 0,
                     "price" => $pro->sell_price,
-                    "desc" => ""
+                    "desc" => "",
+                    "subtotal" => 0
                 ];
             
             }
@@ -383,21 +386,79 @@ class Addorder extends Component
 
     }
 
+    public function invoiceNumber()
+    {
+        $latest = OrderModel::latest()->first();
+        $dateYear = Carbon::now()->format('Y');
+        $dateMonth = Carbon::now()->format('m');
+
+        if (! $latest) {
+            return 'INV'.'/'.$dateMonth.'/'.$dateYear.'/00001';
+        }
+        
+        $string = preg_replace("/[^0-9\.]/", '', substr($latest->invoice_number,-5));
+        //dd($string);
+        return 'INV'.'/'.$dateMonth.'/'.$dateYear.'/'.sprintf('%05d', $string+1);
+    }
+
+    public function getTotalPrice(){
+        $cartUser = session()->get('cartuser',[]);
+        $cart = session()->get('cart',[]);
+        if(!empty($cart)){
+            $totalGrand=0;
+            foreach(session('cart') as $id => $details){
+                //dump($details['id']);
+                $cart[$id]["subtotal"] = ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100));
+                session()->put('cart', $cart);
+                $totalGrand+=$cart[$id]["subtotal"];
+            }
+            $cartUser[auth()->id()]['grandTotal']=$totalGrand;
+            $cartUser[auth()->id()]['invoice_number'] = $this->invoiceNumber();
+            session()->put('cartuser', $cartUser);
+        }
+    }
+
     public function prosesOrder(){
         $cartUser = session()->get('cartuser',[]);
         $cart = session()->get('cart',[]);
 
-        // $product=OrderModel::create([
-        //     'invoice_number ' => $this->category_id,
-        //     'customer_id' => $this->supplier_id,
-        //     'date_order' => $this->name,
-        //     'term_payment' => $this->type,
-        //     'desc_order' => $this->qty,
-        //     'sent_date' => preg_replace("/[^0-9]/", "", $this->capital_price),
-        //     'sent_address' => preg_replace("/[^0-9]/", "", $this->sell_price),
-        //     'transaction_status' => $this->unit,
-        //     'grand_total' => $this->description,
-        // ]);
+        $this->getTotalPrice();
+        //dd($cartUser[auth()->id()]['grandTotal']);
+        $orderSave=OrderModel::create([
+            'invoice_number' => $cartUser[auth()->id()]['invoice_number'],
+            'customer_id' => $cartUser[auth()->id()]['idCustomer'],
+            'date_order' => $cartUser[auth()->id()]['date_order'],
+            'term_payment' => $cartUser[auth()->id()]['term_payment'],
+            'desc_order' => $cartUser[auth()->id()]['descriptionOrder'],
+            'sent_date' => $cartUser[auth()->id()]['sent_date'],
+            'sent_address' => $cartUser[auth()->id()]['address'],
+            'transaction_status' => "proses",//proses/selesai
+            'grand_total' => $cartUser[auth()->id()]['grandTotal'],
+        ]);
+        if($orderSave){
+            if(!empty($cart)){
+                foreach(session('cart') as $id => $details){
+                    //dump($details['id']);
+                    DetailOrderModel::create([
+                        'invoice_number' => $cartUser[auth()->id()]['invoice_number'],
+                        'product_id' => $details['id'],
+                        'quantity' => $details['qty'],
+                        'discount' => $details['disc'],
+                        'total_price' => $details['subtotal'],
+                        'description' => $details['desc'],
+                    ]);
+                }
+            }
+        }
+        session()->forget('cartuser',[]);
+        session()->forget('cart',[]);
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'success',  
+            'message' => 'Pesanan Baru berhasil dibuat!', 
+            'text' => 'Data Pesanan ditambahkan ke database.'
+        ]);
+
+        redirect()->route('order');
     }
 
 }

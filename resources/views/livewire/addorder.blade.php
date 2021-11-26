@@ -294,13 +294,13 @@
                             <td><input type="text" value="@currency( ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100)) )" class="form-control" readonly></td>
                             <td><input value="{{ $details['desc'] }}" wire:change="descriptionOr({{ $details['id'] }}, $event.target.value)" type="text" class="form-control"></td>
                             <td><button class="btn btn-danger mb-3" wire:click.prevent="removeItem({{$id}})"><i class="fas fa-minus"></i></button></td>
-                            <input type="hidden" value="{{  $total += ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100))  }}">
+                            <input type="hidden" value="{{  $GrandTotal += ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100))  }}">
                             
                         </tr>
                         @endforeach
                         <tr>
                             <td colspan="5" class="text-center"><h5>Total</h5></td>
-                            <td colspan="3"><h5>@currency( $total )</h5></td>
+                            <td colspan="3"><h5>@currency( $GrandTotal )</h5></td>
                         </tr>
                     @endif
                     </tbody>

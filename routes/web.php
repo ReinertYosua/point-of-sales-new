@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/supplier', Supplier::class);
     Route::get('/product', Product::class);
     Route::get('/pelanggan', Customer::class);
-    Route::get('/pesanan', Order::class);
+    Route::get('/pesanan', Order::class)->name('order');
     Route::get('/tambahpesanan', Addorder::class);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });

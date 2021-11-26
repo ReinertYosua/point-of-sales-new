@@ -22,6 +22,11 @@ class CreateDetailOrderTable extends Migration
             $table->integer('total_price');
             $table->text('description');
             $table->timestamps();
+
+            $table->foreign('invoice_number')->references('invoice_number')->on('order')->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('product')->onUpdate('cascade')
+            ->onDelete('cascade');
         });
     }
 
