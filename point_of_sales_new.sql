@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2021 at 05:19 PM
+-- Generation Time: Nov 29, 2021 at 07:41 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -90,7 +90,136 @@ INSERT INTO `category` (`id`, `name`, `description`, `created_at`, `updated_at`)
 (48, 'voluptatem', 'Odit porro maiores quia ut doloribus. Quaerat et distinctio sunt id molestias autem cupiditate. Est et nesciunt et a est qui consequuntur odit.', NULL, NULL),
 (49, 'delectus', 'Amet facere non quibusdam voluptatum et nihil necessitatibus. Itaque nihil eum reprehenderit optio. Quibusdam et quidem est modi.', NULL, NULL),
 (50, 'molestiae', 'Voluptatum commodi dolorem dolorum a animi suscipit corrupti alias. Et aut repellendus excepturi repellendus. Molestias sint delectus dolore et. Velit molestias alias quia.', NULL, NULL),
-(51, 'Test', 'Test1', '2021-10-13 21:13:24', '2021-10-13 21:13:24');
+(51, 'Test', 'Test1', '2021-10-13 21:13:24', '2021-10-13 21:13:24'),
+(53, 'Lala', 'lala\n', '2021-10-25 21:53:18', '2021-10-25 21:53:18');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer`
+--
+
+CREATE TABLE `customer` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `province` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone2` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `postal_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `account_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bank_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`id`, `first_name`, `last_name`, `address`, `city`, `province`, `country`, `phone1`, `phone2`, `postal_code`, `account_number`, `bank_name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'Fitria', 'Setiawan', 'Gg. Batako No. 295, Bima 67095, Banten', 'Banda Aceh', 'Maluku', 'Denmark', '(+62) 772 1478 8377', '0458 0996 7674', '12204', '7595674527', 'Perum Laksita', 'Sapiente facilis vitae quidem molestias vero ducimus qui. Eum provident doloribus rerum odit quos officia. Ullam dolorum et id exercitationem dolorem voluptates.', NULL, NULL),
+(2, 'Dian', 'Wahyuni', 'Ki. Bagas Pati No. 296, Pekalongan 17244, Lampung', 'Lubuklinggau', 'Maluku Utara', 'Pulau Bouvet', '(+62) 626 1314 622', '0254 9712 000', '18894', '94057425', 'CV Hariyah Pudjiastuti Tbk', 'Repellendus qui porro in pariatur consequatur. Commodi commodi cumque accusamus quam recusandae. Molestiae quam deserunt modi aut voluptas libero reprehenderit.', NULL, NULL),
+(3, 'Suci', 'Rahimah', 'Jln. Banal No. 898, Tasikmalaya 82992, Papua', 'Makassar', 'Riau', 'Vatikan', '(+62) 718 3221 2775', '0312 9108 566', '70653', '143640881453', 'PT Hakim (Persero) Tbk', 'Suscipit repudiandae sit voluptatem alias minima. Rerum officiis voluptatum ducimus dolor. Totam quo illum aperiam nihil laborum velit optio non. Vel eos quis quam.', NULL, NULL),
+(4, 'Sarah', 'Purnawati', 'Kpg. Dipatiukur No. 860, Administrasi Jakarta Barat 31942, Kalteng', 'Bima', 'Sulawesi Tenggara', 'Fiji', '0791 0935 155', '(+62) 495 9727 0821', '28643', '989248381', 'CV Hutapea (Persero) Tbk', 'Ut et perferendis minima voluptatem. Omnis nostrum non optio maiores. Maiores eos sapiente ullam voluptatem. Minus consequatur maiores esse officiis architecto ut.', NULL, NULL),
+(5, 'Dono', 'Sihombing', 'Jln. Ketandan No. 724, Kediri 62420, Papua', 'Pekanbaru', 'Sulawesi Tenggara', 'Namibia', '0241 5249 7730', '0278 5217 692', '67431', '783479579405', 'PT Waskita', 'Optio quos accusantium ratione. Aliquid omnis est aut minima recusandae sit ea. Eum aut sit qui.', NULL, NULL),
+(6, 'Hasna', 'Oktaviani', 'Jr. BKR No. 514, Tegal 56379, Jateng', 'Tasikmalaya', 'DKI Jakarta', 'Bahrain', '0897 808 715', '0979 5425 948', '72882', '09187205535', 'CV Maryadi (Persero) Tbk', 'Ea esse aspernatur et voluptas. Aut voluptate beatae cupiditate quis aliquam et totam tempora. Aut quasi reprehenderit et recusandae commodi. Iure laudantium autem et repudiandae dolore.', NULL, NULL),
+(7, 'Bakiadi', 'Mulyani', 'Dk. Tambak No. 583, Tual 25008, Kalbar', 'Madiun', 'Maluku', 'Kongo', '(+62) 950 8130 994', '028 5037 3943', '79117', '34373099', 'PD Kuswoyo Tbk', 'Doloribus rerum error autem tempora. Omnis animi molestias laborum ut eveniet non. Officia quisquam voluptatem voluptas. Possimus dolor aut ut et non deserunt esse.', NULL, NULL),
+(8, 'Yuni', 'Wastuti', 'Dk. Gremet No. 664, Tangerang 35463, Malut', 'Depok', 'Bali', 'Maroko', '0763 7836 946', '0636 9922 1536', '66532', '2595736137', 'PT Winarno', 'Eos placeat non accusamus. Exercitationem sapiente aliquam aut dicta dicta. Enim et iusto dolorum et consectetur numquam.', NULL, NULL),
+(9, 'Puji', 'Napitupulu', 'Kpg. Bak Air No. 937, Bukittinggi 98135, Kaltara', 'Bitung', 'Riau', 'Meksiko', '(+62) 988 1383 123', '0679 0464 264', '20643', '47879391755', 'CV Kuswandari Maulana Tbk', 'Tempore deserunt consequuntur repellat ad. Consequatur dolorem distinctio reprehenderit voluptas sapiente. Non aut autem autem aut et. Unde aut delectus possimus ea.', NULL, NULL),
+(10, 'Cici', 'Laksmiwati', 'Ds. S. Parman No. 126, Jayapura 34573, Maluku', 'Cimahi', 'Jawa Tengah', 'Nauru', '(+62) 871 764 305', '(+62) 514 2088 689', '94730', '62409737498', 'PT Wibowo Damanik', 'Non at expedita beatae. Pariatur ipsam ipsam debitis magni quia et eos impedit. Eum cum alias consequatur at cum distinctio error repudiandae.', NULL, NULL),
+(11, 'Respati', 'Kurniawan', 'Ds. Badak No. 37, Padangsidempuan 13181, Babel', 'Administrasi Jakarta Selatan', 'Sulawesi Selatan', 'Brasil', '0825 8337 9099', '(+62) 23 1871 7704', '96181', '14713428041', 'CV Hasanah Permadi (Persero) Tbk', 'Rem alias quia id voluptate eos qui ullam. Iusto distinctio reiciendis et blanditiis. Quis est in veniam occaecati cumque distinctio.', NULL, NULL),
+(12, 'Yuliana', 'Rahimah', 'Psr. Raya Ujungberung No. 194, Bandung 48859, DKI', 'Serang', 'Bali', 'Bahama', '(+62) 20 9306 370', '(+62) 879 9263 040', '46190', '361657270', 'PD Sitorus Puspasari Tbk', 'Et nostrum ipsam consequatur suscipit. Nostrum eum est repellendus quidem est. Eligendi temporibus enim dolorem eaque.', NULL, NULL),
+(13, 'Kasusra', 'Hardiansyah', 'Psr. Achmad No. 956, Gorontalo 26369, Riau', 'Banjarbaru', 'Sulawesi Tenggara', 'Uzbekistan', '0971 2516 543', '0922 8000 812', '58756', '115163744176', 'CV Pangestu Pudjiastuti Tbk', 'Quae voluptatem delectus nesciunt tempora mollitia. Sunt et pariatur nobis at illum officia asperiores. Fugiat quisquam non maiores quidem sit est.', NULL, NULL),
+(14, 'Galuh', 'Tarihoran', 'Ds. Pasir Koja No. 856, Surabaya 51884, DIY', 'Cimahi', 'Kalimantan Timur', 'Finlandia', '(+62) 907 3909 9738', '(+62) 534 3725 0164', '10608', '06210731046165', 'Perum Budiyanto', 'Est dolores vitae sunt et minus. Dolorem vitae temporibus repudiandae non id amet aut enim. Ad illum eos molestias temporibus. Quasi minus reiciendis quia.', NULL, NULL),
+(15, 'Daryani', 'Maulana', 'Dk. Sutarto No. 534, Pontianak 95510, Lampung', 'Administrasi Jakarta Barat', 'Sulawesi Utara', 'Yunani', '0445 3408 0963', '(+62) 276 4154 973', '92860', '5559394318', 'PT Nababan Sihombing', 'Vel non dolorum tenetur. Quia repellat et quidem placeat expedita quam qui. Beatae expedita soluta cum. Quia ratione natus quas autem temporibus.', NULL, NULL),
+(16, 'Prima', 'Widodo', 'Ds. Kiaracondong No. 265, Banjar 50740, Kalsel', 'Parepare', 'Nusa Tenggara Timur', 'Pulau Norfolk', '(+62) 332 0743 589', '(+62) 616 4547 1666', '11913', '94385929892', 'Perum Wahyudin', 'Cupiditate sed sunt eum perferendis quas voluptatem quod accusamus. Porro deserunt ut consectetur quasi explicabo. Delectus repudiandae non sed. Nisi sed non voluptas et.', NULL, NULL),
+(17, 'Ganep', 'Januar', 'Ds. Flora No. 621, Sukabumi 21788, Kalsel', 'Batam', 'Nusa Tenggara Barat', 'Kolombia', '0806 307 463', '(+62) 359 5052 7958', '27050', '2455387489835', 'Perum Pudjiastuti Tbk', 'Dignissimos vitae voluptatem omnis quo sit. Itaque inventore est et autem hic. Sunt officiis rerum eius eum repellat.', NULL, NULL),
+(18, 'Shania', 'Puspasari', 'Dk. Sukajadi No. 279, Gorontalo 79825, Kaltim', 'Banda Aceh', 'Kepulauan Bangka Belitung', 'Senegal', '026 9198 3277', '(+62) 789 8430 3803', '61922', '17482540921', 'PD Kuswandari', 'Mollitia quo assumenda facere magnam recusandae eius fuga labore. Blanditiis accusantium nam sit maxime distinctio velit nulla ut. Laborum minus aut et. Dolor ipsam sit quam.', NULL, NULL),
+(19, 'Ani', 'Rahimah', 'Ki. Bagis Utama No. 783, Bontang 61130, Sulteng', 'Yogyakarta', 'Kalimantan Utara', 'Jersey', '0801 2547 4014', '0840 8008 758', '26807', '538118404', 'Perum Winarno Halimah', 'Quis qui impedit sit. Hic ducimus maxime voluptatum cum ea et. Adipisci qui dignissimos illo quae ratione est.', NULL, NULL),
+(20, 'Mursita', 'Manullang', 'Kpg. Hang No. 957, Lubuklinggau 17851, Aceh', 'Blitar', 'Maluku', 'Senegal', '(+62) 528 8690 2801', '0531 7822 051', '28017', '8375017', 'PD Uyainah Simanjuntak Tbk', 'Natus ipsam et fuga quasi ut. Magnam quasi deleniti aut aut optio quia. Praesentium et facere neque quia labore fugit incidunt aut.', NULL, NULL),
+(21, 'Pardi', 'Zulaika', 'Kpg. Raya Setiabudhi No. 99, Palopo 27420, Lampung', 'Tasikmalaya', 'Kalimantan Selatan', 'Antigua dan Barbuda', '(+62) 230 9200 136', '(+62) 447 7138 4734', '71319', '0750640973721133', 'CV Kuswandari (Persero) Tbk', 'Nobis nulla ad amet. Dolor id dolorem reiciendis autem eum quia sunt. Quaerat quia at quae beatae quos.', NULL, NULL),
+(22, 'Zaenab', 'Palastri', 'Psr. Hang No. 744, Sorong 89858, Sumut', 'Banjar', 'Kepulauan Bangka Belitung', 'Tuvalu', '(+62) 976 9297 587', '0847 439 935', '55393', '2340558679', 'CV Usamah (Persero) Tbk', 'Itaque in culpa praesentium vel autem architecto voluptatum et. Eum est laborum distinctio tenetur quidem labore excepturi. Recusandae in consectetur eos.', NULL, NULL),
+(23, 'Asmadi', 'Yulianti', 'Kpg. Ikan No. 803, Solok 95988, Lampung', 'Palembang', 'Lampung', 'Guadeloupe', '(+62) 629 1210 7609', '0670 1127 1696', '19565', '0311109065960', 'PD Habibi Zulkarnain', 'Est iusto labore harum. Veritatis vitae ad facere ea consequatur. Velit odio accusantium doloribus quia rerum sed voluptate nostrum.', NULL, NULL),
+(24, 'Nasim', 'Permata', 'Gg. Jend. Sudirman No. 729, Gorontalo 33870, NTT', 'Bima', 'Bali', 'Australia', '0828 9705 6317', '(+62) 712 6240 313', '60385', '809677', 'CV Saragih Budiyanto (Persero) Tbk', 'Quo pariatur earum magni ullam. Et distinctio exercitationem hic dicta. In totam asperiores nemo fugiat quaerat omnis aperiam.', NULL, NULL),
+(25, 'Farhunnisa', 'Fujiati', 'Ds. Bayam No. 668, Probolinggo 93572, Sulsel', 'Bekasi', 'Kepulauan Riau', 'Maladewa', '(+62) 603 2827 3206', '(+62) 409 8267 508', '46039', '75905391463910023', 'UD Zulkarnain Hassanah Tbk', 'Rerum quas dolor sint laudantium consequatur. Commodi eaque quibusdam ut dolorem soluta omnis harum. Praesentium est tempora at. Dolor accusamus nesciunt neque et. Nesciunt dicta rem qui sapiente.', NULL, NULL),
+(26, 'Hesti', 'Mulyani', 'Gg. Babakan No. 368, Cilegon 90769, Jatim', 'Samarinda', 'Banten', 'Namibia', '0213 1328 375', '(+62) 983 2083 3329', '93815', '540972006548', 'CV Pradana (Persero) Tbk', 'Dolores nisi sapiente possimus explicabo aperiam. Laborum dolorum est adipisci necessitatibus similique in. Aut et placeat natus et a enim vel.', NULL, NULL),
+(27, 'Anita', 'Maryati', 'Dk. Tubagus Ismail No. 771, Tebing Tinggi 99498, Sulsel', 'Kotamobagu', 'Sumatera Utara', 'Tuvalu', '(+62) 887 590 202', '(+62) 874 190 785', '95504', '6197655829290', 'UD Wijayanti (Persero) Tbk', 'Enim libero et repellendus quasi ut. Et doloremque dolor atque. Pariatur dolores quas alias quia. Excepturi harum sunt qui laudantium.', NULL, NULL),
+(28, 'Vera', 'Puspita', 'Jr. Gambang No. 451, Bontang 76173, Babel', 'Batam', 'Sulawesi Tengah', 'Panama', '0398 7828 9033', '0617 7047 217', '24897', '00529209917507', 'Perum Suartini', 'Adipisci rerum delectus libero fuga facilis inventore ex. Sit consequatur natus distinctio. Dolor ea quia sint omnis. Non aut similique aliquam illum.', NULL, NULL),
+(29, 'Kusuma', 'Hutapea', 'Jr. Bambu No. 663, Cilegon 14719, Gorontalo', 'Semarang', 'Kalimantan Utara', 'Gabon', '0511 4894 7795', '0564 8563 080', '15191', '11123093684', 'UD Lazuardi (Persero) Tbk', 'Quaerat a et ea animi. Et voluptas non ratione magnam et repellendus. Eligendi labore quae quia dignissimos. Id mollitia praesentium nobis quia in.', NULL, NULL),
+(30, 'Ella', 'Nuraini', 'Psr. Ciwastra No. 406, Administrasi Jakarta Timur 74958, Sultra', 'Bontang', 'DI Yogyakarta', 'Federasi Rusia', '(+62) 472 1383 666', '025 6581 010', '37045', '961558918', 'PD Namaga Mardhiyah', 'Eum nostrum rem sed voluptatem. In possimus repellendus id quo debitis neque. Eum voluptates qui possimus ipsam est itaque ut.', NULL, NULL),
+(31, 'Cahyo', 'Puspita', 'Dk. Villa No. 210, Lubuklinggau 69437, Jatim', 'Administrasi Jakarta Utara', 'Sulawesi Selatan', 'Albania', '(+62) 907 2320 5209', '0302 7785 8694', '42636', '152279730', 'UD Yuliarti', 'Tempora aut totam harum. Repellat aut qui voluptatem consequatur eum eum dolorem. Odit aspernatur aut est qui accusamus.', NULL, NULL),
+(32, 'Dwi', 'Farida', 'Dk. Cikutra Timur No. 202, Malang 82465, Lampung', 'Parepare', 'Sumatera Utara', 'Kepulauan Turks dan Caicos', '0851 9680 716', '(+62) 27 8259 890', '58635', '81931776669', 'CV Megantara', 'Earum hic tenetur possimus vitae impedit quod. Officia in voluptatibus ex et dolore laboriosam. Sed placeat dolorem laboriosam quo asperiores.', NULL, NULL),
+(33, 'Keisha', 'Sinaga', 'Kpg. Tubagus Ismail No. 572, Makassar 48549, Bengkulu', 'Makassar', 'Kalimantan Selatan', 'Korea', '0202 3263 499', '(+62) 22 2314 475', '99071', '0081079824', 'UD Latupono', 'Corrupti animi et sit aliquam quos eum accusamus. Error nemo qui nobis eligendi. Suscipit architecto similique quos labore.', NULL, NULL),
+(34, 'Ayu', 'Siregar', 'Dk. Arifin No. 240, Kendari 15673, Malut', 'Cimahi', 'Nusa Tenggara Timur', 'Ghana', '0216 4900 791', '0409 8264 9328', '89531', '35658303', 'CV Nasyiah Rahimah (Persero) Tbk', 'Omnis laboriosam illo et alias atque voluptas. Dolorem accusamus voluptatem qui ut molestias aliquam voluptas corporis. Error itaque asperiores voluptas cumque laudantium et non.', NULL, NULL),
+(35, 'Azalea', 'Natsir', 'Ds. Lada No. 202, Bitung 83216, Babel', 'Prabumulih', 'Sumatera Utara', 'Swedia', '0857 446 787', '0889 9884 640', '53526', '37018027014', 'PT Riyanti Yolanda', 'Hic qui quo reiciendis placeat molestiae. Illo temporibus omnis corporis commodi molestias numquam est. Est perferendis eaque quod fugiat. Adipisci expedita error adipisci eius esse officia.', NULL, NULL),
+(36, 'Gina', 'Widodo', 'Kpg. Panjaitan No. 971, Cimahi 15779, Kaltim', 'Gunungsitoli', 'DKI Jakarta', 'Mayotte', '0644 8436 0597', '0648 5420 205', '86722', '70592357', 'PT Handayani (Persero) Tbk', 'Voluptates magnam aut iusto facere quibusdam. Ullam et rerum sit deserunt hic aliquid amet. Dolore maxime ullam aut quod illum voluptatem animi veritatis.', NULL, NULL),
+(37, 'Padmi', 'Yulianti', 'Jr. Cut Nyak Dien No. 296, Mataram 99109, Sulut', 'Kediri', 'Aceh', 'Kaledonia baru', '0341 8684 225', '0595 2803 383', '47389', '37169110', 'CV Sinaga Tbk', 'Saepe sequi minima illum sint asperiores ea nihil. Nisi ea officiis illo est ut rerum. Modi tempore labore fuga iste vitae ea. Iure eum sed est necessitatibus non temporibus est.', NULL, NULL),
+(38, 'Asirwanda', 'Ardianto', 'Jln. Astana Anyar No. 297, Pekalongan 47321, Sulsel', 'Cilegon', 'Bali', 'Spanyol', '0432 6742 0042', '(+62) 670 7807 757', '30471', '2760977', 'PT Sihombing (Persero) Tbk', 'Quis ut fugit blanditiis placeat sint suscipit. Labore cum voluptatum explicabo nesciunt dolorum. Iste aut eos amet totam commodi vero enim.', NULL, NULL),
+(39, 'Lili', 'Wacana', 'Psr. Bahagia  No. 895, Probolinggo 21621, NTB', 'Cimahi', 'Kepulauan Bangka Belitung', 'Kepulauan Virgin Amerika Serikat', '0348 2722 902', '(+62) 219 5641 864', '45678', '95370526266', 'UD Mardhiyah', 'Voluptatibus ea autem facilis atque quas. Autem assumenda ea ut earum quis architecto qui. Ut ut placeat veritatis asperiores rerum totam. Mollitia amet voluptatem illo dolorem qui delectus in.', NULL, NULL),
+(40, 'Adika', 'Wacana', 'Dk. Hasanuddin No. 800, Batam 35124, Sultra', 'Cimahi', 'Kepulauan Riau', 'Malta', '(+62) 817 5885 6639', '(+62) 350 5188 584', '79872', '7309004732183', 'Perum Budiman Tbk', 'Voluptas corrupti molestias sequi enim. Ut consectetur deserunt atque exercitationem occaecati sit. Explicabo dolore itaque consequatur dolores cum necessitatibus. Omnis numquam sed ipsam in.', NULL, NULL),
+(41, 'Gatra', 'Mulyani', 'Jln. Basmol Raya No. 764, Padangsidempuan 92699, Sulut', 'Sabang', 'Maluku Utara', 'Martinik', '0588 3640 425', '(+62) 474 7052 2860', '79417', '726522164', 'PT Anggraini (Persero) Tbk', 'Nam adipisci eos dolor quas excepturi reiciendis sint. Quos voluptas magni atque voluptatem qui. Doloremque modi ut excepturi ut qui debitis. Voluptas vitae illum omnis aut.', NULL, NULL),
+(42, 'Yusuf', 'Sihombing', 'Kpg. Baladewa No. 845, Langsa 46276, Riau', 'Batu', 'Kalimantan Selatan', 'Filipina', '0811 415 073', '0557 8689 197', '69104', '96352032895', 'PT Pudjiastuti Thamrin (Persero) Tbk', 'Delectus repellat ab voluptas ut. Doloremque quo iusto est explicabo perspiciatis eligendi molestias. Qui ex modi possimus tempora. Illo molestiae amet et labore ipsam.', NULL, NULL),
+(43, 'Dacin', 'Laksmiwati', 'Ds. Radio No. 60, Medan 89371, Kalsel', 'Subulussalam', 'Kalimantan Timur', 'Guinea Ekuatorial', '0764 3409 7198', '0879 267 082', '83726', '6890916107420', 'PD Lailasari Setiawan', 'Incidunt rem rem nemo. Aperiam est maxime optio est consequuntur. Quis minima atque velit recusandae sit. Iusto recusandae sed voluptas.', NULL, NULL),
+(44, 'Endah', 'Winarsih', 'Ki. Reksoninten No. 705, Banjarmasin 25398, NTT', 'Parepare', 'Papua', 'Jamaika', '0645 7965 9959', '023 6816 547', '86205', '75351527', 'Perum Pudjiastuti Natsir', 'Quae temporibus eum deserunt facilis est quia. Quia repellendus ipsam eos placeat. Velit quibusdam molestiae qui iste eligendi illo.', NULL, NULL),
+(45, 'Gina', 'Iswahyudi', 'Psr. Tangkuban Perahu No. 281, Bukittinggi 43767, NTB', 'Cirebon', 'Jawa Tengah', 'Oman', '(+62) 650 4214 211', '0512 3490 536', '98782', '354732795', 'Perum Mulyani', 'Sit cumque quia consequatur aliquam nihil. Laboriosam quia quaerat et laboriosam aut ea voluptas. Sint distinctio error aut unde tempora dolor aut.', NULL, NULL),
+(46, 'Ana', 'Yuliarti', 'Kpg. Bawal No. 909, Cirebon 68892, DKI', 'Tegal', 'Kalimantan Timur', 'Aruba', '0683 4738 8979', '(+62) 809 900 835', '84440', '70616608126220', 'CV Permadi', 'Aut unde eum eum consequatur. Perferendis non illum quia similique. Explicabo ut commodi quo magni in. Enim non debitis maxime omnis.', NULL, NULL),
+(47, 'Ira', 'Farida', 'Jln. Babakan No. 99, Administrasi Jakarta Timur 71355, Kalbar', 'Bontang', 'Kalimantan Barat', 'Azerbaijan', '0250 9956 5060', '(+62) 728 9630 6711', '87530', '783670368', 'CV Handayani Natsir', 'Nostrum sit dolor odit. Et iusto non et vel id excepturi. Placeat dolores nostrum hic pariatur asperiores quae.', NULL, NULL),
+(48, 'Gawati', 'Lestari', 'Ds. Bayan No. 987, Tarakan 75104, Bali', 'Pangkal Pinang', 'Kalimantan Tengah', 'Mongolia', '(+62) 712 9908 9118', '(+62) 772 7119 063', '11436', '22941169530', 'UD Firmansyah Hutapea Tbk', 'Vel et qui voluptate dicta repudiandae est sunt dolorum. Vero aut magnam non. Rerum occaecati incidunt nisi consequatur mollitia. Nemo laudantium et ex voluptas qui possimus voluptatem et.', NULL, NULL),
+(49, 'Endah', 'Maulana', 'Jln. Sudiarto No. 775, Bandung 19691, Gorontalo', 'Blitar', 'Jawa Barat', 'Haiti', '(+62) 537 8907 9167', '(+62) 534 3332 9459', '64863', '37332329510558', 'Perum Yolanda', 'Odit dicta dignissimos fugiat atque aut. Perferendis exercitationem tenetur quia dolor magni qui. Aut odio et quisquam recusandae consequatur.', NULL, NULL),
+(50, 'Cahyanto', 'Habibi', 'Jln. K.H. Maskur No. 226, Banjar 15607, Sulut', 'Lhokseumawe', 'Sumatera Selatan', 'Malawi', '(+62) 689 4206 7592', '(+62) 568 3462 2069', '26101', '629851838', 'CV Marpaung Tbk', 'Dolore voluptatibus vel fugit eaque. Eligendi provident fugiat ipsa consectetur nobis similique harum. Aut ea ut corporis quibusdam.', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detail_order`
+--
+
+CREATE TABLE `detail_order` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `invoice_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `discount` int(11) NOT NULL,
+  `total_price` int(11) NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `detail_order`
+--
+
+INSERT INTO `detail_order` (`id`, `invoice_number`, `product_id`, `quantity`, `discount`, `total_price`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'INV/11/2021/00001', 1, 1, 0, 82122611, 'oo', '2021-11-25 23:40:29', '2021-11-25 23:40:29'),
+(2, 'INV/11/2021/00001', 3, 1, 50, 53047147, 'lll', '2021-11-25 23:40:29', '2021-11-25 23:40:29'),
+(3, 'INV/11/2021/00001', 9, 1, 0, 59092565, '', '2021-11-25 23:40:29', '2021-11-25 23:40:29'),
+(4, 'INV/11/2021/00002', 1, 1, 0, 82122611, 'oo', '2021-11-25 23:43:34', '2021-11-25 23:43:34'),
+(5, 'INV/11/2021/00002', 3, 1, 50, 53047147, 'lll', '2021-11-25 23:43:34', '2021-11-25 23:43:34'),
+(6, 'INV/11/2021/00002', 9, 1, 0, 59092565, 'pppppp', '2021-11-25 23:43:34', '2021-11-25 23:43:34'),
+(7, 'INV/11/2021/00003', 9, 4, 20, 59092565, 'ok', '2021-11-25 23:46:27', '2021-11-25 23:46:27'),
+(8, 'INV/11/2021/00003', 48, 3, 0, 46574592, 'ok', '2021-11-25 23:46:27', '2021-11-25 23:46:27'),
+(9, 'INV/11/2021/00003', 47, 1, 0, 51653269, 'ok', '2021-11-25 23:46:27', '2021-11-25 23:46:27'),
+(10, 'INV/11/2021/00004', 1, 1, 20, 82122611, '', '2021-11-26 02:20:20', '2021-11-26 02:20:20'),
+(11, 'INV/11/2021/00004', 3, 1, 10, 53047147, '', '2021-11-26 02:20:20', '2021-11-26 02:20:20'),
+(12, 'INV/11/2021/00005', 1, 2, 50, 82122611, 'tt', '2021-11-26 02:40:05', '2021-11-26 02:40:05'),
+(13, 'INV/11/2021/00005', 9, 1, 20, 59092565, 'gfhcgv', '2021-11-26 02:40:05', '2021-11-26 02:40:05'),
+(14, 'INV/11/2021/00005', 10, 1, 5, 66945333, 'kj', '2021-11-26 02:40:05', '2021-11-26 02:40:05'),
+(15, 'INV/11/2021/00006', 56, 17, 20, 1771196, 'ok', '2021-11-26 02:48:31', '2021-11-26 02:48:31'),
+(16, 'INV/11/2021/00006', 45, 2, 80, 30217936, 'ok', '2021-11-26 02:48:31', '2021-11-26 02:48:31'),
+(17, 'INV/11/2021/00006', 48, 4, 50, 93149184, 'ok', '2021-11-26 02:48:31', '2021-11-26 02:48:31'),
+(18, 'INV/11/2021/00007', 4, 4, 70, 53950939, 'io', '2021-11-26 02:50:55', '2021-11-26 02:50:55'),
+(19, 'INV/11/2021/00007', 7, 4, 38, 43271127, 'io', '2021-11-26 02:50:55', '2021-11-26 02:50:55'),
+(20, 'INV/11/2021/00007', 9, 3, 21, 140049379, 'io', '2021-11-26 02:50:55', '2021-11-26 02:50:55'),
+(21, 'INV/11/2021/00008', 1, 3, 70, 73910350, '', '2021-11-26 02:53:49', '2021-11-26 02:53:49'),
+(22, 'INV/11/2021/00008', 7, 4, 30, 48854498, '', '2021-11-26 02:53:49', '2021-11-26 02:53:49'),
+(23, 'INV/11/2021/00009', 1, 3, 20, 197094266, 'oke', '2021-11-28 19:57:54', '2021-11-28 19:57:54'),
+(24, 'INV/11/2021/00009', 3, 5, 10, 238712162, 'oke', '2021-11-28 19:57:54', '2021-11-28 19:57:54');
 
 -- --------------------------------------------------------
 
@@ -127,45 +256,23 @@ CREATE TABLE `image_product` (
 --
 
 INSERT INTO `image_product` (`id`, `product_id`, `image`, `created_at`, `updated_at`) VALUES
-(1, 51, '4655620ce58afa7bb6f57fee66a78737', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
-(2, 51, '0e148d13fd7e5f24c0e010d5b9ba1b7e', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
-(3, 51, 'ed3fd4a7c8ec31a4ab565072ed2cef36', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
-(4, 51, 'c9e7cb5519bc542271620a004ad81ce7', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
-(5, 51, '26b92a79e03a70d180183a72f2a4fe5a', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
-(6, 51, '1090a6226db12c09fb504b6e8caf6a76', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
-(7, 51, '1258ff6c0095e2d711eca956c03b49a4', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
-(8, 51, '9dc22a98ceb664790b766e88f14e9488', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
-(9, 51, 'a2deb1e007866f78e90652c449ff4f5c', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
-(10, 51, 'ce23c53c1084a84735a721568e21f8a0', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
 (15, 53, '2aa4631295cbe3588eb26c57819374b2', '2021-10-19 05:36:14', '2021-10-19 05:36:14'),
 (16, 53, '72783e2f26632bc7c3cc31a83992313f', '2021-10-19 05:36:14', '2021-10-19 05:36:14'),
 (17, 53, 'ba0d5e4d13ae17b8f75115236d6f584a', '2021-10-19 05:36:14', '2021-10-19 05:36:14'),
 (18, 53, '8ec98a2d40f1f4add2ca0775f3fd78c8', '2021-10-19 05:36:14', '2021-10-19 05:36:14'),
 (19, 53, '52430f1f91033d585518a1fc91ce8896', '2021-10-19 05:36:14', '2021-10-19 05:36:14'),
-(33, 52, '70df5412a3066fb7687db45935a32718', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
-(34, 52, 'b0f115c6ca6a3e91fc25bd871ad33c4f', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
-(35, 52, '6303a01515b2e1ecb23afe8135d94749', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
-(36, 52, 'c4d3608214ce13e915d0f718a5ca539b', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
-(37, 52, 'bd64bf54fddb076ed7a80396d32c30cb', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
-(38, 52, 'd1065c9b170d7f7fe23c31d57e42c2c6', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
-(39, 52, 'be22e4ae507b6525ddf1e130519c92c0', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
-(40, 52, 'cc2bee20c58ccd7a07304f4d45c9fe69', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
-(41, 52, '7dc36f896d2cf543bb6db83cb323d8d7', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
-(42, 52, '54be9054f4063fd1e89508985beb0fa1', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
-(43, 52, '4b779047adc9994dcbac7c96e9bcae81', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
-(44, 52, '49421d957df20a3306d29f1611c90c81', '2021-10-19 08:17:12', '2021-10-19 08:17:12'),
-(45, 55, 'ef6f04af59789da825dced943262a991', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
-(46, 55, '1de985a851b0d8dc199b0ead6b3753b9', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
-(47, 55, '2f53d90c2bedc07ac09e0958d56563d8', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
-(48, 55, '54433e5ee9142497d11e8c67a5960e19', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
-(49, 55, 'a1f7d04729eead91e86501cb16428473', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
-(50, 55, 'e7e070e14c8d5f8c7187b29ccd87d46f', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
-(51, 55, 'd1fb0015e2f230d64e63d7b07e6c6d82', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
-(52, 55, 'bbbfb17bb788f6da6ed324b930b18f5e', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
-(53, 55, '2588fc8ea6fab69bb5cc34770ba6207f', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
-(54, 55, '59fc58eb8db3f190fc89a7b6b7b008b7', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
-(55, 55, '542c4057f89ce49d875d367e1646f0e6', '2021-10-19 08:18:14', '2021-10-19 08:18:14'),
-(56, 55, '4ecfc2aa0767881c218ebbd8f4295cb5', '2021-10-19 08:18:14', '2021-10-19 08:18:14');
+(57, 55, '0344003518a645334ff84c56be74eb91', '2021-10-19 20:13:16', '2021-10-19 20:13:16'),
+(58, 55, '31ee7dab51e4a5c9cbd63f72031ea13a', '2021-10-19 20:13:16', '2021-10-19 20:13:16'),
+(59, 55, '44a70231995c9810f5465c63cd6472db', '2021-10-19 20:13:16', '2021-10-19 20:13:16'),
+(66, 56, '72353da9e98d992de5989e996283157f', '2021-10-19 20:52:09', '2021-10-19 20:52:09'),
+(67, 56, '813308b638f03746dc7a3666af1459b3', '2021-10-19 20:52:09', '2021-10-19 20:52:09'),
+(68, 56, 'd4e72f584609455bdde32fc6d54769b6', '2021-10-19 20:52:09', '2021-10-19 20:52:09'),
+(81, 57, '87954001e43c808563a2a2f6663a3549', '2021-10-24 05:23:34', '2021-10-24 05:23:34'),
+(82, 57, '49c431be4a8778b4ea4586f2cff92239', '2021-10-24 05:23:34', '2021-10-24 05:23:34'),
+(83, 57, '8d523c3eb3e8832d8cc9d814f23c946f', '2021-10-24 05:23:34', '2021-10-24 05:23:34'),
+(84, 18, '29e4a551a3321660905b86bb7a5ad9ce', '2021-11-10 02:44:13', '2021-11-10 02:44:13'),
+(85, 18, '57295dba763a7c860b2312d3bb23b167', '2021-11-10 02:44:13', '2021-11-10 02:44:13'),
+(86, 18, 'daf3bfc2cba53c1950b0d03791b8a476', '2021-11-10 02:44:13', '2021-11-10 02:44:13');
 
 -- --------------------------------------------------------
 
@@ -191,7 +298,47 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (12, '2021_09_21_161051_create_category_table', 1),
 (15, '2021_09_24_152543_create_supplier_table', 2),
 (16, '2021_10_18_151549_create_image_products_table', 3),
-(17, '2021_10_02_061942_create_product_table', 4);
+(17, '2021_10_02_061942_create_product_table', 4),
+(20, '2021_10_23_044037_create_pelanggan_table', 5),
+(21, '2021_11_05_122343_term_payment', 6),
+(30, '2021_10_23_043029_create_order_table', 11),
+(31, '2021_10_23_043447_create_detail_order_table', 12);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order`
+--
+
+CREATE TABLE `order` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `invoice_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_id` bigint(20) UNSIGNED NOT NULL,
+  `date_order` date NOT NULL,
+  `term_payment` bigint(20) UNSIGNED NOT NULL,
+  `desc_order` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sent_date` date NOT NULL,
+  `sent_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `transaction_status` enum('proses','selesai') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `grand_total` bigint(20) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order`
+--
+
+INSERT INTO `order` (`id`, `invoice_number`, `customer_id`, `date_order`, `term_payment`, `desc_order`, `sent_date`, `sent_address`, `transaction_status`, `grand_total`, `created_at`, `updated_at`) VALUES
+(1, 'INV/11/2021/00001', 40, '2021-11-02', 9, 'tes aja', '2021-11-04', 'Dk. Hasanuddin No. 800, Batam 35124, Sultra', 'proses', 0, '2021-11-25 23:40:29', '2021-11-25 23:40:29'),
+(2, 'INV/11/2021/00002', 40, '2021-11-02', 9, 'tes aja', '2021-11-04', 'Dk. Hasanuddin No. 800, Batam 35124, Sultra', 'proses', 0, '2021-11-25 23:43:34', '2021-11-25 23:43:34'),
+(3, 'INV/11/2021/00003', 5, '2021-11-13', 9, '', '2021-11-10', 'Jln. Ketandan No. 724, Kediri 62420, Papua', 'proses', 0, '2021-11-25 23:46:27', '2021-11-25 23:46:27'),
+(4, 'INV/11/2021/00004', 2, '2021-11-12', 7, '', '2021-11-04', 'Ki. Bagas Pati No. 296, Pekalongan 17244, Lampung', 'proses', 0, '2021-11-26 02:20:20', '2021-11-26 02:20:20'),
+(5, 'INV/11/2021/00005', 2, '2021-11-04', 5, 'gnhmb', '2021-11-05', 'Ki. Bagas Pati No. 296, Pekalongan 17244, Lampung', 'proses', 192994729, '2021-11-26 02:40:05', '2021-11-26 02:40:05'),
+(6, 'INV/11/2021/00006', 2, '2021-11-11', 10, '', '2021-11-27', 'Ki. Bagas Pati No. 296, Pekalongan 17244, Lampung', 'proses', 125138316, '2021-11-26 02:48:31', '2021-11-26 02:48:31'),
+(7, 'INV/11/2021/00007', 3, '2021-11-10', 4, 'po', '2021-11-02', 'Jln. Banal No. 898, Tasikmalaya 82992, Papua', 'proses', 237271445, '2021-11-26 02:50:55', '2021-11-26 02:50:55'),
+(8, 'INV/11/2021/00008', 3, '2021-11-12', 4, '', '2021-11-24', 'Jln. Banal No. 898, Tasikmalaya 82992, Papua', 'proses', 122764848, '2021-11-26 02:53:49', '2021-11-26 02:53:49'),
+(9, 'INV/11/2021/00009', 2, '2021-11-02', 5, '', '2021-11-11', 'Ki. Bagas Pati No. 296, Pekalongan 17244, Lampung', 'proses', 435806428, '2021-11-28 19:57:54', '2021-11-28 19:57:54');
 
 -- --------------------------------------------------------
 
@@ -267,7 +414,7 @@ INSERT INTO `product` (`id`, `category_id`, `supplier_id`, `name`, `type`, `qty`
 (15, 11, 50, 'nulla', 'quis', 9, 85813691, 74962549, 'autem', 'Vitae explicabo consectetur placeat recusandae. In amet illum tenetur neque. Velit accusamus est eos consectetur ut.', 'Repellat ut non iusto vel inventore porro. Possimus atque odit consectetur ut aut officia. Et asperiores nihil ut labore quo delectus nulla. Qui suscipit aut non minima.', '2021-09-28 19:42:21', NULL),
 (16, 49, 40, 'voluptatem', 'aspernatur', 1, 65857116, 81752782, 'voluptatum', 'Odit voluptatem molestiae fugit voluptatem ea consequatur. Qui accusamus rerum illum dignissimos. Nostrum perferendis nihil eaque provident est quia. Ullam et esse unde voluptatibus consequatur modi.', 'Consectetur repellat cumque consequuntur reiciendis magni corporis. Voluptas rerum voluptate nulla odio suscipit et a. Dolorem iusto voluptatem magnam a.', '2021-08-29 21:29:32', NULL),
 (17, 43, 28, 'eveniet', 'dolorem', 9, 5849771, 8850638, 'nihil', 'Temporibus laborum laudantium dolores totam itaque eaque cupiditate. Nulla nisi atque ut quibusdam quia sed. Voluptatem sequi et maxime cumque. Ea quia aut est rerum tempora veritatis et.', 'Doloribus necessitatibus nisi deserunt vel. Est et magnam aliquid veniam non libero. Qui quia dolores et qui. Nemo cupiditate hic facere qui.', '2021-08-13 13:27:16', NULL),
-(18, 29, 13, 'est', 'illo', 4, 42556739, 84423535, 'quisquam', 'Enim dolorem praesentium cupiditate quibusdam quia ipsa et. Qui modi sunt sapiente autem. Qui laborum earum nam et corporis impedit molestias.', 'Inventore qui est dolores neque quaerat voluptatibus non sapiente. Nemo dignissimos asperiores possimus odio. Et modi qui culpa fugiat. Tempora et quidem aut sed quae sit est.', '2021-09-30 14:18:03', NULL),
+(18, 29, 13, 'est', 'illo', 4, 42556739, 84423535, 'quisquam', 'Enim dolorem praesentium cupiditate quibusdam quia ipsa et. Qui modi sunt sapiente autem. Qui laborum earum nam et corporis impedit molestias.', 'f09d65e1e28076cba440d511f2727180', '2021-09-30 14:18:03', '2021-11-10 02:44:13'),
 (19, 38, 32, 'tenetur', 'est', 2, 81140016, 51097204, 'adipisci', 'Eos in doloribus omnis dolorem repudiandae. Repellendus qui accusantium vel. Ut nesciunt voluptatem doloremque accusantium sed veritatis. Voluptatem omnis suscipit unde sit numquam et.', 'Nihil sed quos quae aliquam inventore. Et libero eos molestiae architecto culpa aliquid quis. Nihil et est distinctio deserunt reprehenderit qui. Nemo praesentium dolores eum amet nam non.', '2021-09-27 16:48:54', NULL),
 (20, 1, 43, 'maiores', 'qui', 4, 75885158, 93329628, 'nobis', 'Quae repellendus quia numquam eum tempora dolores molestiae possimus. Veniam qui minus rerum fuga vero.', 'Sapiente error est dignissimos nostrum consectetur repudiandae. Autem nihil molestias ut. Sequi ut eum cupiditate id quod. Fugit debitis non quisquam tempore.', '2021-09-21 08:15:32', NULL),
 (21, 31, 41, 'optio', 'quia', 2, 58265297, 66610067, 'illum', 'Ut modi possimus non. Laudantium aperiam illo voluptatem totam. Incidunt aliquam quo natus.', 'Reiciendis sit quaerat recusandae. Occaecati cum esse nihil dolor eos. Deserunt qui dolores architecto dolores hic natus quo.', '2021-09-11 03:50:31', NULL),
@@ -300,11 +447,11 @@ INSERT INTO `product` (`id`, `category_id`, `supplier_id`, `name`, `type`, `qty`
 (48, 43, 20, 'at', 'sit', 5, 26536150, 46574592, 'voluptatum', 'Harum et ullam voluptatem rerum quis saepe ut. Autem aut quis aliquid doloribus voluptatum. Non sequi ea maiores dolores.', 'Ea molestiae repudiandae ea placeat ex eum. Deserunt eum vel sit illo in. Sit est voluptatem optio sed non ducimus.', '2021-09-05 03:00:20', NULL),
 (49, 20, 47, 'doloremque', 'et', 8, 75816481, 39225306, 'deserunt', 'Dolor assumenda incidunt sunt fugiat quidem. Sint quibusdam reprehenderit est aspernatur amet ut. Cum nihil consequatur numquam totam ut repellendus facilis.', 'Distinctio reiciendis quia sed quo. Tenetur mollitia ad non debitis. Sapiente in dolor dolorem consequatur facere et pariatur.', '2021-08-18 01:55:26', NULL),
 (50, 2, 37, 'ea', 'error', 6, 90368336, 29792559, 'libero', 'Sint ab qui quis a. Quasi aut aperiam voluptatum blanditiis quis vitae esse. Impedit quibusdam dolores perferendis nesciunt iusto.', 'Ab harum corrupti illum. Saepe id eum aut. Fugiat enim optio consequatur aliquid rerum. Maiores asperiores omnis consequatur sunt nihil et.', '2021-08-05 21:47:33', NULL),
-(51, 20, 21, 'aaa', 'aaa', 99, 756879, 6576878, 'pcs', 'aaa', '270e2b297a18ba24f4ea04c7d0eb5679', '2021-10-19 03:33:19', '2021-10-19 03:33:19'),
-(52, 13, 4, 'lala lili', 'lala lili', 1111, 88888, 99999, 'kg', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.', '3da3db1bf5baf88220e96d146a8ed551', '2021-10-19 04:28:56', '2021-10-19 08:17:12'),
 (53, 13, 48, 'papa', 'papa', 20, 190000, 250000, 'pcs', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', '17a33b9f0c662a7457c60ff61f8be512', '2021-10-19 05:36:14', '2021-10-19 05:36:14'),
 (54, 32, 2, 'zaza', 'zaza', 23, 900000, 950000, 'pcs', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', 'b5208a5776c2f18faeca891180767207', '2021-10-19 06:32:14', '2021-10-19 06:32:14'),
-(55, 51, 50, 'Kaka Ayu tinggi', 'kaka ayu tinggi', 222222222, 888888888, 888888888, 'kaka ayu tinggi', 'kaka ayu tinggi', '16e8ca92287d7d1501d85d4876bc0658', '2021-10-19 06:51:20', '2021-10-19 08:18:14');
+(55, 50, 50, 'Kaka ayu bener', 'Kaka ayu bener', 222222222, 888888888, 888888888, 'pcs', 'kaka ayu tinggi', 'c81ed6838ca7a710b62199501bea5dd3', '2021-10-19 06:51:20', '2021-10-19 20:13:16'),
+(56, 34, 29, 'Tata Panjang', 'tata panjang', 100, 124122, 130235, 'pcs', 'tata tiga', '658894b93d14a776b7e44ad8f14d6d28', '2021-10-19 20:46:58', '2021-10-19 20:52:35'),
+(57, 31, 1, 'kkkk', 'jjjj', 45, 86565, 90000, 'pcs', 'chgjvhkbjn', 'e990c48a5981147743f15fe0f9cd476d', '2021-10-24 05:22:03', '2021-10-24 05:23:34');
 
 -- --------------------------------------------------------
 
@@ -319,7 +466,7 @@ CREATE TABLE `supplier` (
   `contact_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `region` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `province` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `postal_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -334,7 +481,7 @@ CREATE TABLE `supplier` (
 -- Dumping data for table `supplier`
 --
 
-INSERT INTO `supplier` (`id`, `company_name`, `contact_name`, `contact_title`, `address`, `city`, `region`, `country`, `postal_code`, `phone`, `account_number`, `bank_name`, `description`, `created_at`, `updated_at`) VALUES
+INSERT INTO `supplier` (`id`, `company_name`, `contact_name`, `contact_title`, `address`, `city`, `province`, `country`, `postal_code`, `phone`, `account_number`, `bank_name`, `description`, `created_at`, `updated_at`) VALUES
 (1, 'CV Nasyiah Usada Tbk', 'Paramita Kusmawati', 'Pramusaji', 'Ds. Karel S. Tubun No. 30, Tual 84566, Sumsel', 'Sorong', 'Kepulauan Riau', 'Taiwan', '91412', '(+62) 239 0172 300', '520742033385', 'CV Safitri Habibi (Persero) Tbk', 'Rem nihil doloribus delectus porro. Atque nisi repudiandae ipsam ad debitis accusamus. Ipsum sit cupiditate sint dignissimos.', NULL, NULL),
 (2, 'PD Lailasari Astuti (Persero) Tbk', 'Faizah Nurdiyanti', 'Guru', 'Gg. Basudewo No. 634, Dumai 43596, Malut', 'Pasuruan', 'Nusa Tenggara Barat', 'Burundi', '59370', '(+62) 28 3024 109', '08744027930', 'UD Agustina', 'Vel nulla quod minima. Et quas dolore dignissimos voluptatem necessitatibus numquam. Perferendis vero ut voluptatem sed.', NULL, NULL),
 (3, 'UD Riyanti', 'Victoria Pia Rahimah S.I.Kom', 'Dosen', 'Ds. Gatot Subroto No. 948, Prabumulih 15226, DIY', 'Madiun', 'Sulawesi Selatan', 'Kepulauan Turks dan Caicos', '92945', '(+62) 828 5842 929', '59989201', 'PD Najmudin Yuniar (Persero) Tbk', 'Quia cumque quia velit voluptas ad. Pariatur et neque quasi quod sit provident. A vel ut est eum.', NULL, NULL),
@@ -384,7 +531,88 @@ INSERT INTO `supplier` (`id`, `company_name`, `contact_name`, `contact_title`, `
 (47, 'PT Oktaviani Tbk', 'Prasetyo Ramadan', 'Pastor', 'Jln. Madrasah No. 869, Bima 27922, Maluku', 'Sorong', 'DI Yogyakarta', 'Taiwan', '76414', '0213 1218 7941', '1505418611527', 'PT Halimah Kuswoyo', 'Reprehenderit rem et velit deserunt. Consequuntur aut sit quae sit in et. Quod repudiandae illum ut accusantium tempora consectetur veniam.', NULL, NULL),
 (48, 'CV Hutagalung (Persero) Tbk', 'Tasnim Harsanto Saragih S.Farm', 'Nelayan / Perikanan', 'Ki. Cemara No. 465, Balikpapan 40994, Pabar', 'Tanjungbalai', 'Bali', 'Republik Afrika Tengah', '22317', '(+62) 440 6375 839', '977117375778', 'CV Hassanah', 'Esse facere atque accusantium. Ullam rerum ut harum hic et sint dicta. Nobis ducimus consequatur et.', NULL, NULL),
 (49, 'CV Susanti (Persero) Tbk', 'Galuh Tampubolon', 'Konsultan', 'Psr. Antapani Lama No. 86, Kediri 44873, Sumut', 'Jambi', 'Sulawesi Selatan', 'Jordan', '14936', '0845 916 675', '4737272617519', 'UD Mahendra Haryanto', 'Ut sit mollitia exercitationem mollitia fugit alias voluptatem. Veritatis numquam quam et cum. Et voluptates consectetur qui nemo. Et alias rem dolore vel quos quia.', NULL, NULL),
-(50, 'PD Mulyani Tbk', 'Sarah Fujiati', 'Karyawan Swasta', 'Ki. Madrasah No. 342, Tarakan 49722, Sulut', 'Probolinggo', 'Jawa Tengah', 'Aruba', '57532', '(+62) 861 4727 791', '1405177159', 'PT Uyainah Kusumo (Persero) Tbk', 'Doloribus cum incidunt odio minus. Sed ea a hic doloremque atque. Autem quas et sit odit et et aspernatur. Nemo assumenda dolores esse ipsum ullam.', NULL, NULL);
+(50, 'PD Mulyani Tbk', 'Sarah Fujiati', 'Karyawan Swasta', 'Ki. Madrasah No. 342, Tarakan 49722, Sulut', 'Probolinggo', 'Jawa Tengah', 'Aruba', '57532', '(+62) 861 4727 791', '1405177159', 'PT Uyainah Kusumo (Persero) Tbk', 'Doloribus cum incidunt odio minus. Sed ea a hic doloremque atque. Autem quas et sit odit et et aspernatur. Nemo assumenda dolores esse ipsum ullam.', NULL, NULL),
+(51, 'PD Usada Pradana', 'Hesti Pudjiastuti', 'Sopir', 'Ki. Honggowongso No. 577, Administrasi Jakarta Barat 10149, Sumut', 'Gunungsitoli', 'Kalimantan Barat', 'Botswana', '24159', '0206 0984 273', '10579505510492', 'PT Prasetyo', 'Eius nihil debitis eaque quasi. Expedita ut ut cumque dicta consequatur quis. Accusamus possimus necessitatibus non in sit perferendis.', NULL, NULL),
+(52, 'UD Prabowo Farida Tbk', 'Yance Dina Hastuti', 'Tabib', 'Jr. HOS. Cjokroaminoto (Pasirkaliki) No. 9, Cilegon 12896, Kaltim', 'Surabaya', 'Kalimantan Timur', 'Anguilla', '28207', '(+62) 693 0884 250', '766522783929774', 'PT Prasasta Yuliarti', 'Quod qui iure aut esse. Eum natus labore nostrum sit reiciendis. Occaecati atque ut quo tenetur vero officiis voluptate. Fuga temporibus reiciendis sit ullam.', NULL, NULL),
+(53, 'PT Mustofa Anggraini', 'Puspa Titi Pratiwi M.Farm', 'Arsitek', 'Psr. HOS. Cjokroaminoto (Pasirkaliki) No. 474, Samarinda 42575, NTB', 'Pekalongan', 'Jawa Timur', 'Wallis dan Futuna', '41998', '0222 5596 4096', '738823194306', 'Perum Nasyiah Nasyidah Tbk', 'Quisquam quis ducimus blanditiis non doloribus soluta. Repudiandae enim assumenda ratione aut in. Est consequuntur dolorum quis ipsam odit quia.', NULL, NULL),
+(54, 'CV Rajasa Siregar', 'Sadina Eva Zulaika', 'Pramugari', 'Gg. Flores No. 828, Bontang 55292, DKI', 'Tual', 'Sulawesi Tengah', 'Turki', '56096', '0436 0639 4757', '827737966926', 'Perum Sirait (Persero) Tbk', 'Consequuntur laboriosam beatae illo molestiae alias quas consectetur. Impedit rerum natus eligendi praesentium doloremque. Et velit aut iusto doloribus temporibus.', NULL, NULL),
+(55, 'Perum Nuraini Zulaika', 'Viman Gaiman Suryono S.Pd', 'Pegawai Negeri Sipil (PNS)', 'Ds. Muwardi No. 76, Administrasi Jakarta Pusat 33511, Babel', 'Manado', 'Sumatera Barat', 'Tanzania', '65774', '0845 516 356', '539785229652', 'CV Prasetya Purnawati (Persero) Tbk', 'Ad voluptatem dolore odit. Provident sit nostrum modi et beatae nihil repudiandae. Architecto neque numquam non quia et. Dolorem quod repellendus voluptatem maiores fugiat.', NULL, NULL),
+(56, 'PT Mayasari', 'Kartika Yolanda S.IP', 'Buruh Harian Lepas', 'Gg. Imam Bonjol No. 764, Ternate 60745, Banten', 'Administrasi Jakarta Utara', 'Sulawesi Tengah', 'Saint Barthelemy', '10804', '(+62) 716 2382 8506', '5786628853201', 'Perum Melani Tbk', 'Placeat quo eum ipsam hic quisquam quia et. Quia voluptas non ut ut consequatur ut. Molestiae occaecati id accusantium sed at ut.', NULL, NULL),
+(57, 'PD Pradana (Persero) Tbk', 'Prayitna Damanik', 'Imam Masjid', 'Psr. Kalimantan No. 21, Pariaman 70501, Sumut', 'Sibolga', 'Sulawesi Tengah', 'Swaziland', '75452', '(+62) 567 0476 669', '739264496974336', 'PT Rajata (Persero) Tbk', 'Reiciendis quaerat autem sed nihil. Ea facere eaque debitis.', NULL, NULL),
+(58, 'PT Wahyuni Melani', 'Baktiadi Mumpuni Mansur S.T.', 'Pembantu Rumah Tangga', 'Kpg. Sadang Serang No. 713, Solok 40901, Riau', 'Metro', 'Sulawesi Tengah', 'Vanuatu', '91294', '0751 2299 038', '8621159591460', 'UD Haryanto', 'Eos officiis qui suscipit reprehenderit. Voluptas itaque voluptas quis. Et qui mollitia est.', NULL, NULL),
+(59, 'PD Aryani', 'Yulia Suryatmi', 'Perdagangan', 'Gg. Teuku Umar No. 971, Palangka Raya 74466, Aceh', 'Parepare', 'Riau', 'Jerman', '91253', '(+62) 524 1268 288', '8367058368', 'CV Wacana Siregar (Persero) Tbk', 'Voluptate accusantium suscipit nihil sit dolores consequuntur voluptatem. Nihil nihil harum est qui perspiciatis non veniam. Rerum ex illo esse. Officiis tempora dolores voluptatibus.', NULL, NULL),
+(60, 'PT Rahmawati Andriani (Persero) Tbk', 'Cinta Puspita M.Ak', 'Desainer', 'Ki. Adisucipto No. 683, Mojokerto 30011, Riau', 'Makassar', 'Maluku', 'Uruguay', '48503', '029 2266 4014', '21860155961', 'UD Novitasari', 'Quia voluptatem recusandae excepturi nulla. Perspiciatis ipsum quos voluptatem et non nam. Quos praesentium iusto minima facere.', NULL, NULL),
+(61, 'UD Maryati Ardianto', 'Pangeran Wibowo', 'Promotor Acara', 'Gg. Baja Raya No. 801, Sibolga 80904, Bali', 'Manado', 'Sulawesi Tengah', 'Kaledonia baru', '36866', '(+62) 418 5667 5225', '70396401702', 'UD Padmasari', 'Quam dolor aliquid magni quo. Maxime et aut et. Id nostrum ut perferendis non tempore explicabo ex. Laborum beatae dicta commodi harum.', NULL, NULL),
+(62, 'PD Yolanda (Persero) Tbk', 'Violet Salwa Yuniar', 'Penata Rias', 'Ds. Umalas No. 284, Bukittinggi 35586, Lampung', 'Bontang', 'Sulawesi Tengah', 'Turkmenistan', '65889', '0509 1948 788', '57627334610', 'Perum Suartini Simanjuntak', 'Soluta ut velit repudiandae sed incidunt incidunt. Aut provident aliquam error voluptatem.', NULL, NULL),
+(63, 'PD Laksita Haryanti (Persero) Tbk', 'Titin Usamah', 'Hakim', 'Gg. Kyai Mojo No. 81, Batam 84299, Kalteng', 'Subulussalam', 'Kepulauan Bangka Belitung', 'Somalia', '99765', '0295 2548 801', '592752', 'UD Sudiati (Persero) Tbk', 'Ut quod voluptatem fuga ad voluptatem. Non cumque id totam voluptatum tenetur aut. Magni voluptatem et vero explicabo. Molestias tempore velit consequatur voluptas vero quia sapiente.', NULL, NULL),
+(64, 'Perum Hidayat Widiastuti', 'Wage Siregar M.Pd', 'Perangkat Desa', 'Jln. Bayam No. 106, Sukabumi 53453, NTT', 'Subulussalam', 'Maluku', 'Bosnia dan Herzegovina', '45713', '0209 3264 0961', '257483829437', 'PT Permata Zulkarnain', 'Ut commodi cumque consectetur fugit. Aut placeat eum necessitatibus. Quisquam in illo culpa at. Odio quidem soluta ab et fuga dolorem distinctio.', NULL, NULL),
+(65, 'PT Hassanah Putra', 'Hafshah Susanti', 'Presiden', 'Ki. Babah No. 439, Banda Aceh 40003, NTB', 'Jayapura', 'Gorontalo', 'Guyana Prancis', '63687', '0644 8740 1616', '543790602', 'PT Aryani (Persero) Tbk', 'A quis ad aperiam labore vero enim. Dolorum culpa quis provident et adipisci. Assumenda id at eligendi quos.', NULL, NULL),
+(66, 'PD Usada Suwarno', 'Daniswara Saefullah S.Kom', 'Paraji', 'Dk. Sukabumi No. 483, Pasuruan 89611, Bengkulu', 'Administrasi Jakarta Pusat', 'Sumatera Utara', 'Azerbaijan', '38526', '0408 7637 408', '033569904', 'UD Winarsih', 'Illum molestiae recusandae nobis natus aut quae. Commodi qui magni voluptate vero.', NULL, NULL),
+(67, 'CV Budiman Sitompul', 'Lili Malika Astuti S.IP', 'Perdagangan', 'Psr. Bahagia No. 678, Bengkulu 49693, Bengkulu', 'Bima', 'Kalimantan Barat', 'Lebanon', '35826', '0897 588 772', '1984148152616796', 'PD Marbun Mandasari (Persero) Tbk', 'Laboriosam quidem reprehenderit sint et rerum iure quae quis. Voluptas consequuntur illo tenetur. Eius illo et qui sed alias. Ab sint voluptatem aut sed unde autem.', NULL, NULL),
+(68, 'UD Mansur Nugroho', 'Argono Atmaja Santoso S.H.', 'Pramugari', 'Gg. Sukajadi No. 974, Lhokseumawe 13800, Bali', 'Tomohon', 'Kepulauan Riau', 'Angola', '44156', '(+62) 721 9328 4269', '36747795610', 'PT Damanik Puspita Tbk', 'Vitae nobis veniam quisquam adipisci. Eos accusamus accusamus incidunt et nihil quia. Facere soluta dolorem omnis velit eligendi voluptas.', NULL, NULL),
+(69, 'PD Januar (Persero) Tbk', 'Lidya Wani Yuniar', 'Akuntan', 'Gg. Yoga No. 163, Tual 50285, Kepri', 'Cirebon', 'Jawa Timur', 'Afrika Selatan', '54943', '0862 7427 7396', '54215220', 'PT Laksmiwati (Persero) Tbk', 'Quis aut itaque dignissimos saepe reiciendis sint. Sint et qui similique id sed. Fuga id eius maiores aspernatur. Illum omnis vero dolores aliquid in recusandae.', NULL, NULL),
+(70, 'CV Riyanti Tbk', 'Queen Pudjiastuti', 'Buruh Tani / Perkebunan', 'Jln. Moch. Yamin No. 464, Bau-Bau 97999, Bengkulu', 'Medan', 'Sulawesi Selatan', 'Republik Kirgizstan', '59143', '(+62) 895 4113 9522', '0937471985', 'Perum Sihombing', 'Est dolorum exercitationem consectetur. Quos deleniti itaque unde enim possimus autem illum. Esse architecto et omnis ut. Rerum repellat temporibus qui non id.', NULL, NULL),
+(71, 'CV Santoso', 'Rendy Sihombing', 'Nelayan / Perikanan', 'Jln. Cikutra Barat No. 220, Bau-Bau 89692, Jambi', 'Pekalongan', 'Sulawesi Utara', 'Nauru', '60648', '0356 6022 9323', '59646068269', 'CV Uyainah Tbk', 'Quo velit autem ratione esse doloribus velit atque aut. Et at consectetur vel et. Porro voluptatum sequi eaque dolore non illum tempore.', NULL, NULL),
+(72, 'UD Fujiati', 'Vanya Kusmawati S.E.I', 'Konstruksi', 'Gg. Jagakarsa No. 469, Solok 81797, Banten', 'Surakarta', 'Banten', 'Tonga', '79767', '0340 1040 5642', '063756664717543', 'PT Sitompul Yulianti', 'Quis iste enim libero et. Eligendi enim sint dignissimos cumque aut eos voluptatem error.', NULL, NULL),
+(73, 'PT Laksmiwati (Persero) Tbk', 'Asmadi Natsir S.Pd', 'Kepala Desa', 'Jr. Suryo Pranoto No. 382, Palembang 70165, Kepri', 'Metro', 'DI Yogyakarta', 'Mauritius', '89677', '0892 530 236', '40089', 'PD Zulaika Wijayanti Tbk', 'Dignissimos dolorum consequatur reprehenderit saepe nihil. Aliquid sunt eius facilis pariatur sint. Velit eaque dolorem architecto pariatur. Ipsam voluptas qui alias et. Repellat sed est in et.', NULL, NULL),
+(74, 'UD Winarsih Tbk', 'Bagus Rajasa', 'Tabib', 'Ds. B.Agam Dlm No. 275, Denpasar 35553, Gorontalo', 'Gorontalo', 'Kepulauan Riau', 'Uganda', '64013', '0655 5805 8533', '30023899158', 'PD Puspita Suwarno', 'Labore est amet et tempore ea. Nihil suscipit quia tenetur rerum qui. Et voluptatibus nulla unde est sed non iure. Qui deleniti porro architecto velit.', NULL, NULL),
+(75, 'Perum Budiyanto Tbk', 'Lurhur Maryadi Pradipta S.E.I', 'Tukang Batu', 'Jln. R.M. Said No. 469, Ambon 91386, Jabar', 'Jambi', 'Sulawesi Selatan', 'Greenland', '32364', '(+62) 583 5030 9944', '6696617', 'PD Mayasari Mahendra (Persero) Tbk', 'In sapiente excepturi ipsa beatae fuga vitae. Quia aspernatur vitae ad fugit qui veniam eligendi. Quam quia quae deserunt in consectetur delectus.', NULL, NULL),
+(76, 'PT Natsir (Persero) Tbk', 'Mursita Tamba', 'Peneliti', 'Jln. Lada No. 730, Sorong 15954, Maluku', 'Manado', 'Jambi', 'Islandia', '38148', '0929 6653 135', '420039476513', 'UD Safitri Tbk', 'Hic enim facilis aut molestias ad dolore. Voluptatem voluptas cumque laborum. Ut officia quos qui qui quo fuga.', NULL, NULL),
+(77, 'UD Budiman', 'Digdaya Pradana', 'Tukang Listrik', 'Jr. Bakhita No. 542, Pagar Alam 12574, Bengkulu', 'Administrasi Jakarta Pusat', 'Gorontalo', 'Puerto Rico', '37030', '(+62) 24 0341 245', '11150410284154', 'PT Hariyah Tbk', 'Sunt possimus et dolorem architecto aut dolore autem velit. Voluptates possimus tempora necessitatibus quae dolor quia assumenda. Distinctio dolorum illum voluptatem ipsum praesentium.', NULL, NULL),
+(78, 'CV Safitri Prasetya', 'Gangsa Suwarno S.H.', 'Konstruksi', 'Jln. Kyai Mojo No. 613, Banjar 70243, Sulteng', 'Lhokseumawe', 'Bali', 'Republik Ceko', '89489', '0877 1497 894', '9036139564', 'PD Gunawan Marpaung', 'Corrupti recusandae porro est odio qui voluptas. Magni nisi sed unde et dolorem. Deleniti molestiae quaerat esse consequatur qui.', NULL, NULL),
+(79, 'UD Waluyo Tbk', 'Raden Kuswoyo', 'Pensiunan', 'Kpg. Banda No. 986, Pekalongan 11231, DKI', 'Cilegon', 'Riau', 'Zimbabwe', '57747', '0780 7004 9215', '652413295880', 'Perum Tampubolon Sinaga (Persero) Tbk', 'Aut quo praesentium nihil non labore eligendi. Velit eum animi qui eum magni in natus.', NULL, NULL),
+(80, 'PD Wastuti', 'Yani Lailasari', 'Seniman', 'Psr. Bagonwoto  No. 672, Banjarbaru 75276, Jambi', 'Depok', 'Jawa Barat', 'Makedonia', '80394', '0582 0809 6176', '720972055626', 'PT Lailasari', 'Velit consequatur voluptatem delectus molestiae sit laboriosam. Dolore odit quod explicabo. In est atque ab rerum. Nulla illo rerum qui dicta ut. Necessitatibus doloremque officia ratione.', NULL, NULL),
+(81, 'PD Mandasari Waskita', 'Lurhur Habibi', 'Tukang Las / Pandai Besi', 'Dk. Gedebage Selatan No. 729, Bekasi 33868, Sultra', 'Pekalongan', 'Banten', 'Guinea', '55224', '0284 6194 3362', '530704214038', 'CV Farida Hassanah', 'Voluptatem eius voluptatem aut dolores sed sit dolor. Sed ex quidem nihil rerum perspiciatis. Minus porro dolores sunt deleniti. Eum aut quasi rem voluptatem atque voluptates.', NULL, NULL),
+(82, 'Perum Waskita', 'Nugraha Darsirah Simanjuntak', 'Juru Masak', 'Psr. Pasir Koja No. 80, Tebing Tinggi 28427, Bali', 'Lhokseumawe', 'Papua Barat', 'Lesotho', '36611', '(+62) 265 0898 4101', '566151069', 'CV Ardianto Prasasta', 'Modi commodi soluta quidem nostrum. Porro consequatur quibusdam hic asperiores officiis quas repellat mollitia. Repudiandae sint exercitationem aut laudantium aspernatur necessitatibus vero.', NULL, NULL),
+(83, 'PD Haryanto (Persero) Tbk', 'Mala Suartini', 'Presiden', 'Ds. Baung No. 294, Tasikmalaya 63980, Kaltim', 'Gorontalo', 'Sumatera Barat', 'Malawi', '79568', '(+62) 279 5115 7275', '53580869401', 'PT Mangunsong', 'Quo cumque libero totam commodi voluptates rerum. Et facere quisquam voluptas officiis mollitia ducimus. Sapiente qui enim mollitia tempora in. Quod id aspernatur aut voluptatum facilis minima.', NULL, NULL),
+(84, 'UD Samosir', 'Lidya Laila Winarsih S.Sos', 'Kepolisian RI (POLRI)', 'Jln. Labu No. 371, Sorong 42633, Jatim', 'Kediri', 'Kalimantan Utara', 'Bermuda', '65483', '0507 2550 454', '94802837171165', 'PT Prasasta', 'Illo dolore cupiditate porro eos aut cum. Facere necessitatibus molestiae doloribus sit et totam magni.', NULL, NULL),
+(85, 'CV Prastuti Thamrin', 'Tira Zelda Usamah S.Pt', 'Pelajar / Mahasiswa', 'Ki. Gambang No. 996, Pekanbaru 79307, Kaltim', 'Parepare', 'Jawa Barat', 'Republik Dominika', '13195', '0489 4995 851', '2843581231168', 'PT Purnawati', 'Vero minus est praesentium aut quasi et aut. Commodi nihil commodi quia illo. Eligendi officia quis facere sit. Rerum culpa beatae iste ut.', NULL, NULL),
+(86, 'UD Pradipta (Persero) Tbk', 'Anita Umi Farida S.E.', 'Tukang Kayu', 'Jln. Cokroaminoto No. 660, Tasikmalaya 19115, Sultra', 'Bandung', 'Papua', 'Yunani', '74612', '0879 792 287', '3516138620449', 'UD Habibi Najmudin Tbk', 'Velit reprehenderit ut est totam assumenda. Sit vitae molestias nihil facere quidem laudantium. Culpa expedita neque consequatur exercitationem voluptatibus est itaque voluptatum.', NULL, NULL),
+(87, 'UD Riyanti Maryati Tbk', 'Gilang Prabowo', 'Petani / Pekebun', 'Dk. Jend. Sudirman No. 218, Tanjungbalai 63376, Kepri', 'Administrasi Jakarta Selatan', 'Kalimantan Utara', 'Maroko', '42529', '0824 053 129', '12764446237', 'Perum Usada Wijayanti (Persero) Tbk', 'Quae fugit consectetur itaque. Dolorum provident quod eaque eligendi aspernatur sint est.', NULL, NULL),
+(88, 'PD Hariyah Fujiati Tbk', 'Fathonah Anggraini M.Kom.', 'Tukang Gigi', 'Jr. Ki Hajar Dewantara No. 468, Tidore Kepulauan 24346, NTT', 'Surabaya', 'Kepulauan Bangka Belitung', 'Malaysia', '85234', '(+62) 713 2202 0782', '00240425354377', 'PD Marbun (Persero) Tbk', 'In aut aliquid et voluptatibus ullam. Aut consequatur et eos suscipit ut reiciendis in. Numquam facere molestiae quod quas aspernatur consequatur.', NULL, NULL),
+(89, 'Perum Pangestu Sihombing', 'Ami Oktaviani', 'Presiden', 'Dk. Baha No. 889, Lubuklinggau 38498, Riau', 'Magelang', 'Sumatera Selatan', 'Svalbard & Jan Mayen Islands', '16699', '0477 1036 5280', '2785618851582', 'PT Nurdiyanti Kusmawati Tbk', 'Accusamus nesciunt et aperiam. Expedita autem voluptas voluptatum accusantium magnam at. Sint sequi amet fuga sint non sed. In quam sunt pariatur sapiente reprehenderit alias.', NULL, NULL),
+(90, 'UD Putra', 'Najwa Widiastuti', 'Bidan', 'Kpg. Raden Saleh No. 712, Denpasar 55006, Jateng', 'Mataram', 'Gorontalo', 'Angola', '85051', '0351 8410 209', '652084134141', 'Perum Utami Tbk', 'Vitae est officia possimus dolorum rerum accusamus laborum. Quis temporibus in impedit nulla vel esse. Qui voluptas error vero dolorem id et laudantium.', NULL, NULL),
+(91, 'CV Marbun (Persero) Tbk', 'Makuta Habibi', 'Pegawai Negeri Sipil (PNS)', 'Ds. Sutoyo No. 950, Ternate 44837, Kalsel', 'Tanjungbalai', 'Jawa Timur', 'Monako', '72981', '026 1229 475', '096108439', 'PD Kusmawati Maulana Tbk', 'Commodi consequatur consequatur qui qui dolores. Laudantium soluta explicabo nobis tenetur ut. Alias rerum aut nulla voluptatibus totam.', NULL, NULL),
+(92, 'PT Prastuti Oktaviani Tbk', 'Rafid Wahyudin S.E.', 'Konstruksi', 'Kpg. Wahid Hasyim No. 495, Pasuruan 13149, Jatim', 'Langsa', 'DKI Jakarta', 'Guam', '41197', '0861 4074 0398', '16596719308008', 'PD Saefullah (Persero) Tbk', 'Quidem expedita quod accusamus. Laborum quas officiis eveniet et rem. Dolorum ullam praesentium omnis magni rerum assumenda eum.', NULL, NULL),
+(93, 'UD Mardhiyah Tbk', 'Cakrawala Cawisadi Saefullah S.E.', 'Promotor Acara', 'Jr. Salam No. 545, Banjarbaru 78772, Kaltim', 'Pangkal Pinang', 'Jawa Barat', 'Belize', '73936', '026 7694 5610', '1824877623', 'PD Purnawati', 'Est ut nam necessitatibus et aut praesentium laborum fugiat. Laboriosam porro natus velit aut natus molestias dicta. Ab nisi qui in.', NULL, NULL),
+(94, 'Perum Sinaga Sitompul', 'Endah Wahyuni', 'Perangkat Desa', 'Ds. Bayam No. 636, Pematangsiantar 29130, Sulteng', 'Padangpanjang', 'Jawa Tengah', 'Kepulauan Turks dan Caicos', '28231', '0481 6945 809', '191738146979', 'PD Wacana Wastuti', 'Aut consequuntur vitae ex iure distinctio provident dicta. Et a mollitia repudiandae repudiandae omnis sit id.', NULL, NULL),
+(95, 'CV Sitompul Hutagalung Tbk', 'Galang Firgantoro', 'Pramugari', 'Ki. Bagonwoto  No. 702, Malang 77538, Jabar', 'Tasikmalaya', 'Jambi', 'Bosnia dan Herzegovina', '79470', '(+62) 277 6281 855', '33119446325', 'CV Mulyani', 'Id cum qui nostrum necessitatibus libero. Sit quam iusto aut dignissimos similique iste. Laborum nulla aut nesciunt porro.', NULL, NULL),
+(96, 'Perum Widiastuti', 'Naradi Nababan', 'Nahkoda', 'Dk. Abdul Muis No. 156, Malang 17868, Jateng', 'Mojokerto', 'Sulawesi Utara', 'Swedia', '45055', '(+62) 850 508 395', '80017913784', 'PD Putra Marpaung Tbk', 'Officiis voluptas alias hic. Nihil nihil qui distinctio sunt eum nesciunt. Consequuntur maxime et rerum quis esse repellendus et impedit. Est qui ipsa ipsa impedit ipsam reiciendis autem.', NULL, NULL),
+(97, 'PD Hakim Mayasari Tbk', 'Sadina Padma Pratiwi', 'Kepolisian RI (POLRI)', 'Ki. Eka No. 36, Pagar Alam 28222, Jateng', 'Tual', 'Kalimantan Selatan', 'Bhutan', '58136', '(+62) 581 7528 502', '130382548884002', 'CV Safitri', 'Odio nihil nesciunt fuga repellat sunt. Autem numquam placeat non. Aliquid id rerum est.', NULL, NULL),
+(98, 'CV Januar', 'Candrakanta Wacana', 'Pialang', 'Jln. Moch. Toha No. 887, Gunungsitoli 80604, Banten', 'Tarakan', 'Kalimantan Utara', 'Pantai Gading', '84031', '0446 0832 4371', '3311548', 'CV Safitri Tbk', 'Et sit dicta et veniam. Ea impedit sit molestiae voluptatibus ab aut. Neque exercitationem non unde maxime tempora modi.', NULL, NULL),
+(99, 'UD Suryono Jailani Tbk', 'Lintang Malika Yolanda S.Sos', 'Transportasi', 'Kpg. Wahidin Sudirohusodo No. 203, Makassar 86828, Kalbar', 'Batu', 'Kepulauan Bangka Belitung', 'Swedia', '40328', '(+62) 934 8924 1579', '426495330908', 'PT Rahimah Tbk', 'Eveniet et voluptas asperiores ipsam enim eligendi. Nulla officiis a numquam corporis minus dolores modi. Ut dolorem similique totam officiis id eligendi quasi officiis.', NULL, NULL),
+(100, 'UD Namaga (Persero) Tbk', 'Cemeti Simanjuntak M.Farm', 'Tukang Jahit', 'Kpg. Dipatiukur No. 777, Langsa 38756, Banten', 'Tarakan', 'Kalimantan Barat', 'Barbados', '38246', '0222 6832 7572', '496554286586', 'PD Namaga Maheswara Tbk', 'Doloremque et voluptas iste reiciendis. Pariatur quis optio expedita perspiciatis. Odio eos nobis dolorem cum. Voluptatem aspernatur sit dolores perspiciatis reprehenderit similique.', NULL, NULL),
+(101, 'Www', 'www', 'CEO', 'Jakarta', 'Tangerang', 'Banten', 'Indonesia', '142134', '081332345456', '0356676885', 'BCA', 'Supplier Baru', '2021-10-23 01:40:24', '2021-10-23 01:40:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `term_payment`
+--
+
+CREATE TABLE `term_payment` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `day` int(11) NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `term_payment`
+--
+
+INSERT INTO `term_payment` (`id`, `day`, `description`, `created_at`, `updated_at`) VALUES
+(1, 4, 'Tes1', NULL, NULL),
+(2, 30, 'Test2', NULL, NULL),
+(3, 60, 'sss', NULL, NULL),
+(4, 40, 'jhkjnk', NULL, NULL),
+(5, 80, 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', NULL, NULL),
+(7, 20, 'Jangka waktu pembayaran singkat', '2021-11-09 20:15:09', '2021-11-09 20:15:09'),
+(9, 7, 'Jangka short-term', '2021-11-10 00:05:08', '2021-11-10 00:05:08'),
+(10, 0, 'Lunas', '2021-11-15 22:40:32', '2021-11-15 22:40:32'),
+(11, 5, 'Singkat', '2021-11-16 22:20:33', '2021-11-16 22:20:33'),
+(12, 180, '6 bulan', '2021-11-24 01:08:25', '2021-11-24 01:08:25');
 
 -- --------------------------------------------------------
 
@@ -421,6 +649,20 @@ ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `detail_order`
+--
+ALTER TABLE `detail_order`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `detail_order_invoice_number_foreign` (`invoice_number`),
+  ADD KEY `detail_order_product_id_foreign` (`product_id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -439,6 +681,15 @@ ALTER TABLE `image_product`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order`
+--
+ALTER TABLE `order`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `order_invoice_number_unique` (`invoice_number`),
+  ADD KEY `order_customer_id_foreign` (`customer_id`),
+  ADD KEY `order_term_payment_foreign` (`term_payment`);
 
 --
 -- Indexes for table `password_resets`
@@ -467,6 +718,12 @@ ALTER TABLE `supplier`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `term_payment`
+--
+ALTER TABLE `term_payment`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -481,7 +738,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+
+--
+-- AUTO_INCREMENT for table `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+
+--
+-- AUTO_INCREMENT for table `detail_order`
+--
+ALTER TABLE `detail_order`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -493,13 +762,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `image_product`
 --
 ALTER TABLE `image_product`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `order`
+--
+ALTER TABLE `order`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -511,13 +786,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+
+--
+-- AUTO_INCREMENT for table `term_payment`
+--
+ALTER TABLE `term_payment`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -530,10 +811,24 @@ ALTER TABLE `users`
 --
 
 --
+-- Constraints for table `detail_order`
+--
+ALTER TABLE `detail_order`
+  ADD CONSTRAINT `detail_order_invoice_number_foreign` FOREIGN KEY (`invoice_number`) REFERENCES `order` (`invoice_number`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detail_order_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `image_product`
 --
 ALTER TABLE `image_product`
   ADD CONSTRAINT `fk_product_detail_gambar` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `order`
+--
+ALTER TABLE `order`
+  ADD CONSTRAINT `order_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_term_payment_foreign` FOREIGN KEY (`term_payment`) REFERENCES `term_payment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
