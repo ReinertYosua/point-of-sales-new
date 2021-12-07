@@ -26,9 +26,11 @@ class Addorder extends Component
     public $GrandTotal=0;
     public $day_term, $descriptionterm, $listTermPayment=[];
 
-    
+    public function updatingSearch(){
+        $this->resetPage();
+    }
 
-    // public function updatingSearchInput(): void
+    // public function updatingSearchInput()
     // {
     //     $this->gotoPage(1);
     // }
@@ -55,23 +57,25 @@ class Addorder extends Component
             session()->put('cartuser', $cartUser);
         }
         
-        
-        //$termpay = TermPaymentModel::paginate(3);
-        
+    
+        // $termpay = TermPaymentModel::where('day','like','%'.$this->search.'%')
+        //             ->orWhere('description','like','%'.$this->search.'%')
+        //             ->orderBy('created_at', 'DESC')->paginate(3,['*'],'termPage');
+
         $termpay = TermPaymentModel::where('day','like','%'.$this->search.'%')
                     ->orWhere('description','like','%'.$this->search.'%')
                     ->orderBy('created_at', 'DESC')->paginate(3,['*'],'termPage');
         
-        \DB::enableQueryLog();
+        //\DB::enableQueryLog();
         $listcustomer = CustomerModel::where('first_name','like','%'.$this->searchcus.'%')
                         ->orWhere('last_name','like','%'.$this->searchcus.'%')
                         ->orWhere('address','like','%'.$this->searchcus.'%')
                         ->orWhere('phone1','like','%'.$this->searchcus.'%')
                         ->orderBy('first_name', 'asc')
-                        ->paginate(5,['*'], 'customerPage');
-        if($this->searchcus){
-            dd(\DB::getQueryLog());
-        }
+                        ->paginate(10,['*'], 'customerPage');
+        // if($this->searchcus){
+        //     dd(\DB::getQueryLog());
+        // }
         $listproduct = ProductModel::where('name','like','%'.$this->searchpro.'%')
                         ->orWhere('type','like','%'.$this->searchpro.'%')
                         ->orWhere('unit','like','%'.$this->searchpro.'%')
@@ -80,10 +84,7 @@ class Addorder extends Component
         $lstTermPayment = TermPaymentModel::all(); 
         return view('livewire.addorder',['termpay'=>$termpay, 'listTerm' => $lstTermPayment, 'listCus' => $listcustomer, 'listPro' => $listproduct]);
     }
-    public function updatingSearch(){
-        $this->resetPage();
-    }
-
+   
     public function saveTermPayment(){
         $this->validate([
             'day_term'=>'required',
