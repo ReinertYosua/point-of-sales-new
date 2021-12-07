@@ -72,7 +72,7 @@ class Addorder extends Component
                         ->orWhere('address','like','%'.$this->searchcus.'%')
                         ->orWhere('phone1','like','%'.$this->searchcus.'%')
                         ->orderBy('first_name', 'asc')
-                        ->paginate(10,['*'], 'customerPage');
+                        ->paginate(5,['*'], 'customerPage');
         // if($this->searchcus){
         //     dd(\DB::getQueryLog());
         // }
