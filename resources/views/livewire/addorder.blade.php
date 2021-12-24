@@ -10,7 +10,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Tanggal Pesanan</label><span class="text-danger">*</span>
-                                <input wire:change="setSessionOrder($event.target.value,'','','','','')" value="{{ session()->get('cartuser')[auth()->id()]['date_order'] }}" type="date" class="form-control"/>
+                                <input wire:change="setSessionOrder($event.target.value,'','','','','')" value="{{ session()->get('cartuser')[auth()->id()]['date_order'] }}" type="date" id="orderDate" class="form-control"/>
                                 <!-- <div class="input-group date">
                                     <input type="text" class="form-control tanggal_order" onchange="this.dispatchEvent(new InputEvent('input'))"/>
                                     <span class="input-group-append">
@@ -32,7 +32,7 @@
                             <div class="form-group">
                                 <label>Jangka Waktu Pembayaran</label><span class="text-danger">*</span>
                                 <div class="input-group date">
-                                <select wire:change="setSessionOrder('','','',$event.target.value,'','')" class="form-control" id="term_payment" onclick=tampil()>
+                                <select wire:change="setSessionOrder('','','',$event.target.value,'','')" class="form-control" id="term_payment">
                                     <option value="">--Pilih--</option>
                                     @forelse($listTerm as $lst)
                                         <option value="{{ $lst->id }}" {{ ( $lst->id == session()->get('cartuser')[auth()->id()]['term_payment']) ? 'selected' : '' }}>{{ $lst->day }} Hari</option>
@@ -71,7 +71,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Tanggal Kirim</label><span class="text-danger">*</span>
-                                <input wire:change="setSessionOrder('',$event.target.value,'','','','')" value="{{ session()->get('cartuser')[auth()->id()]['sent_date'] }}" type="date" class="form-control"/>
+                                <input wire:change="setSessionOrder('',$event.target.value,'','','','')" value="{{ session()->get('cartuser')[auth()->id()]['sent_date'] }}" type="date" id="sentDate" class="form-control"/>
                                 <!-- <div class="input-group date">
                                     <input type="text" class="form-control tanggal_kirim" onchange="this.dispatchEvent(new InputEvent('input'))"/>
                                     <span class="input-group-append">
@@ -199,7 +199,7 @@
                                             <p class="font-weight-bold">Silahkan klik pada baris untuk memilih pelanggan yang diinginkan</p>
                                         </div>
                                         <div class="col-sm-4">
-                                            <p class="text-right font-weight-bold">Total Pelanggan: {{$listCus->total()}}</p>
+                                            <p class="text-right font-weight-bold">Total Pelanggan: {{ $listCus->count() }} </p>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -227,7 +227,7 @@
                                             </tbody>
                                             </table>
                                             <div style="display:flex; justify-content:center">
-                                                {{$listCus->links()}}
+                                                <!-- paginate link -->
                                             </div>
                                         </div>
                                     </div>
@@ -323,7 +323,7 @@
                                             <p class="font-weight-bold">Silahkan klik pada baris untuk memilih produk yang diinginkan</p>
                                         </div>
                                         <div class="col-sm-4">
-                                            <p class="text-right font-weight-bold">Total Produk: {{$listPro->total()}}</p>
+                                            <p class="text-right font-weight-bold">Total Produk: {{$listPro->count()}}</p>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -355,7 +355,7 @@
                                             </tbody>
                                             </table>
                                             <div style="display:flex; justify-content:center">
-                                                {{$listPro->links()}}
+                                                <!-- paginate link -->
                                             </div>
                                         </div>
                                     </div>
@@ -376,14 +376,29 @@
 </div>
 
 <script>
-    function tampil(){
-        let x = document.getElementById("tgl");
-        if(x.style.display === "none"){
-            x.style.display = "block";
-        }else{
-            x.style.display = "none"
-        }
-    }
+    // var today = new Date();
+    // var dd = today.getDate();
+    // var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+    // var yyyy = today.getFullYear();
+    // if(dd<10){
+    // dd='0'+dd
+    // } 
+    // if(mm<10){
+    // mm='0'+mm
+    // } 
+
+    // today = yyyy+'-'+mm+'-'+dd;
+    // document.getElementById("orderDate").setAttribute("min", today);
+    // // document.getElementById("sentDate").setAttribute("min", today);
+
+    // function tampil(){
+    //     let x = document.getElementById("tgl");
+    //     if(x.style.display === "none"){
+    //         x.style.display = "block";
+    //     }else{
+    //         x.style.display = "none"
+    //     }
+    // }
 
     window.addEventListener('show-modal-produk', event=> {
         $('#ModalProduk').modal('show')

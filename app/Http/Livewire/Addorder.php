@@ -21,7 +21,8 @@ class Addorder extends Component
     public $search;
     public $searchcus;
     public $searchpro;
-
+    
+    
     // public $date_order, $sent_date, $customer, $term_payment, $address, $descriptionOrder;
     public $GrandTotal=0;
     public $day_term, $descriptionterm, $listTermPayment=[];
@@ -64,7 +65,7 @@ class Addorder extends Component
 
         $termpay = TermPaymentModel::where('day','like','%'.$this->search.'%')
                     ->orWhere('description','like','%'.$this->search.'%')
-                    ->orderBy('created_at', 'DESC')->paginate(3,['*'],'termPage');
+                    ->orderBy('created_at', 'DESC')->paginate(3);
         
         //\DB::enableQueryLog();
         $listcustomer = CustomerModel::where('first_name','like','%'.$this->searchcus.'%')
@@ -72,14 +73,14 @@ class Addorder extends Component
                         ->orWhere('address','like','%'.$this->searchcus.'%')
                         ->orWhere('phone1','like','%'.$this->searchcus.'%')
                         ->orderBy('first_name', 'asc')
-                        ->paginate(5,['*'], 'customerPage');
+                        ->get();
         // if($this->searchcus){
-        //     dd(\DB::getQueryLog());
+        //     dd($listcustomer);
         // }
         $listproduct = ProductModel::where('name','like','%'.$this->searchpro.'%')
                         ->orWhere('type','like','%'.$this->searchpro.'%')
                         ->orWhere('unit','like','%'.$this->searchpro.'%')
-                        ->paginate(10,['*'], 'productPage');
+                        ->orderBy('name', 'ASC')->get();
         
         $lstTermPayment = TermPaymentModel::all(); 
         return view('livewire.addorder',['termpay'=>$termpay, 'listTerm' => $lstTermPayment, 'listCus' => $listcustomer, 'listPro' => $listproduct]);
@@ -194,6 +195,7 @@ class Addorder extends Component
         //     'address'=>'required',
         //     'descriptionOrder'=>'required',
         // ]);
+
         if($cartUser[auth()->id()]['date_order']==""){
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'warning',  
@@ -222,6 +224,12 @@ class Addorder extends Component
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'warning',  
                 'message' => 'Tanggal Pengiriman belum dipilih !', 
+                'text' => 'Tidak bisa melanjutkan proses.'
+            ]);
+        }else if($cartUser[auth()->id()]['sent_date']<$cartUser[auth()->id()]['date_order']){
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',  
+                'message' => 'Tanggal Pengiriman tidak boleh lebih lama dari Tanggal Pesanan !', 
                 'text' => 'Tidak bisa melanjutkan proses.'
             ]);
         }else{
@@ -381,6 +389,12 @@ class Addorder extends Component
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'warning',  
                 'message' => 'Tanggal Pengiriman belum dipilih !', 
+                'text' => 'Tidak bisa melanjutkan proses.'
+            ]);
+        }else if($cartUser[auth()->id()]['sent_date']<$cartUser[auth()->id()]['date_order']){
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',  
+                'message' => 'Tanggal Pengiriman tidak boleh lebih lama dari Tanggal Pesanan !', 
                 'text' => 'Tidak bisa melanjutkan proses.'
             ]);
         }else if(empty($cart)){

@@ -25,10 +25,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function(){
-    Route::get('/kategori', Category::class);
-    Route::get('/supplier', Supplier::class);
-    Route::get('/product', Product::class);
-    Route::get('/pelanggan', Customer::class);
+    Route::get('/kategori', Category::class)->name('category');
+    Route::get('/pemasok', Supplier::class)->name('supplier');
+    Route::get('/produk', Product::class)->name('product');
+    Route::get('/pelanggan', Customer::class)->name('customer');
     Route::get('/pesanan', Order::class)->name('order');
     Route::get('/tambahpesanan', Addorder::class);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

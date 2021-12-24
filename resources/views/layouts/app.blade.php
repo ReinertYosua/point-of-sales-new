@@ -49,28 +49,34 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 @guest
                 @else
-                <a class="navbar-brand" href="{{ url('/kategori') }}">
-                    Kategori
-                </a>
-                <a class="navbar-brand" href="{{ url('/supplier') }}">
-                    Supplier
-                </a>
-                <a class="navbar-brand" href="{{ url('/product') }}">
-                    Product
-                </a>
-                <a class="navbar-brand" href="{{ url('/pelanggan') }}">
-                    Pelanggan
-                </a>
-                <a class="navbar-brand" href="{{ url('/pesanan') }}">
-                    Pesanan
-                </a>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ request()->routeIs('home')? 'active': ''   }}">
+                            <a class="nav-link" href="{{ url('/home') }}">Beranda</a>
+                        </li>
+                        <li class="nav-item dropdown {{ request()->routeIs('category')||request()->routeIs('supplier')||request()->routeIs('product')||request()->routeIs('customer')? 'active': ''   }}">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Master
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{ url('/kategori') }}">Kategori</a>
+                                <a class="dropdown-item" href="{{ url('/pemasok') }}">Pemasok</a>
+                                <a class="dropdown-item" href="{{ url('/produk') }}">Produk</a>
+                                <a class="dropdown-item" href="{{ url('/pelanggan') }}">Pelanggan</a>
+                            </div>
+                        </li>
+                        <li class="nav-item {{ request()->routeIs('order')? 'active': ''   }}">
+                            <a class="nav-link" href="{{ url('/pesanan') }}">Pesanan</a>
+                        </li>
+                    </ul>
+                </div>
                 @endguest
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
