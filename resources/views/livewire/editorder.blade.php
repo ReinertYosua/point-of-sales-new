@@ -3,14 +3,14 @@
     <div class="col-md-12">
         <div class="card mt-3">
             <div class="card-body">
-                <h3 class="font-weight-bold mb-3">Tambah Pesanan</h3>
+                <h3 class="font-weight-bold mb-3">Ubah Pesanan</h3>
                
                 <form>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Tanggal Pesanan</label><span class="text-danger">*</span>
-                                <input wire:change="setSessionOrder($event.target.value,'','','','','')" value="{{ session()->get('cartuser')[auth()->id()]['date_order'] }}" type="date" id="orderDate" class="form-control"/>
+                                <input wire:change="setSessionOrder($event.target.value,'','','','','')" value="{{ session()->get('cartedituser')[auth()->id()]['date_order'] }}" type="date" id="orderDate" class="form-control" readonly/>
                                 <!-- <div class="input-group date">
                                     <input type="text" class="form-control tanggal_order" onchange="this.dispatchEvent(new InputEvent('input'))"/>
                                     <span class="input-group-append">
@@ -23,7 +23,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Pelanggan</label><span class="text-danger">*</span>
-                                <input placeholder="Klik untuk memilih Pelanggan" readonly value="{{ (session()->get('cartuser')[auth()->id()]['nameCustomer']!='')?session()->get('cartuser')[auth()->id()]['nameCustomer'].' '.session()->get('cartuser')[auth()->id()]['tlpCustomer']:'' }}" type="text" class="form-control" data-toggle="modal" data-target="#ModalCustomer" data-placement="top">
+                                <input placeholder="Klik untuk memilih Pelanggan" readonly value="{{ (session()->get('cartedituser')[auth()->id()]['nameCustomer']!='')?session()->get('cartedituser')[auth()->id()]['nameCustomer'].' '.session()->get('cartedituser')[auth()->id()]['tlpCustomer']:'' }}" type="text" class="form-control" data-toggle="modal" data-target="#ModalCustomer" data-placement="top">
                                 @error('customer') <small class="text-danger">{{$message}}</small>@enderror
                                 
                             </div>
@@ -35,7 +35,7 @@
                                 <select wire:change="setSessionOrder('','','',$event.target.value,'','')" class="form-control" id="term_payment">
                                     <option value="">--Pilih--</option>
                                     @forelse($listTerm as $lst)
-                                        <option value="{{ $lst->id }}" {{ ( $lst->id == session()->get('cartuser')[auth()->id()]['term_payment']) ? 'selected' : '' }}>{{ $lst->day }} Hari</option>
+                                        <option value="{{ $lst->id }}" {{ ( $lst->id == session()->get('cartedituser')[auth()->id()]['term_payment']) ? 'selected' : '' }}>{{ $lst->day }} Hari</option>
                                     @empty
                                         <option value="">Data Tidak ada</option>
                                     @endforelse
@@ -64,14 +64,14 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Alamat Pengiriman</label><span class="text-danger">*</span>
-                                <textarea wire:change="setSessionOrder('','','','',$event.target.value,'')" name="" class="form-control">{{ session()->get('cartuser')[auth()->id()]['address'] }}</textarea>
+                                <textarea wire:change="setSessionOrder('','','','',$event.target.value,'')" name="" class="form-control">{{ session()->get('cartedituser')[auth()->id()]['address'] }}</textarea>
                                 @error('address') <small class="text-danger">{{$message}}</small>@enderror
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Tanggal Kirim</label><span class="text-danger">*</span>
-                                <input wire:change="setSessionOrder('',$event.target.value,'','','','')" value="{{ session()->get('cartuser')[auth()->id()]['sent_date'] }}" type="date" id="sentDate" class="form-control"/>
+                                <input wire:change="setSessionOrder('',$event.target.value,'','','','')" value="{{ session()->get('cartedituser')[auth()->id()]['sent_date'] }}" type="date" id="sentDate" class="form-control"/>
                                 <!-- <div class="input-group date">
                                     <input type="text" class="form-control tanggal_kirim" onchange="this.dispatchEvent(new InputEvent('input'))"/>
                                     <span class="input-group-append">
@@ -84,7 +84,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Deskripsi</label>
-                                <textarea wire:change="setSessionOrder('','','','','',$event.target.value)" name="" class="form-control">{{ session()->get('cartuser')[auth()->id()]['descriptionOrder'] }}</textarea>
+                                <textarea wire:change="setSessionOrder('','','','','',$event.target.value)" name="" class="form-control">{{ session()->get('cartedituser')[auth()->id()]['descriptionOrder'] }}</textarea>
                                 @error('descriptionOrder') <small class="text-danger">{{$message}}</small>@enderror
                                 <!-- <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -272,8 +272,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @if(session('cart'))
-                        @foreach(session('cart') as $id => $details)
+                    @if(session('cartedit'))
+                        @foreach(session('cartedit') as $id => $details)
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td><input value="{{ $details['product'] }}" type="text" class="form-control" placeholder="Klik untuk memilih produk"  readonly></td>
