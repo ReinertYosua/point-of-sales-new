@@ -2,9 +2,15 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card mt-3">
-            <div class="card-body">
-                <h3 class="font-weight-bold mb-3">Ubah Pesanan</h3>
-               
+            <div class="card-body">  
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="font-weight-bold mb-3">Ubah Pesanan</h3>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="float-right">{{ session()->get('cartedituser')[auth()->id()]['invoice_number'] }}</h4>
+                    </div>
+                </div>
                 <form>
                     <div class="row">
                         <div class="col-md-4">
@@ -23,7 +29,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Pelanggan</label><span class="text-danger">*</span>
-                                <input placeholder="Klik untuk memilih Pelanggan" readonly value="{{ (session()->get('cartedituser')[auth()->id()]['nameCustomer']!='')?session()->get('cartedituser')[auth()->id()]['nameCustomer'].' '.session()->get('cartedituser')[auth()->id()]['tlpCustomer']:'' }}" type="text" class="form-control" data-toggle="modal" data-target="#ModalCustomer" data-placement="top">
+                                <input placeholder="Klik untuk memilih Pelanggan" readonly value="{{ (session()->get('cartedituser')[auth()->id()]['nameCustomer']!='')?session()->get('cartedituser')[auth()->id()]['nameCustomer'].' '.session()->get('cartedituser')[auth()->id()]['tlpCustomer']:'' }}" type="text" class="form-control" data-placement="top">
                                 @error('customer') <small class="text-danger">{{$message}}</small>@enderror
                                 
                             </div>
@@ -101,7 +107,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="form-check float-right">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <input class="form-check-input" type="checkbox" wire:click.prevent="confirmFinishOrder()" value="" id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
                                         Pesanan Selesai
                                     </label>
@@ -414,7 +420,7 @@
             })
             .then((willDelete) => {
             if (willDelete) {
-                window.livewire.emit('prosesOrder');
+                window.livewire.emit('prosesUpdateOrder');
             }
             });
         });

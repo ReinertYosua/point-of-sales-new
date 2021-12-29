@@ -16,7 +16,7 @@ class Editorder extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['delete','prosesOrder'];
+    protected $listeners = ['delete','prosesUpdateOrder'];
     public $search;
     public $searchcus;
     public $searchpro;
@@ -41,6 +41,7 @@ class Editorder extends Component
 
             $cartUser[auth()->id()] = [
                 "idUser" => auth()->id(),
+                "idOrder" => $order->id,
                 "invoice_number" => $order->invoice_number,
                 "date_order" => $order->date_order,
                 "sent_date" => $order->sent_date,
@@ -48,7 +49,7 @@ class Editorder extends Component
                 "nameCustomer" => $order->firstname." ".$order->lastname,
                 "tlpCustomer" => $order->phone,
                 "term_payment" => $order->term_payment,
-                "address" => $order->address,
+                "address" => $order->sent_address,
                 "descriptionOrder" => $order->desc_order,
                 "grandTotal" => $order->grand_total
             ];
@@ -59,6 +60,7 @@ class Editorder extends Component
             foreach($detOrder as $id => $details){
                 //dump($details['id']);
                 $cart[$details['product_id']] = [
+                    "id_detail" => $details['id'],
                     "id" => $details['product_id'],
                     "product" => $details['product_name'],
                     "qty" => $details['quantity'],
@@ -417,27 +419,27 @@ class Editorder extends Component
         }else{
             $this->dispatchBrowserEvent('swal:confirmOrder', [
                 'type' => 'warning',  
-                'message' => 'Apakah anda yakin akan menyimpan pesanan ini ?', 
+                'message' => 'Apakah anda yakin ingin mengubah pesanan ini ?', 
                 'text' => 'Pastikan semua data sudah terisi dengan benar',
             ]);
         }
 
     }
 
-    public function invoiceNumber()
-    {
-        $latest = OrderModel::latest()->first();
-        $dateYear = Carbon::now()->format('Y');
-        $dateMonth = Carbon::now()->format('m');
+    // public function invoiceNumber()
+    // {
+    //     $latest = OrderModel::latest()->first();
+    //     $dateYear = Carbon::now()->format('Y');
+    //     $dateMonth = Carbon::now()->format('m');
 
-        if (! $latest) {
-            return 'INV'.'/'.$dateMonth.'/'.$dateYear.'/00001';
-        }
+    //     if (! $latest) {
+    //         return 'INV'.'/'.$dateMonth.'/'.$dateYear.'/00001';
+    //     }
         
-        $string = preg_replace("/[^0-9\.]/", '', substr($latest->invoice_number,-5));
-        //dd($string);
-        return 'INV'.'/'.$dateMonth.'/'.$dateYear.'/'.sprintf('%05d', $string+1);
-    }
+    //     $string = preg_replace("/[^0-9\.]/", '', substr($latest->invoice_number,-5));
+    //     //dd($string);
+    //     return 'INV'.'/'.$dateMonth.'/'.$dateYear.'/'.sprintf('%05d', $string+1);
+    // }
 
     public function getTotalPrice(){
         $cartUser = session()->get('cartedituser',[]);
@@ -451,53 +453,54 @@ class Editorder extends Component
                 $totalGrand+=$cart[$id]["subtotal"];
             }
             $cartUser[auth()->id()]['grandTotal']=$totalGrand;
-            $cartUser[auth()->id()]['invoice_number'] = $this->invoiceNumber();
+            //$cartUser[auth()->id()]['invoice_number'] = $this->invoiceNumber();
             session()->put('cartedituser', $cartUser);
         }
     }
 
-    public function prosesOrder(){
+    public function prosesUpdateOrder(){
         $this->getTotalPrice();
         $cartUser = session()->get('cartedituser',[]);
         $cart = session()->get('cartedit',[]);
 
-        //dd($cartUser[auth()->id()]['grandTotal']);
-        // $orderSave=OrderModel::create([
-        //     'invoice_number' => $cartUser[auth()->id()]['invoice_number'],
-        //     'customer_id' => $cartUser[auth()->id()]['idCustomer'],
-        //     'date_order' => $cartUser[auth()->id()]['date_order'],
-        //     'term_payment' => $cartUser[auth()->id()]['term_payment'],
-        //     'desc_order' => $cartUser[auth()->id()]['descriptionOrder'],
-        //     'sent_date' => $cartUser[auth()->id()]['sent_date'],
-        //     'sent_address' => $cartUser[auth()->id()]['address'],
-        //     'transaction_status' => "proses",//proses/selesai
-        //     'grand_total' => $cartUser[auth()->id()]['grandTotal'],
-        // ]);
-        // if($orderSave){
-        //     if(!empty($cart)){
-        //         foreach(session('cartedit') as $id => $details){
-        //             //dump($details['id']);
-        //             DetailOrderModel::create([
-        //                 'invoice_number' => $cartUser[auth()->id()]['invoice_number'],
-        //                 'product_id' => $details['id'],
-        //                 'quantity' => $details['qty'],
-        //                 'discount' => $details['disc'],
-        //                 'total_price' => $details['subtotal'],
-        //                 'description' => $details['desc'],
-        //             ]);
-        //         }
-        //     }
-        // }
-        session()->forget('cartedituser',[]);
-        session()->forget('cartedit',[]);
+        //dd($cartUser);
+        if($cartUser[auth()->id()]['idOrder']){
+            $updateOrder = OrderModel::find($cartUser[auth()->id()]['idOrder']);
+            $updateOrder->update([
+                'term_payment' => $cartUser[auth()->id()]['term_payment'],
+                'desc_order' => $cartUser[auth()->id()]['descriptionOrder'],
+                'sent_date' => $cartUser[auth()->id()]['sent_date'],
+                'sent_address' => $cartUser[auth()->id()]['address'],
+                'transaction_status' => "proses",//proses/selesai
+                'grand_total' => $cartUser[auth()->id()]['grandTotal'],
+            ]);
+        }
+        if($updateOrder){
+            if(!empty($cart)){
+                $deleteOldDetail = DetailOrderModel::where('invoice_number',$cartUser[auth()->id()]['invoice_number'])->delete();
+                if($deleteOldDetail){   
+                    foreach(session('cartedit') as $id => $details){
+                        //dump($details['id']);
+                        DetailOrderModel::create([
+                            'invoice_number' => $cartUser[auth()->id()]['invoice_number'],
+                            'product_id' => $details['id'],
+                            'quantity' => $details['qty'],
+                            'discount' => $details['disc'],
+                            'total_price' => $details['subtotal'],
+                            'description' => $details['desc'],
+                        ]);
+                    }
+                }
+            }
+        }
+        
         $this->dispatchBrowserEvent('swal:modal', [
             'type' => 'success',  
-            'message' => 'Pesanan Baru berhasil dibuat!', 
-            'text' => 'Data Pesanan ditambahkan ke database.'
+            'message' => 'Pesanan berhasil diubah!', 
+            'text' => 'Data Pesanan diubah dalam database.'
         ]);
-
+        
         redirect()->route('order');
     }
-
 
 }

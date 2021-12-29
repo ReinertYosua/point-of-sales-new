@@ -24,6 +24,8 @@ class Order extends Component
 
     public function render()
     {
+        session()->forget('cartedituser',[]);
+        session()->forget('cartedit',[]);
         //return view('livewire.order');
         //DB::enableQueryLog();
         \DB::statement("SET SQL_MODE=''");//untuk menghilangkan error SQLSTATE[42000]: Syntax error or access violation: 1055
