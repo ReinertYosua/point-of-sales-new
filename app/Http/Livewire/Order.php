@@ -31,8 +31,8 @@ class Order extends Component
         \DB::statement("SET SQL_MODE=''");//untuk menghilangkan error SQLSTATE[42000]: Syntax error or access violation: 1055
         $order = OrderModel::select('order.*', 'customer.first_name as firstname', 'customer.last_name as lastname')
                 ->selectRaw('count(detail_order.invoice_number) as total_barang')    
-                ->join('customer', 'customer.id','=','order.customer_id')
-                ->join('detail_order', 'detail_order.invoice_number','=','order.invoice_number')
+                ->leftjoin('customer', 'customer.id','=','order.customer_id')
+                ->leftjoin('detail_order', 'detail_order.invoice_number','=','order.invoice_number')
                 ->where('order.invoice_number','like','%'.$this->search.'%')
                 ->orWhere('customer.first_name','like','%'.$this->search.'%')
                 ->orWhere('customer.last_name','like','%'.$this->search.'%')

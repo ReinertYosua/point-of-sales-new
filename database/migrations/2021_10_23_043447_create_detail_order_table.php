@@ -19,7 +19,7 @@ class CreateDetailOrderTable extends Migration
             $table->bigInteger('product_id')->unsigned();
             $table->integer('quantity');
             $table->integer('discount');
-            $table->integer('total_price');
+            $table->bigInteger('total_price');
             $table->text('description');
             $table->timestamps();
 

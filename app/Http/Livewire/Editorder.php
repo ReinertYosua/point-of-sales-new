@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use DB;
 
 use App\Models\TermPayment as TermPaymentModel;
 use App\Models\Customer as CustomerModel;
@@ -87,14 +88,19 @@ class Editorder extends Component
                         ->orWhere('phone1','like','%'.$this->searchcus.'%')
                         ->orderBy('first_name', 'asc')
                         ->get();
-        // if($this->searchcus){
-        //     dd($listcustomer);
-        // }
-        $listproduct = ProductModel::where('name','like','%'.$this->searchpro.'%')
-                        ->orWhere('type','like','%'.$this->searchpro.'%')
-                        ->orWhere('unit','like','%'.$this->searchpro.'%')
-                        ->orderBy('name', 'ASC')->get();
         
+        // $listproduct = ProductModel::where('name','like','%'.$this->searchpro.'%')
+        //                 ->orWhere('type','like','%'.$this->searchpro.'%')
+        //                 ->orWhere('unit','like','%'.$this->searchpro.'%')
+        //                 ->orderBy('name', 'ASC')->get();
+
+        \DB::statement("SET SQL_MODE=''");
+        $listproduct = DB::select("SELECT DISTINCT detail_order.product_id as DOProduct, sum(detail_order.quantity) as DOQty, product.*, product.qty-sum(detail_order.quantity) as sisaStok FROM `product` 
+                            left JOIN detail_order on detail_order.product_id = product.id 
+                            WHERE product.name LIKE '%$this->searchpro%' OR product.type LIKE '%$this->searchpro%' OR product.unit LIKE '%$this->searchpro%' 
+                            GROUP BY product.id ORDER BY product.name ASC");
+        //dd(count($listproduct));
+
         $lstTermPayment = TermPaymentModel::all(); 
         
         return view('livewire.editorder', ['termpay'=>$termpay, 'listTerm' => $lstTermPayment, 'listCus' => $listcustomer, 'listPro' => $listproduct]);

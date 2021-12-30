@@ -329,7 +329,7 @@
                                             <p class="font-weight-bold">Silahkan klik pada baris untuk memilih produk yang diinginkan</p>
                                         </div>
                                         <div class="col-sm-4">
-                                            <p class="text-right font-weight-bold">Total Produk: {{$listPro->count()}}</p>
+                                            <p class="text-right font-weight-bold">Total Produk: {{ count($listPro) }}</p>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -350,7 +350,7 @@
                                                 <tr style="cursor:pointer" wire:click="assignPro({{ $pro->id }})" data-placement="top" title="Klik untuk Pilih Produk" data-dismiss="modal">
                                                     <td>{{$pro->name}}</td>
                                                     <td>{{$pro->type}}</td>
-                                                    <td>{{$pro->qty}}</td>
+                                                    <td>{{($pro->sisaStok=="")? $pro->qty:$pro->sisaStok}}</td>
                                                     <td>{{$pro->unit}}</td>
                                                     <td>@currency($pro->sell_price)</td>
                                                 </tr>
