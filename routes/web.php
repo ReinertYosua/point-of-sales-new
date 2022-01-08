@@ -8,6 +8,7 @@ use App\Http\Livewire\Customer;
 use App\Http\Livewire\Order;
 use App\Http\Livewire\Addorder;
 use App\Http\Livewire\Editorder;
+use App\Http\Livewire\Detailorder;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,5 +34,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/pesanan', Order::class)->name('order');
     Route::get('/tambahpesanan', Addorder::class);
     Route::get('/ubahpesanan', Editorder::class);
+    Route::get('/detailpesanan', Detailorder::class);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });

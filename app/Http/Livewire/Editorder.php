@@ -65,6 +65,7 @@ class Editorder extends Component
                     "id" => $details['product_id'],
                     "product" => $details['product_name'],
                     "qty" => $details['quantity'],
+                    "qty_s" => $details['quantity'], //buat simpan quantiti juga untuk perhitungan stok dengan membandingkan qty sebelumnya
                     "disc" => $details['discount'],
                     "price" => $details['product_price'],
                     "desc" => $details['description'],
@@ -259,12 +260,32 @@ class Editorder extends Component
          
     }
 
-    public function assignPro($id){
-
-        $pro = ProductModel::where('id',$id)->first();
+    public function cekStok($id){
+        $sisaStok = 0;
+        $qtyactual = 0;
+        $qtyOrder = 0;//total semua quantity yg sudah di order
+        \DB::statement("SET SQL_MODE=''");
+        $stok = DB::select("SELECT DISTINCT detail_order.product_id as DOProduct, sum(detail_order.quantity) as DOQty, product.id, product.qty , product.qty-sum(detail_order.quantity) as sisaStok FROM `product` 
+                left JOIN detail_order on detail_order.product_id = product.id 
+                WHERE product.id = $id GROUP BY product.id ORDER BY product.id ASC;");
         
+        if($stok[0]->sisaStok == ""){
+            $sisaStok = $stok[0]->qty;
+        }else{
+            $sisaStok = $stok[0]->sisaStok;
+        }
+        $qtyactual = $stok[0]->qty;
+        $qtyOrder = $stok[0]->DOQty;
+        return [$sisaStok, $qtyactual, $qtyOrder];
+    }
+
+    public function assignPro($id){
+        $pro = ProductModel::where('id',$id)->first();
+        $selisihStok = 0;
+        list($sisaStok, $qtyactual, $qtyOrder) = $this->cekStok($id);
         $cart = session()->get('cartedit',[]);
-        if($pro->qty == 0)
+        //dd($cart[$id]["qty_s"]);
+        if($sisaStok == 0)
         {
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'warning',  
@@ -273,7 +294,8 @@ class Editorder extends Component
             ]);
         }else{
             if(isset($cart[$id])) {
-                if($cart[$id]["qty"]==$pro->qty){
+                $selisihStok = ($cart[$id]["qty"]+1) - $cart[$id]["qty_s"];
+                if($selisihStok>$sisaStok){
                     $this->dispatchBrowserEvent('swal:modal', [
                         'type' => 'warning',  
                         'message' => 'Stok Produk tidak mencukupi !', 
@@ -282,11 +304,13 @@ class Editorder extends Component
                 }else{
                     $cart[$id]["qty"]++;
                 }
+                //dd($selisihStok." - ".$sisaStok." - ".$cart[$id]["qty"]." - ".$cart[$id]["qty_s"]);
             } else {
                 $cart[$id] = [
                     "id" => $pro->id,
                     "product" => $pro->name,
                     "qty" => 1,
+                    "qty_s" => 0,
                     "disc" => 0,
                     "price" => $pro->sell_price,
                     "desc" => "",
@@ -300,11 +324,15 @@ class Editorder extends Component
     }
 
     public function increaseItem($id){
-        $pro = ProductModel::where('id',$id)->first();
+        //$pro = ProductModel::where('id',$id)->first();
+        $selisihStok = 0;
+        list($sisaStok, $qtyactual, $qtyOrder) = $this->cekStok($id);
+
         $cart = session()->get('cartedit',[]);
         $checkItem = array_key_exists($id,$cart);
         if($checkItem){
-            if($cart[$id]["qty"]==$pro->qty){
+            $selisihStok = ($cart[$id]["qty"]+1) - $cart[$id]["qty_s"];
+            if($selisihStok>$sisaStok){
                 $this->dispatchBrowserEvent('swal:modal', [
                     'type' => 'warning',  
                     'message' => 'Stok Produk tidak mencukupi !', 

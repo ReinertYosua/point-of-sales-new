@@ -12,7 +12,7 @@
                 <!-- <button class="btn btn-primary mb-3" wire:click="addOrder"><i class="fas fa-plus"> Tambah</i></button> -->
                 <div class="col-md-8 float-md-right"><input wire:model="search" type="text" class="form-control" placeholder="Cari Pesanan"></div>
                 <!-- <div class="container-fluid"> -->
-                <table class="table">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th style="width: 5%">No</th>
@@ -28,15 +28,14 @@
                     <tbody>
                     @forelse($ord as $index=>$order)
                         <tr>
-                            <td>{{$ord->firstItem() + $index}}</td>
-                            <td>{{$order->invoice_number}}</td>
-                            <td>{{$order->firstname.' '.$order->lastname}}</td>
-                            <td>{{$order->date_order}}</td>
-                            <td>{{$order->total_barang}}</td>
-                            <td>@currency($order->grand_total)</td>
-                            <td>{{$order->transaction_status}}</td>
+                            <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{$ord->firstItem() + $index}}</td>
+                            <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{$order->invoice_number}}</td>
+                            <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{$order->firstname.' '.$order->lastname}}</td>
+                            <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{$order->date_order }}</td>
+                            <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{$order->total_barang}}</td>
+                            <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">@currency($order->grand_total)</td>
+                            <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{ucwords($order->transaction_status)}}</td>
                             <td>
-                                <button data-toggle="modal" data-target="#detailModal" wire:click="detail({{ $order->id }})" class="btn btn-success btn-sm">Detil</button>
                                 <button wire:click="edit({{ $order->id }})" class="btn btn-primary btn-sm">Ubah</button>
                                 <button wire:click="deleteConfirm({{ $order->id }})" class="btn btn-danger btn-sm">Hapus</button>
                             </td>

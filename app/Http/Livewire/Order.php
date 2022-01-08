@@ -50,6 +50,11 @@ class Order extends Component
 		session()->put('IDOrder', $id);
         return redirect()->to('/ubahpesanan');
     }
+    public function detail($id){
+        
+		session()->put('IDOrder', $id);
+        return redirect()->to('/detailpesanan');
+    }
     // public function addOrder(){
     //     return redirect()->to('/tambahpesanan');
         

@@ -1,0 +1,107 @@
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mt-3">
+            <div class="card-body">  
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="font-weight-bold mb-3">Detail Pesanan</h3>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="float-right">{{ session()->get('cartedituser')[auth()->id()]['invoice_number'] }}</h4>
+                    </div>
+                </div>
+                <form>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="text-primary">Tanggal Pesanan</label>
+                                <p class="h5">{{ session()->get('cartedituser')[auth()->id()]['date_order'] }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="text-primary">Pelanggan</label>
+                                <p class="h5">{{ session()->get('cartedituser')[auth()->id()]['nameCustomer'].' - '.session()->get('cartedituser')[auth()->id()]['tlpCustomer'] }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="text-primary">Jangka Waktu Pembayaran</label><span class="text-danger">*</span>
+                                <p class="h5">{{ session()->get('cartedituser')[auth()->id()]['term_payment'] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="text-primary">Alamat Pengiriman</label>
+                                <p class="h5">{{ session()->get('cartedituser')[auth()->id()]['address'] }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="text-primary">Tanggal Kirim</label>
+                                <p class="h5">{{ session()->get('cartedituser')[auth()->id()]['sent_date'] }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="text-primary">Deskripsi</label>
+                                <p class="h5">{{ session()->get('cartedituser')[auth()->id()]['descriptionOrder'] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+               
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mt-3">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%">No</th>
+                            <th style="width: 25%">Nama Produk</th>
+                            <th style="width: 15%">Harga Jual</th>
+                            <th style="width: 10%">Kuantiti</th>
+                            <th style="width: 15%">Diskon</th>
+                            <th style="width: 20%">Jumlah</th>
+                            <th style="width: 15%">Deskripsi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @if(session('cartedit'))
+                        @foreach(session('cartedit') as $id => $details)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td><p class="h6">{{ $details['product'] }}</p></td>
+                            <td> @currency($details['price']) </td>
+                            <td>
+                                <p class="h6">{{ $details['qty'] }}</p>
+                            </td>
+                            <td>
+                                <p class="h6">{{ $details['disc'] }}%</p>
+                            </td>
+                            <td><p class="h6">@currency( ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100)) )</p></td>
+                            <td><p class="h6">{{ $details['desc'] }}</p></td>
+                            <input type="hidden" value="{{  $GrandTotal += ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100))  }}">
+                        </tr>
+                        @endforeach
+                        <tr>
+                            <td colspan="5" class="text-center"><h5>Total</h5></td>
+                            <td colspan="3"><h5>@currency( $GrandTotal )</h5></td>
+                        </tr>
+                    @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
