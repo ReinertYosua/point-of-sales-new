@@ -245,12 +245,32 @@ class Addorder extends Component
          
     }
 
+    public function cekStok($id){
+        $sisaStok = 0;
+        $qtyactual = 0;
+        $qtyOrder = 0;//total semua quantity yg sudah di order
+        \DB::statement("SET SQL_MODE=''");
+        $stok = DB::select("SELECT DISTINCT detail_order.product_id as DOProduct, sum(detail_order.quantity) as DOQty, product.id, product.qty , product.qty-sum(detail_order.quantity) as sisaStok FROM `product` 
+                left JOIN detail_order on detail_order.product_id = product.id 
+                WHERE product.id = $id GROUP BY product.id ORDER BY product.id ASC;");
+        
+        if($stok[0]->sisaStok == ""){
+            $sisaStok = $stok[0]->qty;
+        }else{
+            $sisaStok = $stok[0]->sisaStok;
+        }
+        $qtyactual = $stok[0]->qty;
+        $qtyOrder = $stok[0]->DOQty;
+        return [$sisaStok, $qtyactual, $qtyOrder];
+    }
+
     public function assignPro($id){
 
         $pro = ProductModel::where('id',$id)->first();
-        
+        $selisihStok = 0;
+        list($sisaStok, $qtyactual, $qtyOrder) = $this->cekStok($id);
         $cart = session()->get('cart',[]);
-        if($pro->qty == 0)
+        if($sisaStok == 0)
         {
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'warning',  
@@ -259,7 +279,8 @@ class Addorder extends Component
             ]);
         }else{
             if(isset($cart[$id])) {
-                if($cart[$id]["qty"]==$pro->qty){
+                $selisihStok = ($cart[$id]["qty"]+1) - $cart[$id]["qty_s"];
+                if($selisihStok>$sisaStok){
                     $this->dispatchBrowserEvent('swal:modal', [
                         'type' => 'warning',  
                         'message' => 'Stok Produk tidak mencukupi !', 
@@ -273,6 +294,7 @@ class Addorder extends Component
                     "id" => $pro->id,
                     "product" => $pro->name,
                     "qty" => 1,
+                    "qty_s" => 0,
                     "disc" => 0,
                     "price" => $pro->sell_price,
                     "desc" => "",
@@ -286,11 +308,15 @@ class Addorder extends Component
     }
 
     public function increaseItem($id){
-        $pro = ProductModel::where('id',$id)->first();
+        //$pro = ProductModel::where('id',$id)->first();
+        $selisihStok = 0;
+        list($sisaStok, $qtyactual, $qtyOrder) = $this->cekStok($id);
+        
         $cart = session()->get('cart',[]);
         $checkItem = array_key_exists($id,$cart);
         if($checkItem){
-            if($cart[$id]["qty"]==$pro->qty){
+            $selisihStok = ($cart[$id]["qty"]+1) - $cart[$id]["qty_s"];
+            if($selisihStok>$sisaStok){
                 $this->dispatchBrowserEvent('swal:modal', [
                     'type' => 'warning',  
                     'message' => 'Stok Produk tidak mencukupi !', 

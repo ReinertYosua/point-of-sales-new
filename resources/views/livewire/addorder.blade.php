@@ -3,8 +3,17 @@
     <div class="col-md-12">
         <div class="card mt-3">
             <div class="card-body">
-                <h3 class="font-weight-bold mb-3">Tambah Pesanan</h3>
-               
+                <div class="row">
+                    <div class="col-md-10">
+                        <h3 class="font-weight-bold mb-3">Tambah Pesanan</h3>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="{{ url('/pesanan') }}" class="btn btn-link float-right">
+                            <i class="fa fa-arrow-left"></i>&nbspKembali
+                        </a>
+                    </div>
+                </div>
+                
                 <form>
                     <div class="row">
                         <div class="col-md-4">

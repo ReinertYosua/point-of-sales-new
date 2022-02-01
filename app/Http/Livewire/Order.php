@@ -29,10 +29,11 @@ class Order extends Component
         //return view('livewire.order');
         //DB::enableQueryLog();
         \DB::statement("SET SQL_MODE=''");//untuk menghilangkan error SQLSTATE[42000]: Syntax error or access violation: 1055
-        $order = OrderModel::select('order.*', 'customer.first_name as firstname', 'customer.last_name as lastname')
+        $order = OrderModel::select('order.*', 'customer.first_name as firstname', 'customer.last_name as lastname', 'term_payment.day', 'term_payment.description')
                 ->selectRaw('count(detail_order.invoice_number) as total_barang')    
                 ->leftjoin('customer', 'customer.id','=','order.customer_id')
                 ->leftjoin('detail_order', 'detail_order.invoice_number','=','order.invoice_number')
+                ->join('term_payment', 'term_payment.id','=','order.term_payment')
                 ->where('order.invoice_number','like','%'.$this->search.'%')
                 ->orWhere('customer.first_name','like','%'.$this->search.'%')
                 ->orWhere('customer.last_name','like','%'.$this->search.'%')

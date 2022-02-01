@@ -4,11 +4,16 @@
         <div class="card mt-3">
             <div class="card-body">  
                 <div class="row">
-                    <div class="col-md-6">
-                        <h3 class="font-weight-bold mb-3">Detail Pesanan</h3>
+                    <div class="col-md-4">
+                        <h3 class="font-weight-bold mb-3">Ubah Pesanan</h3>
                     </div>
-                    <div class="col-md-6">
-                        <h4 class="float-right">{{ session()->get('cartedituser')[auth()->id()]['invoice_number'] }}</h4>
+                    <div class="col-md-4">
+                        <h4 class="text-center">No : {{ session()->get('cartedituser')[auth()->id()]['invoice_number'] }}</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{{ url('/pesanan') }}" class="btn btn-link float-right">
+                            <i class="fa fa-arrow-left"></i>&nbspKembali
+                        </a>
                     </div>
                 </div>
                 <form>

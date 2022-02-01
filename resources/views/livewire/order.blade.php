@@ -18,11 +18,12 @@
                             <th style="width: 5%">No</th>
                             <th style="width: 15%">Invoice</th>
                             <th style="width: 15%">Pelanggan</th>
-                            <th style="width: 15%">Tanggal Pesan</th>
+                            <th style="width: 10%">Tanggal Pesan</th>
                             <th style="width: 10%">Total Pesanan Barang</th>
+                            <th style="width: 10%">Tgl Jatuh Tempo bayar</th>
                             <th style="width: 15%">Total Transaksi</th>
                             <th style="width: 5%">Status Pesanan</th>
-                            <th style="width: 15%">Tindakan</th>
+                            <th style="width: 10%">Tindakan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,6 +34,7 @@
                             <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{$order->firstname.' '.$order->lastname}}</td>
                             <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{$order->date_order }}</td>
                             <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{$order->total_barang}}</td>
+                            <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{$order->day}}</td>
                             <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">@currency($order->grand_total)</td>
                             <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{ucwords($order->transaction_status)}}</td>
                             <td>
