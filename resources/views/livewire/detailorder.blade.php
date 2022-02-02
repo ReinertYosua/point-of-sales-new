@@ -5,7 +5,7 @@
             <div class="card-body">  
                 <div class="row">
                     <div class="col-md-4">
-                        <h3 class="font-weight-bold mb-3">Ubah Pesanan</h3>
+                        <h3 class="font-weight-bold mb-3">Detail Pesanan</h3>
                     </div>
                     <div class="col-md-4">
                         <h4 class="text-center">No : {{ session()->get('cartedituser')[auth()->id()]['invoice_number'] }}</h4>
@@ -21,7 +21,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="text-primary">Tanggal Pesanan</label>
-                                <p class="h5">{{ session()->get('cartedituser')[auth()->id()]['date_order'] }}</p>
+                                <p class="h5">{{ date('Y-M-d', strtotime(session()->get('cartedituser')[auth()->id()]['date_order'])) }}</p>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -32,8 +32,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="text-primary">Jangka Waktu Pembayaran</label><span class="text-danger">*</span>
-                                <p class="h5">{{ session()->get('cartedituser')[auth()->id()]['term_payment'] }}</p>
+                                <label class="text-primary">Tanggal Jatuh Tempo Pembayaran</label><span class="text-danger">*</span>
+                                <p class="h5">{{ session()->get('cartedituser')[auth()->id()]['date_payment']  }}</p>
                             </div>
                         </div>
                     </div>
@@ -68,6 +68,14 @@
     <div class="col-md-12">
         <div class="card mt-3">
             <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- <button class="btn btn-primary mb-3" wire:click.prevent="checkInput()"><i class="fas fa-plus"></i>&nbspTambah Produk Pesanan</button> -->
+                    </div>
+                    <div class="col-md-4">
+                        <button class="float-right btn btn-success mb-3" wire:click.prevent="cekFinishOrder({{ session()->get('cartedituser')[auth()->id()]['idOrder'] }})"><i class="fas fa-check"></i>&nbsp SelesaiKan Pesanan</button>
+                    </div>
+                </div>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -110,3 +118,19 @@
     </div>
 </div>
 </div>
+<script>
+    window.addEventListener('swal:cekFinishOrder', event => { 
+            swal({
+            title: event.detail.message,
+            text: event.detail.text,
+            icon: event.detail.type,
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                window.livewire.emit('finishOrder', event.detail.id);
+            }
+            });
+        });
+</script>
