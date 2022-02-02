@@ -296,7 +296,7 @@
                             </td>
                             <td>
                             <div class="input-group">
-                                <input type="number" value="{{ $details['disc'] }}" wire:change="discountDesc({{ $details['id'] }}, $event.target.value)"  class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <input type="number" value="{{ $details['disc'] }}" min=0 wire:change="discountDesc({{ $details['id'] }}, $event.target.value)"  class="form-control" aria-label="Amount (to the nearest dollar)">
                                 <div class="input-group-append">
                                     <span class="input-group-text">%</span>
                                 </div>

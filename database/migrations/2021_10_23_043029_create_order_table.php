@@ -23,6 +23,7 @@ class CreateOrderTable extends Migration
             $table->date('sent_date');
             $table->text('sent_address');
             $table->enum('transaction_status', ['proses', 'selesai']);//process, finish
+            $table->integer('tax');
             $table->bigInteger('grand_total');
             $table->timestamps();
 

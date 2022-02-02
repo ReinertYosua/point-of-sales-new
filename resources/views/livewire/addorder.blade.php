@@ -294,7 +294,7 @@
                             </td>
                             <td>
                             <div class="input-group">
-                                <input type="number" value="{{ $details['disc'] }}" wire:change="discountDesc({{ $details['id'] }}, $event.target.value)"  class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <input type="number" value="{{ $details['disc'] }}" min=0 wire:change="discountDesc({{ $details['id'] }}, $event.target.value)"  class="form-control" aria-label="Amount (to the nearest dollar)">
                                 <div class="input-group-append">
                                     <span class="input-group-text">%</span>
                                 </div>
@@ -307,6 +307,19 @@
                             
                         </tr>
                         @endforeach
+                        <tr>
+                            <td colspan="5" class="text-center"><h6>Pajak</h6></td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="number" value="{{ session()->get('cartuser')[auth()->id()]['tax'] }}" min=0 wire:change="setTax($event.target.value)" class="form-control" aria-label="Amount ">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                         <tr>
                             <td colspan="5" class="text-center"><h5>Total</h5></td>
                             <td colspan="3"><h5>@currency( $GrandTotal )</h5></td>

@@ -54,6 +54,7 @@ class Addorder extends Component
                 "term_payment" => "",
                 "address" => "",
                 "descriptionOrder" => "",
+                "tax" => 0,
                 "grandTotal" => ""
             ];
             session()->put('cartuser', $cartUser);
@@ -371,8 +372,18 @@ class Addorder extends Component
             //     session()->put('cart', $cart);
             // }
             if($disc!=""){
-                $cart[$id]["disc"] = $disc ;
-                session()->put('cart', $cart);
+                if($disc<0){
+                    $this->dispatchBrowserEvent('swal:modal', [
+                        'type' => 'warning',  
+                        'message' => 'Diskon tidak boleh minus !', 
+                        'text' => 'Tidak bisa melanjutkan proses.'
+                    ]);
+                    $cart[$id]["disc"] = 0 ;
+                    session()->put('cartedit', $cart);
+                }else{
+                    $cart[$id]["disc"] = $disc ;
+                    session()->put('cart', $cart);
+                }
             }
         }
     }
@@ -457,6 +468,12 @@ class Addorder extends Component
         $string = preg_replace("/[^0-9\.]/", '', substr($latest->invoice_number,-5));
         //dd($string);
         return 'INV'.'/'.$dateMonth.'/'.$dateYear.'/'.sprintf('%05d', $string+1);
+    }
+
+    public function setTax($pajak){
+        $cartUser = session()->get('cartuser',[]);
+        $cartUser[auth()->id()]['tax'] = $pajak;
+        dd( $cartUser[auth()->id()]['tax']);
     }
 
     public function getTotalPrice(){

@@ -387,8 +387,16 @@ class Editorder extends Component
             //     session()->put('cartedit', $cart);
             // }
             if($disc!=""){
-                $cart[$id]["disc"] = $disc ;
-                session()->put('cartedit', $cart);
+                if($disc<0){
+                    $this->dispatchBrowserEvent('swal:modal', [
+                        'type' => 'warning',  
+                        'message' => 'Diskon tidak boleh minus !', 
+                        'text' => 'Tidak bisa melanjutkan proses.'
+                    ]);
+                }else{
+                    $cart[$id]["disc"] = $disc ;
+                    session()->put('cartedit', $cart);
+                }
             }
         }
     }
