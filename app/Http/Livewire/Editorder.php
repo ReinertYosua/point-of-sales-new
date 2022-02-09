@@ -52,6 +52,7 @@ class Editorder extends Component
                 "term_payment" => $order->term_payment,
                 "address" => $order->sent_address,
                 "descriptionOrder" => $order->desc_order,
+                "tax" => 0,
                 "grandTotal" => $order->grand_total
             ];
 
@@ -514,6 +515,7 @@ class Editorder extends Component
                 'sent_date' => $cartUser[auth()->id()]['sent_date'],
                 'sent_address' => $cartUser[auth()->id()]['address'],
                 'transaction_status' => "proses",//proses/selesai
+                'tax' => 0,
                 'grand_total' => $cartUser[auth()->id()]['grandTotal'],
             ]);
         }

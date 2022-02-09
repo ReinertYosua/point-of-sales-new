@@ -300,18 +300,18 @@
                                 </div>
                             </div>
                             </td>
-                            <td><input type="text" value="@currency( ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100)) )" class="form-control" readonly></td>
+                            <td><input type="text" value="{{ currency_IDR( ($details['price'] * $details['qty'])- ($details['price'] * $details['qty'])*($details['disc']/100) ) }}" class="form-control" readonly></td>
                             <td><input value="{{ $details['desc'] }}" wire:change="descriptionOr({{ $details['id'] }}, $event.target.value)" type="text" class="form-control"></td>
                             <td><button class="btn btn-danger mb-3" wire:click.prevent="removeItem({{$id}})"><i class="fas fa-minus"></i></button></td>
                             <input type="hidden" value="{{  $GrandTotal += ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100))  }}">
                             
                         </tr>
                         @endforeach
-                        <tr>
+                        <!-- <tr>
                             <td colspan="5" class="text-center"><h6>Pajak</h6></td>
                             <td>
                                 <div class="input-group">
-                                    <input type="number" value="{{ session()->get('cartuser')[auth()->id()]['tax'] }}" min=0 wire:change="setTax($event.target.value)" class="form-control" aria-label="Amount ">
+                                    <input type="number" value="" min=0 wire:change="setTax()" class="form-control" aria-label="Amount ">
                                     <div class="input-group-append">
                                         <span class="input-group-text">%</span>
                                     </div>
@@ -319,10 +319,10 @@
                             </td>
                             <td></td>
                             <td></td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td colspan="5" class="text-center"><h5>Total</h5></td>
-                            <td colspan="3"><h5>@currency( $GrandTotal )</h5></td>
+                            <td colspan="3"><h5>{{ currency_IDR( $GrandTotal ) }}</h5></td>
                         </tr>
                     @endif
                     </tbody>

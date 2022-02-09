@@ -470,11 +470,11 @@ class Addorder extends Component
         return 'INV'.'/'.$dateMonth.'/'.$dateYear.'/'.sprintf('%05d', $string+1);
     }
 
-    public function setTax($pajak){
-        $cartUser = session()->get('cartuser',[]);
-        $cartUser[auth()->id()]['tax'] = $pajak;
-        dd( $cartUser[auth()->id()]['tax']);
-    }
+    // public function setTax($pajak){
+    //     $cartUser = session()->get('cartuser',[]);
+    //     $cartUser[auth()->id()]['tax'] = $pajak;
+    //     dd( $cartUser[auth()->id()]['tax']);
+    // }
 
     public function getTotalPrice(){
         $cartUser = session()->get('cartuser',[]);
@@ -508,6 +508,7 @@ class Addorder extends Component
             'sent_date' => $cartUser[auth()->id()]['sent_date'],
             'sent_address' => $cartUser[auth()->id()]['address'],
             'transaction_status' => "proses",//proses/selesai
+            'tax' => 0,
             'grand_total' => $cartUser[auth()->id()]['grandTotal'],
         ]);
         if($orderSave){

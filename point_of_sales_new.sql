@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2021 at 07:41 AM
+-- Generation Time: Feb 08, 2022 at 10:33 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -185,7 +185,7 @@ CREATE TABLE `detail_order` (
   `product_id` bigint(20) UNSIGNED NOT NULL,
   `quantity` int(11) NOT NULL,
   `discount` int(11) NOT NULL,
-  `total_price` int(11) NOT NULL,
+  `total_price` bigint(20) NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -196,30 +196,22 @@ CREATE TABLE `detail_order` (
 --
 
 INSERT INTO `detail_order` (`id`, `invoice_number`, `product_id`, `quantity`, `discount`, `total_price`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'INV/11/2021/00001', 1, 1, 0, 82122611, 'oo', '2021-11-25 23:40:29', '2021-11-25 23:40:29'),
-(2, 'INV/11/2021/00001', 3, 1, 50, 53047147, 'lll', '2021-11-25 23:40:29', '2021-11-25 23:40:29'),
-(3, 'INV/11/2021/00001', 9, 1, 0, 59092565, '', '2021-11-25 23:40:29', '2021-11-25 23:40:29'),
-(4, 'INV/11/2021/00002', 1, 1, 0, 82122611, 'oo', '2021-11-25 23:43:34', '2021-11-25 23:43:34'),
-(5, 'INV/11/2021/00002', 3, 1, 50, 53047147, 'lll', '2021-11-25 23:43:34', '2021-11-25 23:43:34'),
-(6, 'INV/11/2021/00002', 9, 1, 0, 59092565, 'pppppp', '2021-11-25 23:43:34', '2021-11-25 23:43:34'),
-(7, 'INV/11/2021/00003', 9, 4, 20, 59092565, 'ok', '2021-11-25 23:46:27', '2021-11-25 23:46:27'),
-(8, 'INV/11/2021/00003', 48, 3, 0, 46574592, 'ok', '2021-11-25 23:46:27', '2021-11-25 23:46:27'),
-(9, 'INV/11/2021/00003', 47, 1, 0, 51653269, 'ok', '2021-11-25 23:46:27', '2021-11-25 23:46:27'),
-(10, 'INV/11/2021/00004', 1, 1, 20, 82122611, '', '2021-11-26 02:20:20', '2021-11-26 02:20:20'),
-(11, 'INV/11/2021/00004', 3, 1, 10, 53047147, '', '2021-11-26 02:20:20', '2021-11-26 02:20:20'),
-(12, 'INV/11/2021/00005', 1, 2, 50, 82122611, 'tt', '2021-11-26 02:40:05', '2021-11-26 02:40:05'),
-(13, 'INV/11/2021/00005', 9, 1, 20, 59092565, 'gfhcgv', '2021-11-26 02:40:05', '2021-11-26 02:40:05'),
-(14, 'INV/11/2021/00005', 10, 1, 5, 66945333, 'kj', '2021-11-26 02:40:05', '2021-11-26 02:40:05'),
-(15, 'INV/11/2021/00006', 56, 17, 20, 1771196, 'ok', '2021-11-26 02:48:31', '2021-11-26 02:48:31'),
-(16, 'INV/11/2021/00006', 45, 2, 80, 30217936, 'ok', '2021-11-26 02:48:31', '2021-11-26 02:48:31'),
-(17, 'INV/11/2021/00006', 48, 4, 50, 93149184, 'ok', '2021-11-26 02:48:31', '2021-11-26 02:48:31'),
-(18, 'INV/11/2021/00007', 4, 4, 70, 53950939, 'io', '2021-11-26 02:50:55', '2021-11-26 02:50:55'),
-(19, 'INV/11/2021/00007', 7, 4, 38, 43271127, 'io', '2021-11-26 02:50:55', '2021-11-26 02:50:55'),
-(20, 'INV/11/2021/00007', 9, 3, 21, 140049379, 'io', '2021-11-26 02:50:55', '2021-11-26 02:50:55'),
-(21, 'INV/11/2021/00008', 1, 3, 70, 73910350, '', '2021-11-26 02:53:49', '2021-11-26 02:53:49'),
-(22, 'INV/11/2021/00008', 7, 4, 30, 48854498, '', '2021-11-26 02:53:49', '2021-11-26 02:53:49'),
-(23, 'INV/11/2021/00009', 1, 3, 20, 197094266, 'oke', '2021-11-28 19:57:54', '2021-11-28 19:57:54'),
-(24, 'INV/11/2021/00009', 3, 5, 10, 238712162, 'oke', '2021-11-28 19:57:54', '2021-11-28 19:57:54');
+(17, 'INV/12/2021/00001', 55, 33, 0, 29333333304, 'ok', '2021-12-30 00:05:47', '2021-12-30 00:05:47'),
+(18, 'INV/12/2021/00001', 22, 6, 0, 385238586, 'ok', '2021-12-30 00:05:47', '2021-12-30 00:05:47'),
+(19, 'INV/12/2021/00001', 10, 3, 0, 200835999, '', '2021-12-30 00:05:47', '2021-12-30 00:05:47'),
+(59, 'INV/12/2021/00002', 55, 17, 0, 15111111096, 'sipp', '2022-01-07 23:40:41', '2022-01-07 23:40:41'),
+(60, 'INV/12/2021/00002', 10, 5, 0, 334726665, 'oke', '2022-01-07 23:40:41', '2022-01-07 23:40:41'),
+(61, 'INV/12/2021/00002', 48, 3, 10, 125751398, 'oke', '2022-01-07 23:40:41', '2022-01-07 23:40:41'),
+(62, 'INV/12/2021/00002', 30, 2, 50, 87387568, 'okay', '2022-01-07 23:40:41', '2022-01-07 23:40:41'),
+(63, 'INV/12/2021/00002', 18, 4, 0, 337694140, 'po', '2022-01-07 23:40:41', '2022-01-07 23:40:41'),
+(64, 'INV/12/2021/00002', 38, 1, 0, 75281481, 'ya', '2022-01-07 23:40:41', '2022-01-07 23:40:41'),
+(66, 'INV/02/2022/00003', 46, 1, 0, 54254233, '', '2022-01-31 20:12:33', '2022-01-31 20:12:33'),
+(69, 'INV/02/2022/00004', 47, 1, 10, 46487942, '', '2022-01-31 20:22:23', '2022-01-31 20:22:23'),
+(70, 'INV/02/2022/00004', 48, 2, 4, 89423217, '', '2022-01-31 20:22:23', '2022-01-31 20:22:23'),
+(71, 'INV/02/2022/00005', 46, 1, 0, 54254233, '', '2022-02-02 06:20:38', '2022-02-02 06:20:38'),
+(74, 'INV/02/2022/00006', 46, 7, 20, 303823705, 'ok', '2022-02-06 21:28:50', '2022-02-06 21:28:50'),
+(75, 'INV/02/2022/00006', 23, 5, 10, 407187725, 'oke', '2022-02-06 21:28:50', '2022-02-06 21:28:50'),
+(76, 'INV/02/2022/00006', 28, 2, 0, 98034006, 'sip', '2022-02-06 21:28:50', '2022-02-06 21:28:50');
 
 -- --------------------------------------------------------
 
@@ -302,7 +294,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (20, '2021_10_23_044037_create_pelanggan_table', 5),
 (21, '2021_11_05_122343_term_payment', 6),
 (30, '2021_10_23_043029_create_order_table', 11),
-(31, '2021_10_23_043447_create_detail_order_table', 12);
+(32, '2021_10_23_043447_create_detail_order_table', 12);
 
 -- --------------------------------------------------------
 
@@ -320,6 +312,7 @@ CREATE TABLE `order` (
   `sent_date` date NOT NULL,
   `sent_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `transaction_status` enum('proses','selesai') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tax` int(11) NOT NULL,
   `grand_total` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -329,16 +322,13 @@ CREATE TABLE `order` (
 -- Dumping data for table `order`
 --
 
-INSERT INTO `order` (`id`, `invoice_number`, `customer_id`, `date_order`, `term_payment`, `desc_order`, `sent_date`, `sent_address`, `transaction_status`, `grand_total`, `created_at`, `updated_at`) VALUES
-(1, 'INV/11/2021/00001', 40, '2021-11-02', 9, 'tes aja', '2021-11-04', 'Dk. Hasanuddin No. 800, Batam 35124, Sultra', 'proses', 0, '2021-11-25 23:40:29', '2021-11-25 23:40:29'),
-(2, 'INV/11/2021/00002', 40, '2021-11-02', 9, 'tes aja', '2021-11-04', 'Dk. Hasanuddin No. 800, Batam 35124, Sultra', 'proses', 0, '2021-11-25 23:43:34', '2021-11-25 23:43:34'),
-(3, 'INV/11/2021/00003', 5, '2021-11-13', 9, '', '2021-11-10', 'Jln. Ketandan No. 724, Kediri 62420, Papua', 'proses', 0, '2021-11-25 23:46:27', '2021-11-25 23:46:27'),
-(4, 'INV/11/2021/00004', 2, '2021-11-12', 7, '', '2021-11-04', 'Ki. Bagas Pati No. 296, Pekalongan 17244, Lampung', 'proses', 0, '2021-11-26 02:20:20', '2021-11-26 02:20:20'),
-(5, 'INV/11/2021/00005', 2, '2021-11-04', 5, 'gnhmb', '2021-11-05', 'Ki. Bagas Pati No. 296, Pekalongan 17244, Lampung', 'proses', 192994729, '2021-11-26 02:40:05', '2021-11-26 02:40:05'),
-(6, 'INV/11/2021/00006', 2, '2021-11-11', 10, '', '2021-11-27', 'Ki. Bagas Pati No. 296, Pekalongan 17244, Lampung', 'proses', 125138316, '2021-11-26 02:48:31', '2021-11-26 02:48:31'),
-(7, 'INV/11/2021/00007', 3, '2021-11-10', 4, 'po', '2021-11-02', 'Jln. Banal No. 898, Tasikmalaya 82992, Papua', 'proses', 237271445, '2021-11-26 02:50:55', '2021-11-26 02:50:55'),
-(8, 'INV/11/2021/00008', 3, '2021-11-12', 4, '', '2021-11-24', 'Jln. Banal No. 898, Tasikmalaya 82992, Papua', 'proses', 122764848, '2021-11-26 02:53:49', '2021-11-26 02:53:49'),
-(9, 'INV/11/2021/00009', 2, '2021-11-02', 5, '', '2021-11-11', 'Ki. Bagas Pati No. 296, Pekalongan 17244, Lampung', 'proses', 435806428, '2021-11-28 19:57:54', '2021-11-28 19:57:54');
+INSERT INTO `order` (`id`, `invoice_number`, `customer_id`, `date_order`, `term_payment`, `desc_order`, `sent_date`, `sent_address`, `transaction_status`, `tax`, `grand_total`, `created_at`, `updated_at`) VALUES
+(1, 'INV/12/2021/00001', 14, '2021-12-30', 13, 'ok', '2021-12-31', 'Ds. Pasir Koja No. 856, Surabaya 51884, DIY', 'proses', 0, 29919407889, '2021-12-29 21:44:43', '2021-12-30 00:05:47'),
+(2, 'INV/12/2021/00002', 11, '2021-12-30', 11, 'pelanggan baru', '2021-12-31', 'Ds. Badak No. 37, Padangsidempuan 13181, Babel', 'proses', 0, 16071952348, '2021-12-29 22:14:01', '2022-01-07 23:40:41'),
+(3, 'INV/02/2022/00003', 19, '2022-02-01', 12, 'Pelanggan baru', '2022-02-08', 'Ki. Bagis Utama No. 783, Bontang 61130, Sulteng', 'proses', 0, 54254233, '2022-01-31 19:44:22', '2022-01-31 20:12:33'),
+(4, 'INV/02/2022/00004', 46, '2022-02-01', 2, '', '2022-02-09', 'Kpg. Bawal No. 909, Cirebon 68892, DKI', 'proses', 0, 135911159, '2022-01-31 20:21:44', '2022-01-31 20:22:23'),
+(5, 'INV/02/2022/00005', 31, '2022-02-02', 1, '', '2022-02-10', 'Dk. Villa No. 210, Lubuklinggau 69437, Jatim', 'proses', 0, 54254233, '2022-02-02 06:20:38', '2022-02-02 06:20:38'),
+(6, 'INV/02/2022/00006', 40, '2022-02-01', 3, 'sipp', '2022-02-10', 'Dk. Hasanuddin No. 800, Batam 35124, Sultra', 'proses', 0, 809045435, '2022-02-06 21:24:27', '2022-02-06 21:28:50');
 
 -- --------------------------------------------------------
 
@@ -582,7 +572,7 @@ INSERT INTO `supplier` (`id`, `company_name`, `contact_name`, `contact_title`, `
 (98, 'CV Januar', 'Candrakanta Wacana', 'Pialang', 'Jln. Moch. Toha No. 887, Gunungsitoli 80604, Banten', 'Tarakan', 'Kalimantan Utara', 'Pantai Gading', '84031', '0446 0832 4371', '3311548', 'CV Safitri Tbk', 'Et sit dicta et veniam. Ea impedit sit molestiae voluptatibus ab aut. Neque exercitationem non unde maxime tempora modi.', NULL, NULL),
 (99, 'UD Suryono Jailani Tbk', 'Lintang Malika Yolanda S.Sos', 'Transportasi', 'Kpg. Wahidin Sudirohusodo No. 203, Makassar 86828, Kalbar', 'Batu', 'Kepulauan Bangka Belitung', 'Swedia', '40328', '(+62) 934 8924 1579', '426495330908', 'PT Rahimah Tbk', 'Eveniet et voluptas asperiores ipsam enim eligendi. Nulla officiis a numquam corporis minus dolores modi. Ut dolorem similique totam officiis id eligendi quasi officiis.', NULL, NULL),
 (100, 'UD Namaga (Persero) Tbk', 'Cemeti Simanjuntak M.Farm', 'Tukang Jahit', 'Kpg. Dipatiukur No. 777, Langsa 38756, Banten', 'Tarakan', 'Kalimantan Barat', 'Barbados', '38246', '0222 6832 7572', '496554286586', 'PD Namaga Maheswara Tbk', 'Doloremque et voluptas iste reiciendis. Pariatur quis optio expedita perspiciatis. Odio eos nobis dolorem cum. Voluptatem aspernatur sit dolores perspiciatis reprehenderit similique.', NULL, NULL),
-(101, 'Www', 'www', 'CEO', 'Jakarta', 'Tangerang', 'Banten', 'Indonesia', '142134', '081332345456', '0356676885', 'BCA', 'Supplier Baru', '2021-10-23 01:40:24', '2021-10-23 01:40:52');
+(101, 'XXX', 'XXX', 'CEO', 'Jakarta', 'Tangerang', 'Banten', 'Indonesia', '142134', '081332345456', '0356676885', 'BCA', 'Supplier Baru', '2021-10-23 01:40:24', '2021-12-23 18:32:37');
 
 -- --------------------------------------------------------
 
@@ -607,12 +597,13 @@ INSERT INTO `term_payment` (`id`, `day`, `description`, `created_at`, `updated_a
 (2, 30, 'Test2', NULL, NULL),
 (3, 60, 'sss', NULL, NULL),
 (4, 40, 'jhkjnk', NULL, NULL),
-(5, 80, 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.', NULL, NULL),
 (7, 20, 'Jangka waktu pembayaran singkat', '2021-11-09 20:15:09', '2021-11-09 20:15:09'),
 (9, 7, 'Jangka short-term', '2021-11-10 00:05:08', '2021-11-10 00:05:08'),
 (10, 0, 'Lunas', '2021-11-15 22:40:32', '2021-11-15 22:40:32'),
 (11, 5, 'Singkat', '2021-11-16 22:20:33', '2021-11-16 22:20:33'),
-(12, 180, '6 bulan', '2021-11-24 01:08:25', '2021-11-24 01:08:25');
+(12, 180, '6 bulan', '2021-11-24 01:08:25', '2021-11-24 01:08:25'),
+(13, 300, 'long term', '2021-12-23 21:51:41', '2021-12-23 21:51:41'),
+(14, 800, 'long term spesial', '2021-12-27 23:56:36', '2021-12-27 23:56:36');
 
 -- --------------------------------------------------------
 
@@ -750,7 +741,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `detail_order`
 --
 ALTER TABLE `detail_order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -768,13 +759,13 @@ ALTER TABLE `image_product`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -798,7 +789,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `term_payment`
 --
 ALTER TABLE `term_payment`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`

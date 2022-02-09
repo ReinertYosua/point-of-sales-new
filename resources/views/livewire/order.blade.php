@@ -35,7 +35,8 @@
                             <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{date('Y-M-d', strtotime($order->date_order)) }}</td>
                             <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{$order->total_barang}}</td>
                             <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{date('Y-M-d', strtotime("+$order->day days", strtotime($order->date_order)))}}</td>
-                            <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">@currency($order->grand_total)</td>
+                            <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{ currency_IDR($order->grand_total) }}</td>
+                            <!-- @currency($order->grand_total) -->
                             <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{ucwords($order->transaction_status)}}</td>
                             <td>
                                 <button wire:click="edit({{ $order->id }})" class="btn btn-primary btn-sm">Ubah</button>
