@@ -483,7 +483,7 @@ class Addorder extends Component
             $totalGrand=0;
             foreach(session('cart') as $id => $details){
                 //dump($details['id']);
-                $cart[$id]["subtotal"] = ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100));
+                $cart[$id]["subtotal"] = rounding(($details['price'] * $details['qty'])-rounding((($details['price'] * $details['qty'])* ($details['disc']/100))));
                 session()->put('cart', $cart);
                 $totalGrand+=$cart[$id]["subtotal"];
             }

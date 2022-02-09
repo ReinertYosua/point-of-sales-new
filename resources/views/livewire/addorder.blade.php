@@ -300,10 +300,12 @@
                                 </div>
                             </div>
                             </td>
-                            <td><input type="text" value="{{ currency_IDR( ($details['price'] * $details['qty'])- ($details['price'] * $details['qty'])*($details['disc']/100) ) }}" class="form-control" readonly></td>
+                            <input type="hidden" value="{{ $hargaDiskon = ($details['price'] * $details['qty'])*($details['disc']/100) }}">
+                            <input type="hidden" value="{{ $priceItem = ($details['price'] * $details['qty'])- rounding( $hargaDiskon ) }}">
+                            <td><input type="text" value="@currency(rounding( ($details['price'] * $details['qty'])- rounding( ($details['price'] * $details['qty'])*($details['disc']/100) ) ))" class="form-control" readonly></td>
                             <td><input value="{{ $details['desc'] }}" wire:change="descriptionOr({{ $details['id'] }}, $event.target.value)" type="text" class="form-control"></td>
                             <td><button class="btn btn-danger mb-3" wire:click.prevent="removeItem({{$id}})"><i class="fas fa-minus"></i></button></td>
-                            <input type="hidden" value="{{  $GrandTotal += ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100))  }}">
+                            <input type="hidden" value="{{  $GrandTotal += rounding( $priceItem )  }}">
                             
                         </tr>
                         @endforeach
@@ -322,7 +324,7 @@
                         </tr> -->
                         <tr>
                             <td colspan="5" class="text-center"><h5>Total</h5></td>
-                            <td colspan="3"><h5>{{ currency_IDR( $GrandTotal ) }}</h5></td>
+                            <td colspan="3"><h5>@currency($GrandTotal)</h5></td>
                         </tr>
                     @endif
                     </tbody>
