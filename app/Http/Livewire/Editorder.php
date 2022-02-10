@@ -491,7 +491,7 @@ class Editorder extends Component
             $totalGrand=0;
             foreach(session('cartedit') as $id => $details){
                 //dump($details['id']);
-                $cart[$id]["subtotal"] = ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100));
+                $cart[$id]["subtotal"] = rounding($details['qty']*($details['price']-($details['price'] * $details['disc']/100)));
                 session()->put('cartedit', $cart);
                 $totalGrand+=$cart[$id]["subtotal"];
             }

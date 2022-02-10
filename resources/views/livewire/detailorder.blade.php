@@ -101,14 +101,14 @@
                             <td>
                                 <p class="h6">{{ $details['disc'] }}%</p>
                             </td>
-                            <td><p class="h6">@currency( ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100)) )</p></td>
+                            <td><p class="h6">@currency( $details['subtotal'] )</p></td>
                             <td><p class="h6">{{ $details['desc'] }}</p></td>
-                            <input type="hidden" value="{{  $GrandTotal += ($details['price'] * $details['qty'])-(($details['price'] * $details['qty'])* ($details['disc']/100))  }}">
+                            
                         </tr>
                         @endforeach
                         <tr>
                             <td colspan="5" class="text-center"><h5>Total</h5></td>
-                            <td colspan="3"><h5>@currency( $GrandTotal )</h5></td>
+                            <td colspan="3"><h5>@currency( session()->get('cartedituser')[auth()->id()]['grandTotal'] )</h5></td>
                         </tr>
                     @endif
                     </tbody>

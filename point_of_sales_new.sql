@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2022 at 10:33 AM
+-- Generation Time: Feb 10, 2022 at 10:09 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -211,7 +211,19 @@ INSERT INTO `detail_order` (`id`, `invoice_number`, `product_id`, `quantity`, `d
 (71, 'INV/02/2022/00005', 46, 1, 0, 54254233, '', '2022-02-02 06:20:38', '2022-02-02 06:20:38'),
 (74, 'INV/02/2022/00006', 46, 7, 20, 303823705, 'ok', '2022-02-06 21:28:50', '2022-02-06 21:28:50'),
 (75, 'INV/02/2022/00006', 23, 5, 10, 407187725, 'oke', '2022-02-06 21:28:50', '2022-02-06 21:28:50'),
-(76, 'INV/02/2022/00006', 28, 2, 0, 98034006, 'sip', '2022-02-06 21:28:50', '2022-02-06 21:28:50');
+(76, 'INV/02/2022/00006', 28, 2, 0, 98034006, 'sip', '2022-02-06 21:28:50', '2022-02-06 21:28:50'),
+(77, 'INV/02/2022/00007', 27, 2, 10, 22818000, 'ok', '2022-02-09 06:07:37', '2022-02-09 06:07:37'),
+(78, 'INV/02/2022/00007', 50, 3, 15, 75971000, 'ok', '2022-02-09 06:07:37', '2022-02-09 06:07:37'),
+(79, 'INV/02/2022/00007', 23, 1, 20, 72389000, 'sipp', '2022-02-09 06:07:37', '2022-02-09 06:07:37'),
+(82, 'INV/02/2022/00009', 27, 7, 5, 84302000, 'oye', '2022-02-09 23:48:41', '2022-02-09 23:48:41'),
+(83, 'INV/02/2022/00009', 50, 3, 10, 80440000, 'oye', '2022-02-09 23:48:41', '2022-02-09 23:48:41'),
+(84, 'INV/02/2022/00009', 39, 2, 2, 149601000, 'oye', '2022-02-09 23:48:41', '2022-02-09 23:48:41'),
+(85, 'INV/02/2022/00008', 56, 1, 0, 130235, '', '2022-02-09 23:54:28', '2022-02-09 23:54:28'),
+(88, 'INV/02/2022/00010', 12, 3, 55, 4359000, 'update diskon', '2022-02-10 01:35:20', '2022-02-10 01:35:20'),
+(89, 'INV/02/2022/00010', 28, 1, 45, 26959000, 'update diskon', '2022-02-10 01:35:20', '2022-02-10 01:35:20'),
+(90, 'INV/02/2022/00011', 14, 3, 12, 2293000, 'oke', '2022-02-10 01:40:23', '2022-02-10 01:40:23'),
+(91, 'INV/02/2022/00011', 39, 4, 3, 296149000, 'oke', '2022-02-10 01:40:23', '2022-02-10 01:40:23'),
+(92, 'INV/02/2022/00011', 32, 3, 9, 256875000, 'oke', '2022-02-10 01:40:23', '2022-02-10 01:40:23');
 
 -- --------------------------------------------------------
 
@@ -227,6 +239,46 @@ CREATE TABLE `failed_jobs` (
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `history_detail_order`
+--
+
+CREATE TABLE `history_detail_order` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `invoice_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `discount` int(11) NOT NULL,
+  `total_price` bigint(20) NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `history_order`
+--
+
+CREATE TABLE `history_order` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `invoice_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_id` bigint(20) UNSIGNED NOT NULL,
+  `date_order` date NOT NULL,
+  `term_payment` bigint(20) UNSIGNED NOT NULL,
+  `desc_order` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sent_date` date NOT NULL,
+  `sent_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `transaction_status` enum('proses','selesai') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tax` int(11) NOT NULL,
+  `grand_total` bigint(20) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -294,7 +346,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (20, '2021_10_23_044037_create_pelanggan_table', 5),
 (21, '2021_11_05_122343_term_payment', 6),
 (30, '2021_10_23_043029_create_order_table', 11),
-(32, '2021_10_23_043447_create_detail_order_table', 12);
+(32, '2021_10_23_043447_create_detail_order_table', 12),
+(33, '2022_02_10_084409_create_history_order_table', 13),
+(34, '2022_02_10_084511_create_history_detail_order_table', 13);
 
 -- --------------------------------------------------------
 
@@ -328,7 +382,12 @@ INSERT INTO `order` (`id`, `invoice_number`, `customer_id`, `date_order`, `term_
 (3, 'INV/02/2022/00003', 19, '2022-02-01', 12, 'Pelanggan baru', '2022-02-08', 'Ki. Bagis Utama No. 783, Bontang 61130, Sulteng', 'proses', 0, 54254233, '2022-01-31 19:44:22', '2022-01-31 20:12:33'),
 (4, 'INV/02/2022/00004', 46, '2022-02-01', 2, '', '2022-02-09', 'Kpg. Bawal No. 909, Cirebon 68892, DKI', 'proses', 0, 135911159, '2022-01-31 20:21:44', '2022-01-31 20:22:23'),
 (5, 'INV/02/2022/00005', 31, '2022-02-02', 1, '', '2022-02-10', 'Dk. Villa No. 210, Lubuklinggau 69437, Jatim', 'proses', 0, 54254233, '2022-02-02 06:20:38', '2022-02-02 06:20:38'),
-(6, 'INV/02/2022/00006', 40, '2022-02-01', 3, 'sipp', '2022-02-10', 'Dk. Hasanuddin No. 800, Batam 35124, Sultra', 'proses', 0, 809045435, '2022-02-06 21:24:27', '2022-02-06 21:28:50');
+(6, 'INV/02/2022/00006', 40, '2022-02-01', 3, 'sipp', '2022-02-10', 'Dk. Hasanuddin No. 800, Batam 35124, Sultra', 'proses', 0, 809045435, '2022-02-06 21:24:27', '2022-02-06 21:28:50'),
+(7, 'INV/02/2022/00007', 46, '2022-02-01', 1, 'fff', '2022-02-25', 'Kpg. Bawal No. 909, Cirebon 68892, DKI', 'proses', 0, 171178000, '2022-02-09 06:07:37', '2022-02-09 06:07:37'),
+(8, 'INV/02/2022/00008', 11, '2022-02-10', 9, 'ok', '2022-02-17', 'Ds. Badak No. 37, Padangsidempuan 13181, Babel', 'proses', 0, 130235, '2022-02-09 06:12:28', '2022-02-09 23:54:28'),
+(9, 'INV/02/2022/00009', 19, '2022-02-10', 2, '', '2022-02-11', 'Ki. Bagis Utama No. 783, Bontang 61130, Sulteng', 'proses', 0, 314343000, '2022-02-09 23:48:41', '2022-02-09 23:48:41'),
+(10, 'INV/02/2022/00010', 38, '2022-02-25', 7, 'g', '2022-02-28', 'Jln. Astana Anyar No. 297, Pekalongan 47321, Sulsel', 'proses', 0, 31318000, '2022-02-10 01:27:23', '2022-02-10 01:35:20'),
+(11, 'INV/02/2022/00011', 27, '2022-02-17', 4, '', '2022-02-28', 'Dk. Tubagus Ismail No. 771, Tebing Tinggi 99498, Sulsel', 'proses', 0, 555317000, '2022-02-10 01:40:23', '2022-02-10 01:40:23');
 
 -- --------------------------------------------------------
 
@@ -661,6 +720,23 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `history_detail_order`
+--
+ALTER TABLE `history_detail_order`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `history_detail_order_invoice_number_foreign` (`invoice_number`),
+  ADD KEY `history_detail_order_product_id_foreign` (`product_id`);
+
+--
+-- Indexes for table `history_order`
+--
+ALTER TABLE `history_order`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `history_order_invoice_number_unique` (`invoice_number`),
+  ADD KEY `history_order_customer_id_foreign` (`customer_id`),
+  ADD KEY `history_order_term_payment_foreign` (`term_payment`);
+
+--
 -- Indexes for table `image_product`
 --
 ALTER TABLE `image_product`
@@ -741,12 +817,24 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `detail_order`
 --
 ALTER TABLE `detail_order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `history_detail_order`
+--
+ALTER TABLE `history_detail_order`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `history_order`
+--
+ALTER TABLE `history_order`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -759,13 +847,13 @@ ALTER TABLE `image_product`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -807,6 +895,20 @@ ALTER TABLE `users`
 ALTER TABLE `detail_order`
   ADD CONSTRAINT `detail_order_invoice_number_foreign` FOREIGN KEY (`invoice_number`) REFERENCES `order` (`invoice_number`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `detail_order_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `history_detail_order`
+--
+ALTER TABLE `history_detail_order`
+  ADD CONSTRAINT `history_detail_order_invoice_number_foreign` FOREIGN KEY (`invoice_number`) REFERENCES `history_order` (`invoice_number`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `history_detail_order_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `history_order`
+--
+ALTER TABLE `history_order`
+  ADD CONSTRAINT `history_order_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `history_order_term_payment_foreign` FOREIGN KEY (`term_payment`) REFERENCES `term_payment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `image_product`
