@@ -12,6 +12,8 @@ use App\Models\Customer as CustomerModel;
 use App\Models\Product as ProductModel;
 use App\Models\Order as OrderModel;
 use App\Models\DetailOrder as DetailOrderModel;
+use App\Models\HistoryOrder as HistoryOrderModel;
+use App\Models\HistoryDetailOrder as HistoryDetailOrderModel;
 
 
 class DetailOrder extends Component
@@ -82,31 +84,89 @@ class DetailOrder extends Component
     }
 
     public function finishOrder($id){
-        $order = OrderModel::select('order.*', 'customer.first_name as firstname', 'customer.last_name as lastname', 'customer.address as address', 'customer.phone1 as phone', 'term_payment.description as term_payment', 'term_payment.day as date_payment')
+        $idOrder = $id;
+        $order = OrderModel::select('order.*', 'customer.first_name as firstname', 'customer.last_name as lastname', 'customer.address as address', 'customer.phone1 as phone', 'term_payment.description as term_payment', 'term_payment.day as date_payment', 'term_payment.id as id_termpayment')
                 ->join('customer', 'customer.id','=','order.customer_id')
                 ->join('term_payment', 'term_payment.id','=','order.term_payment')
                 ->where('order.id',$id)->first();
-                $detOrder = DetailOrderModel::select('detail_order.*', 'product.id as product_id', 'product.name as product_name', 'product.sell_price as product_price')
-                ->join('product', 'product.id','=', 'detail_order.product_id')
-                ->where('invoice_number',$order->invoice_number)->get();
-        
         $detOrder = DetailOrderModel::select('detail_order.*', 'product.id as product_id', 'product.name as product_name', 'product.sell_price as product_price')
         ->join('product', 'product.id','=', 'detail_order.product_id')
         ->where('invoice_number',$order->invoice_number)->get();
+        $err=0;
+        //dump($details['id']);
         foreach($detOrder as $id => $details){
-            //dump($details['id']);
-            $cart[$details['product_id']] = [
-                "id_detail" => $details['id'],
-                "id" => $details['product_id'],
-                "product" => $details['product_name'],
-                "qty" => $details['quantity'],
-                "qty_s" => $details['quantity'], //buat simpan quantiti juga untuk perhitungan stok dengan membandingkan qty sebelumnya
-                "disc" => $details['discount'],
-                "price" => $details['product_price'],
-                "desc" => $details['description'],
-                "subtotal" => $details['total_price']
-            ];
+            $updateStokProduct = ProductModel::find($details['product_id']);
+            if($updateStokProduct['qty']>0){
+                $stokProduct = $updateStokProduct['qty'] - $details['quantity']; //kurangin stok
+                $updateStokProduct->update([
+                    'qty' => $stokProduct,
+                ]);
+            }else{
+                $err++;
+            }
         }
-        dd($detOrder);
+        if($err>0){
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'warning',  
+                'message' => 'Ada Kesalahan pada Update Stok', 
+                'text' => 'Pastikan Stok Product mencukupi dan tidak kosong !'
+            ]);
+        }else{
+            $listOrder = HistoryOrderModel::create([
+                'id_order' => $idOrder,
+                'invoice_number' => $order->invoice_number,
+                'customer_id' => $order->customer_id,
+                'date_order' => $order->date_order,
+                'term_payment' => $order->id_termpayment ,
+                'desc_order' => $order->desc_order,
+                'sent_date' => $order->sent_date,
+                'sent_address' => $order->sent_address,
+                'transaction_status' => "selesai",//proses/selesai
+                'tax' => 0,
+                'grand_total' => $order->grand_total,
+            ]);
+            if($listOrder){
+                $err2 =0;
+                foreach($detOrder as $id => $detailOrders){
+                    $simpanHistoryDet = HistoryDetailOrderModel::create([
+                        'invoice_number' => $order->invoice_number,
+                        'product_id' => $detailOrders['product_id'],
+                        'quantity' => $detailOrders['quantity'],
+                        'discount' => $detailOrders['discount'],
+                        'total_price' => $detailOrders['total_price'],
+                        'description' => $detailOrders['description'],
+                    ]);
+                    if(!$simpanHistoryDet){
+                        $err2++;
+                    }
+                }
+                if($err2<=0){
+                    
+                    $deleteOrder = OrderModel::where('id',$idOrder)->delete();
+                    if($deleteOrder){
+                        $this->dispatchBrowserEvent('swal:modal', [
+                            'type' => 'success',  
+                            'message' => 'Pesanan berhasil diselesaikan!', 
+                            'text' => 'Data stok diupdate.'
+                        ]);
+                        redirect()->route('order');
+                    }
+                }else{
+                    $this->dispatchBrowserEvent('swal:modal', [
+                        'type' => 'warning',  
+                        'message' => 'Ada Kesalahan pada meyelesaikan pesanan', 
+                        'text' => 'Tidak bisa menyelesaikan pesanan !'
+                    ]);
+                }
+            }
+
+           
+            
+        }
+        
     }
 }
+
+// est 868436 : 6 - 3 = 3
+// eos : 6 - 4 = 2
+// ipsam : 7 -  3 = 4

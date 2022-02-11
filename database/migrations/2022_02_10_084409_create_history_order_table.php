@@ -15,6 +15,7 @@ class CreateHistoryOrderTable extends Migration
     {
         Schema::create('history_order', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('id_order')->unique();
             $table->string('invoice_number')->unique();
             $table->foreignId('customer_id')->unsigned();
             $table->date('date_order');
