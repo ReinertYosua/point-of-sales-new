@@ -6,6 +6,9 @@ use Livewire\Component;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\OrdersExport;
+use PDF;
 
 use App\Models\TermPayment as TermPaymentModel;
 use App\Models\Customer as CustomerModel;
@@ -98,9 +101,14 @@ class DetailOrder extends Component
             $updateStokProduct = ProductModel::find($details['product_id']);
             if($updateStokProduct['qty']>0){
                 $stokProduct = $updateStokProduct['qty'] - $details['quantity']; //kurangin stok
-                $updateStokProduct->update([
-                    'qty' => $stokProduct,
-                ]);
+                if($stokProduct<0){ //cek jika stok minus
+                    $err++;
+                    break;
+                }else{
+                    $updateStokProduct->update([
+                        'qty' => $stokProduct,
+                    ]);
+                }
             }else{
                 $err++;
             }
@@ -165,7 +173,63 @@ class DetailOrder extends Component
         }
         
     }
+
+    public function cetakPesanan($idorder_master){
+        $order = OrderModel::select('order.*', 'customer.first_name as firstname', 'customer.last_name as lastname', 'customer.address as address', 'customer.phone1 as phone', 'term_payment.description as term_payment', 'term_payment.day as date_payment')
+                ->join('customer', 'customer.id','=','order.customer_id')
+                ->join('term_payment', 'term_payment.id','=','order.term_payment')
+                ->where('order.id',$idorder_master)->first();
+            
+            $orderID = hash('crc32', $order->id);
+            $datePayment = date('Y-M-d', strtotime("+$order->date_payment days", strtotime($order->date_order)));
+            $cartUser[] = [
+                "idUser" => auth()->id(),
+                "idOrder" => $orderID,
+                "invoice_number" => $order->invoice_number,
+                "date_order" => $order->date_order,
+                "sent_date" => $order->sent_date,
+                "idCustomer" => $order->customer_id,
+                "nameCustomer" => $order->firstname." ".$order->lastname,
+                "tlpCustomer" => $order->phone,
+                "date_payment" => $datePayment,
+                "term_payment" => $order->term_payment,
+                "address" => $order->sent_address,
+                "descriptionOrder" => $order->desc_order,
+                "grandTotal" => $order->grand_total
+            ];
+            $cartUser = collect($cartUser);
+
+        $detOrder = DetailOrderModel::select('detail_order.*', 'product.id as product_id', 'product.name as product_name', 'product.sell_price as product_price')
+        ->join('product', 'product.id','=', 'detail_order.product_id')
+        ->where('invoice_number',$order->invoice_number)->get();
+        foreach($detOrder as $id => $details){
+            //dump($details['id']);
+            $cartDetail[] = [
+                "id_detail" => $details['id'],
+                "id" => $details['product_id'],
+                "product" => $details['product_name'],
+                "qty" => $details['quantity'],
+                "qty_s" => $details['quantity'], //buat simpan quantiti juga untuk perhitungan stok dengan membandingkan qty sebelumnya
+                "disc" => $details['discount'],
+                "price" => $details['product_price'],
+                "desc" => $details['description'],
+                "subtotal" => $details['total_price']
+            ];
+            
+        }
+        $cartDataDetail = collect($cartDetail);
+        //dd($order);
+        $namaFile = $orderID.'.pdf';
+        $pdf = PDF::loadview('print.print-order',['dataorder'=>$cartUser, 'datadetailorder'=>$cartDataDetail])->output();
+        return response()->streamDownload(
+            fn() => print($pdf), $namaFile
+        );
+
+    
+    }
 }
+
+    
 
 // est 868436 : 6 - 3 = 3
 // eos : 6 - 4 = 2

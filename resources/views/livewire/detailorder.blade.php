@@ -70,7 +70,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-8">
-                        <!-- <button class="btn btn-primary mb-3" wire:click.prevent="checkInput()"><i class="fas fa-plus"></i>&nbspTambah Produk Pesanan</button> -->
+                        <button class="btn btn-primary mb-3" wire:click.prevent="cetakPesanan({{ session()->get('cartedituser')[auth()->id()]['idOrder'] }})"><i class="fas fa-print"></i>&nbspCetak Pesanan</button>
                     </div>
                     <div class="col-md-4">
                         <button class="float-right btn btn-success mb-3" wire:click.prevent="cekFinishOrder({{ session()->get('cartedituser')[auth()->id()]['idOrder'] }})"><i class="fas fa-check"></i>&nbsp SelesaiKan Pesanan</button>

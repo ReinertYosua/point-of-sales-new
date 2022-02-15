@@ -9,6 +9,7 @@ use App\Http\Livewire\Order;
 use App\Http\Livewire\Addorder;
 use App\Http\Livewire\Editorder;
 use App\Http\Livewire\Detailorder;
+use App\Http\Livewire\PrintOrder;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,5 +36,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/tambahpesanan', Addorder::class);
     Route::get('/ubahpesanan', Editorder::class);
     Route::get('/detailpesanan', Detailorder::class);
+    Route::get('/order/cetak_pdf', [Detailorder::class,'cetakPesanan']);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
