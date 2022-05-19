@@ -37,7 +37,17 @@
                             <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{date('Y-M-d', strtotime("+$order->day days", strtotime($order->date_order)))}}</td>
                             <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">@currency($order->grand_total)</td>
                             <!-- @currency($order->grand_total) -->
-                            <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">{{ucwords($order->transaction_status)}}</td>
+                            <td wire:click="detail({{ $order->id }})" style="cursor:pointer" title="Klik untuk lihat detail">
+                                @if($order->transaction_status == "selesai")
+                                    <button class="float-right btn btn-success mb-3" data-toggle="tooltip" data-placement="top" title="{{ucwords($order->transaction_status)}}"><i class="fas fa-check" data-toggle="tooltip" data-placement="top" title="{{ucwords($order->transaction_status)}}"></i>
+                                      
+                                    </button>
+                                @elseif($order->transaction_status == "proses")
+                                    <button class="float-right btn btn-light mb-3" data-toggle="tooltip" data-placement="top" title="{{ucwords($order->transaction_status)}}" ><i class="fas fa-clock"></i>
+                                       
+                                    </button>
+                                @endif
+                            </td>
                             <td>
                                 <button wire:click="edit({{ $order->id }})" class="btn btn-primary btn-sm">Ubah</button>
                                 <button wire:click="deleteConfirm({{ $order->id }})" class="btn btn-danger btn-sm">Hapus</button>

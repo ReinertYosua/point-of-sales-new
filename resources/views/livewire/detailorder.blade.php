@@ -72,9 +72,11 @@
                     <div class="col-md-8">
                         <button class="btn btn-primary mb-3" wire:click.prevent="cetakPesanan({{ session()->get('cartedituser')[auth()->id()]['idOrder'] }})"><i class="fas fa-print"></i>&nbspCetak Pesanan</button>
                     </div>
+                    @if( session()->get('cartedituser')[auth()->id()]['transactionStatus'] == 'proses' )
                     <div class="col-md-4">
-                        <button class="float-right btn btn-success mb-3" wire:click.prevent="cekFinishOrder({{ session()->get('cartedituser')[auth()->id()]['idOrder'] }})"><i class="fas fa-check"></i>&nbsp SelesaiKan Pesanan</button>
+                        <button class="float-right btn btn-success mb-3" wire:click.prevent="cekFinishOrder({{ session()->get('cartedituser')[auth()->id()]['idOrder'] }})"><i class="fas fa-check"></i>&nbsp Selesaikan Pesanan</button>
                     </div>
+                    @endif
                 </div>
                 <table class="table table-hover">
                     <thead>

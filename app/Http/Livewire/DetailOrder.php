@@ -49,7 +49,8 @@ class DetailOrder extends Component
                 "term_payment" => $order->term_payment,
                 "address" => $order->sent_address,
                 "descriptionOrder" => $order->desc_order,
-                "grandTotal" => $order->grand_total
+                "grandTotal" => $order->grand_total,
+                "transactionStatus" => $order->transaction_status
             ];
 
             $detOrder = DetailOrderModel::select('detail_order.*', 'product.id as product_id', 'product.name as product_name', 'product.sell_price as product_price')
@@ -150,8 +151,12 @@ class DetailOrder extends Component
                 }
                 if($err2<=0){
                     
-                    $deleteOrder = OrderModel::where('id',$idOrder)->delete();
-                    if($deleteOrder){
+                    //$deleteOrder = OrderModel::where('id',$idOrder)->delete();
+                    $updateStatusOrder = OrderModel::find($idOrder);
+                    $updateStatusOrder->update([
+                        'transaction_status' => 'selesai'
+                    ]);
+                    if($updateStatusOrder){
                         $this->dispatchBrowserEvent('swal:modal', [
                             'type' => 'success',  
                             'message' => 'Pesanan berhasil diselesaikan!', 
